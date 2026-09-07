@@ -1,0 +1,879 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>My Wishlist - happiShoppi</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/customer_dashboard.css' %}">
+
+    <style>
+
+        .wishlist-page {
+            padding: 35px;
+        }
+
+        .wishlist-heading {
+            margin-bottom: 25px;
+        }
+
+        .wishlist-heading p {
+            color: #45a8cf;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .wishlist-heading h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        .wishlist-heading span {
+            display: block;
+            margin-top: 8px;
+            color: #777;
+        }
+
+
+        /* =========================================
+           WISHLIST GRID
+        ========================================= */
+
+        .wishlist-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 22px;
+
+        }
+
+
+        /* =========================================
+           WISHLIST CARD
+        ========================================= */
+
+        .wishlist-card {
+
+            background: white;
+
+            border-radius: 18px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 5px 18px rgba(0,0,0,0.07);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+
+        }
+
+        .wishlist-card:hover {
+
+            transform: translateY(-4px);
+
+            box-shadow:
+                0 10px 25px rgba(0,0,0,0.10);
+
+        }
+
+
+        /* =========================================
+           IMAGE
+        ========================================= */
+
+        .wishlist-image {
+
+            width: 100%;
+
+            height: 230px;
+
+            background: #f7f9fa;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            position: relative;
+
+            padding: 15px;
+
+        }
+
+        .wishlist-image img {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: contain;
+
+            display: block;
+
+        }
+
+
+        /* =========================================
+           PRODUCT INFO
+        ========================================= */
+
+        .wishlist-info {
+
+            padding: 18px;
+
+        }
+
+        .wishlist-category {
+
+            color: #45a8cf;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            text-transform: uppercase;
+
+            margin-bottom: 6px;
+
+        }
+
+        .wishlist-info h3 {
+
+            margin: 0 0 8px;
+
+            font-size: 19px;
+
+        }
+
+        .wishlist-description {
+
+            color: #777;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+
+            min-height: 42px;
+
+        }
+
+        .wishlist-price {
+
+            font-size: 21px;
+
+            font-weight: bold;
+
+            color: #f39468;
+
+            margin: 12px 0;
+
+        }
+
+
+        /* =========================================
+           BUTTONS
+        ========================================= */
+
+        .wishlist-actions {
+
+            display: flex;
+
+            gap: 10px;
+
+            margin-top: 15px;
+
+        }
+
+        .wishlist-cart-btn {
+
+            flex: 1;
+
+            border: none;
+
+            border-radius: 25px;
+
+            padding: 11px;
+
+            background: #45a8cf;
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+        .wishlist-cart-btn:hover {
+
+            opacity: 0.9;
+
+        }
+
+        .wishlist-remove-btn {
+
+            border: 1px solid #f39468;
+
+            border-radius: 25px;
+
+            padding: 11px 16px;
+
+            background: white;
+
+            color: #f39468;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+        .wishlist-remove-btn:hover {
+
+            background: #f39468;
+
+            color: white;
+
+        }
+
+
+        /* =========================================
+           EMPTY WISHLIST
+        ========================================= */
+
+        .wishlist-empty {
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 60px 20px;
+
+            text-align: center;
+
+            box-shadow:
+                0 5px 18px rgba(0,0,0,0.06);
+
+        }
+
+        .wishlist-empty-icon {
+
+            font-size: 55px;
+
+            margin-bottom: 15px;
+
+        }
+
+        .wishlist-empty h2 {
+
+            margin-bottom: 8px;
+
+        }
+
+        .wishlist-empty p {
+
+            color: #777;
+
+            margin-bottom: 22px;
+
+        }
+
+        .shop-btn {
+
+            display: inline-block;
+
+            padding: 12px 25px;
+
+            border-radius: 25px;
+
+            background: #45a8cf;
+
+            color: white;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 1000px) {
+
+            .wishlist-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+        }
+
+        @media (max-width: 650px) {
+
+            .wishlist-page {
+
+                padding: 20px;
+
+            }
+
+            .wishlist-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="customer-header">
+
+    <div class="customer-header-container">
+
+        <a href="{% url 'customer_dashboard' %}"
+           class="customer-logo">
+
+            happi<span>Shoppi</span>
+
+        </a>
+
+
+        <nav class="customer-navbar">
+
+            <a href="{% url 'customer_dashboard' %}"
+               class="customer-nav-link">
+
+                Home
+
+            </a>
+
+            <a href="{% url 'customer_profile' %}"
+               class="customer-nav-link">
+
+                My Profile
+
+            </a>
+
+            <a href="{% url 'login' %}"
+               class="customer-nav-link logout-link">
+
+                Logout
+
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="customer-dashboard">
+
+
+    <!-- =================================================
+         SIDEBAR
+    ================================================== -->
+
+    <aside class="customer-sidebar">
+
+
+        <div class="sidebar-profile">
+
+            <div class="profile-avatar">
+
+                {{ customer.name|first|upper }}
+
+            </div>
+
+
+            <div class="profile-info">
+
+                <h3>
+
+                    {{ customer.name }}
+
+                </h3>
+
+                <p>
+
+                    Customer
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <nav class="sidebar-menu">
+
+
+            <a href="{% url 'customer_dashboard' %}#categories"
+               class="sidebar-link">
+
+                <span>▦</span>
+
+                <span class="sidebar-text">
+
+                    Categories
+
+                </span>
+
+            </a>
+
+
+            <a href="{% url 'customer_dashboard' %}#products"
+               class="sidebar-link">
+
+                <span>🛍</span>
+
+                <span class="sidebar-text">
+
+                    Products
+
+                </span>
+
+            </a>
+
+
+            <a href="{% url 'customer_orders' %}"
+               class="sidebar-link">
+
+                <span>▤</span>
+
+                <span class="sidebar-text">
+
+                    My Orders
+
+                </span>
+
+            </a>
+
+
+            <a href="{% url 'customer_cart' %}"
+               class="sidebar-link">
+
+                <span>🛒</span>
+
+                <span class="sidebar-text">
+
+                    My Cart
+
+                </span>
+
+            </a>
+
+
+            <a href="{% url 'customer_wishlist' %}"
+               class="sidebar-link active">
+
+                <span>♡</span>
+
+                <span class="sidebar-text">
+
+                    Wishlist
+
+                </span>
+
+            </a>
+
+
+            <a href="{% url 'customer_profile' %}"
+               class="sidebar-link">
+
+                <span>👤</span>
+
+                <span class="sidebar-text">
+
+                    My Profile
+
+                </span>
+
+            </a>
+
+
+            <a href="{% url 'login' %}"
+               class="sidebar-link logout-sidebar">
+
+                <span>↪</span>
+
+                <span class="sidebar-text">
+
+                    Logout
+
+                </span>
+
+            </a>
+
+
+        </nav>
+
+    </aside>
+
+
+
+    <!-- =================================================
+         WISHLIST CONTENT
+    ================================================== -->
+
+    <section class="customer-content">
+
+        <div class="wishlist-page">
+
+
+            <div class="wishlist-heading">
+
+                <p>
+                    SAVED PRODUCTS
+                </p>
+
+                <h1>
+                    My Wishlist ♡
+                </h1>
+
+                <span>
+                    Products you saved for later.
+                </span>
+
+            </div>
+
+
+
+            {% if wishlist_items %}
+
+
+                <div class="wishlist-grid">
+
+
+                    {% for item in wishlist_items %}
+
+
+                        <article class="wishlist-card">
+
+
+                            <!-- IMAGE -->
+
+                            <div class="wishlist-image">
+                                
+                               
+
+                                
+                                {% if item.product.product_image %}
+
+                                    <img
+                                        src="/media/{{ item.product.product_image }}"
+                                        alt="{{ item.product.product_name }}"
+                                    >
+
+                                {% else %}
+
+                                    <div
+                                        class="customer-product-placeholder"
+                                        style="font-size: 50px;"
+                                    >
+
+                                        🛍️
+
+                                    </div>
+
+                                {% endif %}
+
+                            </div>
+
+
+
+                            <!-- INFO -->
+
+                            <div class="wishlist-info">
+
+
+                                {% if item.product.category %}
+
+                                    <div class="wishlist-category">
+
+                                        {{ item.product.category.category_name }}
+
+                                    </div>
+
+                                {% endif %}
+
+
+                                <h3>
+
+                                    {{ item.product.product_name }}
+
+                                </h3>
+
+
+                                {% if item.product.description %}
+
+                                    <p class="wishlist-description">
+
+                                        {{ item.product.description|truncatechars:70 }}
+
+                                    </p>
+
+                                {% endif %}
+
+
+                                <div class="wishlist-price">
+
+                                    ₹{{ item.product.price }}
+
+                                </div>
+
+
+
+                                <div class="wishlist-actions">
+
+
+                                    <!-- ADD TO CART -->
+
+                                    {% if item.product.stock_quantity > 0 %}
+
+                                        <form
+                                            method="POST"
+                                            action="{% url 'add_to_cart' item.product.id %}"
+                                            style="flex: 1;"
+                                        >
+
+                                            {% csrf_token %}
+
+                                            <button
+                                                type="submit"
+                                                class="wishlist-cart-btn"
+                                                style="width: 100%;"
+                                            >
+
+                                                Add to Cart
+
+                                            </button>
+
+                                        </form>
+
+                                    {% else %}
+
+                                        <button
+                                            type="button"
+                                            class="wishlist-cart-btn"
+                                            disabled
+                                            style="opacity: 0.5;"
+                                        >
+
+                                            Out of Stock
+
+                                        </button>
+
+                                    {% endif %}
+
+
+
+                                    <!-- REMOVE -->
+
+                                    <form
+                                        method="POST"
+                                        action="{% url 'remove_from_wishlist' item.product.id %}"
+                                    >
+
+                                        {% csrf_token %}
+
+                                        <button
+                                            type="submit"
+                                            class="wishlist-remove-btn"
+                                        >
+
+                                            ♡ Remove
+
+                                        </button>
+
+                                    </form>
+
+
+                                </div>
+
+
+                            </div>
+
+
+                        </article>
+
+
+                    {% endfor %}
+
+
+                </div>
+
+
+            {% else %}
+
+
+                <!-- EMPTY -->
+
+                <div class="wishlist-empty">
+
+                    <div class="wishlist-empty-icon">
+
+                        ♡
+
+                    </div>
+
+                    <h2>
+
+                        Your Wishlist is Empty
+
+                    </h2>
+
+                    <p>
+
+                        Save products you love and come back to them later.
+
+                    </p>
+
+                    <a
+                        href="{% url 'customer_dashboard' %}#products"
+                        class="shop-btn"
+                    >
+
+                        Continue Shopping
+
+                    </a>
+
+                </div>
+
+
+            {% endif %}
+
+
+        </div>
+
+    </section>
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="site-footer">
+
+    <div class="footer-container">
+
+        <div class="footer-column footer-brand">
+
+            <h2>
+                happi<span>Shoppi</span>
+            </h2>
+
+            <p class="footer-tagline">
+                Your Happiness, Delivered.
+            </p>
+
+            <p class="footer-description">
+
+                A multi-vendor marketplace where customers
+                discover products from multiple trusted sellers.
+
+            </p>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h3>
+                Quick Links
+            </h3>
+
+            <a href="{% url 'customer_dashboard' %}">
+                Home
+            </a>
+
+            <a href="{% url 'customer_profile' %}">
+                My Profile
+            </a>
+
+            <a href="{% url 'customer_orders' %}">
+                My Orders
+            </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h3>
+                Shopping
+            </h3>
+
+            <a href="{% url 'customer_cart' %}">
+                Shopping Cart
+            </a>
+
+            <a href="{% url 'customer_wishlist' %}">
+                Wishlist
+            </a>
+
+            <a href="{% url 'customer_dashboard' %}#products">
+                Products
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        <p>
+
+            © 2026 happiShoppi. All rights reserved.
+
+        </p>
+
+    </div>
+
+</footer>
+
+
+</body>
+
+</html>

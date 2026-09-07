@@ -1,0 +1,571 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>My Cart - happiShoppi</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/customer_cart.css' %}">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="customer-header">
+
+    <div class="customer-header-container">
+
+        <!-- LOGO -->
+
+        <a href="{% url 'customer_dashboard' %}"
+           class="customer-logo">
+
+            happi<span>Shoppi</span>
+
+        </a>
+
+
+        <!-- BACK TO DASHBOARD -->
+
+        <a href="{% url 'customer_dashboard' %}"
+           class="back-dashboard">
+
+            ← Back to Dashboard
+
+        </a>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN CART
+===================================================== -->
+
+<main class="cart-page">
+
+
+    <!-- PAGE HEADING -->
+
+    <section class="cart-heading">
+
+        <div>
+
+            <p class="cart-label">
+                SHOPPING CART
+            </p>
+
+            <h1>
+                My Cart
+            </h1>
+
+            <p>
+                Review the products you want to purchase.
+            </p>
+
+        </div>
+
+
+        <div class="cart-icon">
+            🛒
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         CART CONTENT
+    ================================================== -->
+
+    <section class="cart-content">
+
+
+        {% if cart_items %}
+
+
+        <!-- =================================================
+             CART ITEMS
+        ================================================== -->
+
+        <div class="cart-items">
+
+
+            {% for item in cart_items %}
+
+
+            <article class="cart-item">
+
+
+                <!-- =================================================
+                     PRODUCT IMAGE
+                ================================================== -->
+
+                <div class="cart-product-image">
+
+                    {% if item.product.product_image %}
+
+                        <img
+                            src="/media/{{ item.product.product_image }}"
+                            alt="{{ item.product.product_name }}"
+                        >
+
+                    {% else %}
+
+                        <div class="cart-product-placeholder">
+                            🛍️
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+
+                <!-- =================================================
+                     PRODUCT INFORMATION
+                ================================================== -->
+
+                <div class="cart-product-info">
+
+                    <p class="cart-product-category">
+
+                        {{ item.product.category.category_name }}
+
+                    </p>
+
+
+                    <h2>
+
+                        {{ item.product.product_name }}
+
+                    </h2>
+
+
+                    {% if item.product.description %}
+
+                    <p class="cart-product-description">
+
+                        {{ item.product.description|truncatechars:100 }}
+
+                    </p>
+
+                    {% endif %}
+
+
+                    <div class="cart-product-price">
+
+                        ₹{{ item.product.price }}
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     QUANTITY
+                ================================================== -->
+
+                <div class="cart-quantity">
+
+                    <span>
+                        Quantity
+                    </span>
+
+
+                    <div class="quantity-box">
+
+                        <!-- DECREASE -->
+
+                        <a href="{% url 'decrease_cart_quantity' item.id %}"
+                           class="quantity-button">
+
+                            -
+
+                        </a>
+
+
+                        <!-- CURRENT QUANTITY -->
+
+                        <strong>
+
+                            {{ item.quantity }}
+
+                        </strong>
+
+
+                        <!-- INCREASE -->
+
+                        <a href="{% url 'increase_cart_quantity' item.id %}"
+                           class="quantity-button">
+
+                            +
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     SUBTOTAL
+                ================================================== -->
+
+                <div class="cart-subtotal">
+
+                    <span>
+                        Subtotal
+                    </span>
+
+
+                    <strong>
+
+                        ₹{{ item.subtotal }}
+
+                    </strong>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     REMOVE ITEM
+                     IMPORTANT: INSIDE THE FOR LOOP
+                ================================================== -->
+
+                <div class="cart-remove">
+
+                    <a href="{% url 'remove_cart_item' item.id %}"
+                       class="remove-button">
+
+                        Remove
+
+                    </a>
+
+                </div>
+
+
+            </article>
+
+
+            {% endfor %}
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             CART SUMMARY
+        ================================================== -->
+
+        <aside class="cart-summary">
+
+
+            <h2>
+                Order Summary
+            </h2>
+
+
+            <!-- ITEMS -->
+
+            <div class="summary-row">
+
+                <span>
+                    Items
+                </span>
+
+                <strong>
+                    {{ cart_items|length }}
+                </strong>
+
+            </div>
+
+
+            <!-- DELIVERY -->
+
+            <div class="summary-row">
+
+                <span>
+                    Delivery
+                </span>
+
+                <strong class="free">
+                    FREE
+                </strong>
+
+            </div>
+
+
+            <div class="summary-divider"></div>
+
+
+            <!-- TOTAL -->
+
+            <div class="summary-total">
+
+                <span>
+                    Total
+                </span>
+
+                <strong>
+                    ₹{{ total }}
+                </strong>
+
+            </div>
+
+
+            <!-- CHECKOUT -->
+
+            <a href="{% url 'checkout' %}"
+                class="checkout-button">
+
+
+                Proceed to Checkout
+
+            </a>
+
+
+            <!-- CONTINUE SHOPPING -->
+
+            <a href="{% url 'customer_dashboard' %}"
+               class="continue-shopping">
+
+                ← Continue Shopping
+
+            </a>
+
+
+        </aside>
+
+
+        {% else %}
+
+
+        <!-- =================================================
+             EMPTY CART
+        ================================================== -->
+
+        <div class="empty-cart">
+
+
+            <div class="empty-cart-icon">
+                🛒
+            </div>
+
+
+            <h2>
+                Your cart is empty
+            </h2>
+
+
+            <p>
+                You haven't added any products to your cart yet.
+            </p>
+
+
+            <a href="{% url 'customer_dashboard' %}"
+               class="shop-now-button">
+
+                Start Shopping
+
+            </a>
+
+
+        </div>
+
+
+        {% endif %}
+
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="site-footer">
+
+
+    <div class="footer-container">
+
+
+        <!-- =================================================
+             BRAND
+        ================================================== -->
+
+        <div class="footer-column footer-brand">
+
+            <h2>
+                happi<span>Shoppi</span>
+            </h2>
+
+
+            <p class="footer-tagline">
+
+                Your Happiness, Delivered.
+
+            </p>
+
+
+            <p class="footer-description">
+
+                A multi-vendor marketplace where customers
+                discover products from multiple trusted sellers.
+
+            </p>
+
+        </div>
+
+
+
+        <!-- =================================================
+             QUICK LINKS
+        ================================================== -->
+
+        <div class="footer-column">
+
+            <h3>
+                Quick Links
+            </h3>
+
+
+            <a href="{% url 'customer_dashboard' %}">
+                Home
+            </a>
+
+
+            <a href="{% url 'customer_profile' %}">
+                My Profile
+            </a>
+
+
+            <a href="{% url 'customer_orders' %}">
+                My Orders
+            </a>
+
+
+            <a href="{% url 'customer_cart' %}">
+                Cart
+            </a>
+
+        </div>
+
+
+
+        <!-- =================================================
+             SHOPPING
+        ================================================== -->
+
+        <div class="footer-column">
+
+            <h3>
+                Shopping
+            </h3>
+
+
+            <a href="{% url 'customer_dashboard' %}#categories">
+                Categories
+            </a>
+
+
+            <a href="{% url 'customer_dashboard' %}#products">
+                Products
+            </a>
+
+
+            <a href="{% url 'customer_cart' %}">
+                Shopping Cart
+            </a>
+
+
+            <a href="{% url 'customer_orders' %}">
+                My Orders
+            </a>
+
+        </div>
+
+
+
+        <!-- =================================================
+             ACCOUNT
+        ================================================== -->
+
+        <div class="footer-column">
+
+            <h3>
+                Account
+            </h3>
+
+
+            <a href="{% url 'customer_profile' %}">
+                My Profile
+            </a>
+
+
+            <a href="{% url 'customer_orders' %}">
+                Order History
+            </a>
+
+
+            <a href="{% url 'customer_cart' %}">
+                My Cart
+            </a>
+
+
+            <a href="{% url 'login' %}">
+                Logout
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         COPYRIGHT
+    ================================================== -->
+
+    <div class="footer-bottom">
+
+        <p>
+
+            © 2026 happiShoppi. All rights reserved.
+
+        </p>
+
+    </div>
+
+
+</footer>
+
+
+</body>
+
+</html>

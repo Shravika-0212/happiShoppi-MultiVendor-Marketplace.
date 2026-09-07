@@ -1,0 +1,707 @@
+/* =====================================================
+   GLOBAL RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    width: 100%;
+    min-height: 100%;
+}
+
+
+body {
+    width: 100%;
+    min-height: 100vh;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    background: #f7f5f0;
+
+    color: #263238;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    align-items: stretch !important;
+
+    justify-content: flex-start !important;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.site-header {
+    width: 100%;
+
+    height: 78px;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #eeeeee;
+
+    flex-shrink: 0;
+
+    position: relative;
+
+    z-index: 100;
+}
+
+
+.header-container {
+    width: 92%;
+
+    max-width: 1300px;
+
+    height: 78px;
+
+    margin: 0 auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.logo {
+    text-decoration: none;
+
+    font-size: 30px;
+
+    font-weight: 800;
+
+    letter-spacing: -1.2px;
+
+    color: #4da8c5;
+
+    white-space: nowrap;
+}
+
+
+.logo span {
+    color: #ef946d;
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+.navbar {
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    white-space: nowrap;
+}
+
+
+.nav-link {
+    text-decoration: none;
+
+    color: #4a4a4a;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    padding: 10px 12px;
+
+    border-radius: 20px;
+
+    transition: all 0.25s ease;
+}
+
+
+.nav-link:hover {
+    color: #4da8c5;
+
+    background: #f2f9fb;
+}
+
+
+.nav-link.active {
+    color: #4da8c5;
+}
+
+
+/* =====================================================
+   SIGNUP BUTTON
+===================================================== */
+
+.signup-button {
+    text-decoration: none;
+
+    background: #ef946d;
+
+    color: #ffffff;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    padding: 11px 19px;
+
+    border-radius: 22px;
+
+    transition: all 0.25s ease;
+}
+
+
+.signup-button:hover {
+    background: #e57e53;
+
+    transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.about-main {
+    width: 100%;
+
+    flex: 1;
+
+    padding: 55px 20px 65px;
+}
+
+
+.about-container {
+    width: 100%;
+
+    max-width: 1050px;
+
+    margin: 0 auto;
+}
+
+
+/* =====================================================
+   ABOUT CARD
+===================================================== */
+
+.about-card {
+    width: 100%;
+
+    background: #ffffff;
+
+    padding: 55px 65px;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.06);
+
+    text-align: center;
+}
+
+
+/* =====================================================
+   SMALL HEADING
+===================================================== */
+
+.small-heading {
+    color: #4da8c5;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 12px;
+}
+
+
+/* =====================================================
+   MAIN HEADING
+===================================================== */
+
+.about-card h1 {
+    font-size: 42px;
+
+    font-weight: 800;
+
+    color: #263238;
+
+    margin-bottom: 18px;
+}
+
+
+/* =====================================================
+   HEADING LINE
+===================================================== */
+
+.heading-line {
+    width: 60px;
+
+    height: 4px;
+
+    margin: 0 auto 30px;
+
+    border-radius: 10px;
+
+    background: #ef946d;
+}
+
+
+/* =====================================================
+   ABOUT TEXT
+===================================================== */
+
+.about-text {
+    max-width: 800px;
+
+    margin: 0 auto 20px;
+
+    font-size: 17px;
+
+    line-height: 1.8;
+
+    color: #555555;
+}
+
+
+/* =====================================================
+   HIGHLIGHT BOX
+===================================================== */
+
+.highlight-box {
+    margin-top: 30px;
+
+    padding: 22px 28px;
+
+    border-left: 4px solid #ef946d;
+
+    border-radius: 8px;
+
+    background: #fff8f4;
+
+    text-align: left;
+}
+
+
+.highlight-box p {
+    font-size: 16px;
+
+    line-height: 1.7;
+
+    color: #555555;
+}
+
+
+.highlight-box strong {
+    color: #263238;
+}
+
+
+/* =====================================================
+   CONTACT SECTION
+===================================================== */
+
+.contact-section {
+    margin-top: 35px;
+
+    padding: 45px 40px;
+
+    text-align: center;
+
+    background: #ffffff;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.05);
+}
+
+
+.contact-label {
+    color: #4da8c5;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 10px;
+}
+
+
+.contact-section h2 {
+    font-size: 32px;
+
+    color: #263238;
+
+    margin-bottom: 12px;
+}
+
+
+.contact-description {
+    color: #777777;
+
+    font-size: 16px;
+
+    line-height: 1.6;
+
+    margin-bottom: 30px;
+}
+
+
+/* =====================================================
+   CONTACT DETAILS
+===================================================== */
+
+.contact-details {
+    display: flex;
+
+    justify-content: center;
+
+    align-items: stretch;
+
+    gap: 25px;
+
+    flex-wrap: wrap;
+}
+
+
+.contact-item {
+    min-width: 280px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 18px 25px;
+
+    text-align: left;
+
+    border: 1px solid #eeeeee;
+
+    border-radius: 12px;
+
+    background: #fafafa;
+
+    transition: all 0.3s ease;
+}
+
+
+.contact-item:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.07);
+
+    border-color: #e6d9d2;
+}
+
+
+/* =====================================================
+   CONTACT ICON
+===================================================== */
+
+.contact-icon {
+    width: 45px;
+
+    height: 45px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #fff0e9;
+
+    color: #ef946d;
+
+    font-size: 20px;
+}
+
+
+/* =====================================================
+   CONTACT TEXT
+===================================================== */
+
+.contact-item span {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #888888;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+}
+
+
+.contact-item a {
+    text-decoration: none;
+
+    color: #4da8c5;
+
+    font-size: 15px;
+
+    font-weight: 600;
+}
+
+
+.contact-item a:hover {
+    color: #ef946d;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.site-footer {
+    width: 100%;
+
+    background: #263238;
+
+    color: #d7dfe2;
+
+    flex-shrink: 0;
+}
+
+
+.footer-container {
+    width: 92%;
+
+    max-width: 1300px;
+
+    margin: 0 auto;
+
+    padding: 45px 0;
+
+    display: grid;
+
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+
+    gap: 60px;
+}
+
+
+/* =====================================================
+   FOOTER BRAND
+===================================================== */
+
+.footer-brand h2 {
+    color: #ffffff;
+
+    font-size: 30px;
+
+    font-weight: 800;
+
+    margin-bottom: 10px;
+}
+
+
+.footer-brand h2 span {
+    color: #ef946d;
+}
+
+
+.footer-tagline {
+    color: #ef946d;
+
+    font-size: 16px;
+
+    margin-bottom: 18px;
+}
+
+
+.footer-description {
+    max-width: 370px;
+
+    color: #d1d9dc;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+}
+
+
+/* =====================================================
+   FOOTER COLUMNS
+===================================================== */
+
+.footer-column h3 {
+    color: #ffffff;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    margin-bottom: 20px;
+}
+
+
+.footer-column a {
+    display: block;
+
+    text-decoration: none;
+
+    color: #cbd4d8;
+
+    font-size: 15px;
+
+    margin-bottom: 13px;
+
+    transition: color 0.25s ease;
+}
+
+
+.footer-column a:hover {
+    color: #ef946d;
+}
+
+
+/* =====================================================
+   FOOTER BOTTOM
+===================================================== */
+
+.footer-bottom {
+    border-top: 1px solid #39464b;
+
+    text-align: center;
+
+    padding: 20px 15px;
+}
+
+
+.footer-bottom p {
+    color: #cbd4d8;
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 900px) {
+
+    .footer-container {
+        grid-template-columns: 1fr 1fr;
+
+        gap: 40px;
+    }
+
+}
+
+
+@media (max-width: 750px) {
+
+    .header-container {
+        height: auto;
+
+        min-height: 78px;
+
+        padding: 15px 0;
+
+        flex-direction: column;
+
+        gap: 10px;
+    }
+
+
+    .site-header {
+        height: auto;
+    }
+
+
+    .navbar {
+        justify-content: center;
+
+        flex-wrap: wrap;
+    }
+
+
+    .about-main {
+        padding: 35px 15px 45px;
+    }
+
+
+    .about-card {
+        padding: 40px 25px;
+    }
+
+
+    .about-card h1 {
+        font-size: 34px;
+    }
+
+
+    .about-text {
+        font-size: 16px;
+    }
+
+
+    .contact-section {
+        padding: 35px 20px;
+    }
+
+
+    .contact-item {
+        width: 100%;
+
+        min-width: 0;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .footer-container {
+        grid-template-columns: 1fr;
+
+        gap: 30px;
+    }
+
+}
+
+
+@media (max-width: 450px) {
+
+    .about-card h1 {
+        font-size: 29px;
+    }
+
+
+    .contact-section h2 {
+        font-size: 27px;
+    }
+
+}

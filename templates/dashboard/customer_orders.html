@@ -1,0 +1,1867 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>My Orders - happiShoppi</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f5f7f9;
+
+            color: #263238;
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .header {
+
+            background: white;
+
+            height: 76px;
+
+            padding: 0 6%;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            border-bottom: 1px solid #e8e8e8;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 100;
+        }
+
+
+        .logo {
+
+            font-size: 29px;
+
+            font-weight: 800;
+
+            letter-spacing: -1px;
+        }
+
+
+        .logo-blue {
+            color: #45a8cf;
+        }
+
+
+        .logo-orange {
+            color: #f39468;
+        }
+
+
+        .back-btn {
+
+            text-decoration: none;
+
+            color: #45a8cf;
+
+            font-weight: 600;
+
+            font-size: 14px;
+
+            padding: 10px 17px;
+
+            border-radius: 22px;
+
+            transition: 0.2s;
+        }
+
+
+        .back-btn:hover {
+
+            background: #eef8fc;
+        }
+
+
+
+        /* =====================================================
+           MAIN CONTAINER
+        ===================================================== */
+
+        .container {
+
+            width: 92%;
+
+            max-width: 1180px;
+
+            margin: 38px auto 60px;
+        }
+
+
+
+        /* =====================================================
+           PAGE HEADING
+        ===================================================== */
+
+        .page-heading {
+
+            margin-bottom: 28px;
+        }
+
+
+        .page-heading h1 {
+
+            margin: 0;
+
+            font-size: 32px;
+
+            font-weight: 750;
+        }
+
+
+        .page-heading p {
+
+            margin: 8px 0 0;
+
+            color: #777;
+
+            font-size: 15px;
+        }
+
+
+
+        /* =====================================================
+           ORDER CARD
+        ===================================================== */
+
+        .order-card {
+
+            background: white;
+
+            border-radius: 18px;
+
+            margin-bottom: 28px;
+
+            border: 1px solid #e5eaed;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 5px 18px rgba(0,0,0,0.05);
+        }
+
+
+
+        /* =====================================================
+           ORDER HEADER
+        ===================================================== */
+
+        .order-top {
+
+            padding: 20px 25px;
+
+            background: #fafcfd;
+
+            border-bottom: 1px solid #edf0f2;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 20px;
+        }
+
+
+        .order-info {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 5px;
+        }
+
+
+        .order-number {
+
+            font-size: 17px;
+
+            font-weight: 750;
+        }
+
+
+        .order-date {
+
+            color: #777;
+
+            font-size: 13px;
+        }
+
+
+
+        /* =====================================================
+           PAYMENT METHOD
+        ===================================================== */
+
+        .payment-method {
+
+            padding: 8px 15px;
+
+            border-radius: 20px;
+
+            background: #fff3e9;
+
+            color: #e57d4e;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            white-space: nowrap;
+        }
+
+
+
+        /* =====================================================
+           PRODUCTS AREA
+        ===================================================== */
+
+        .products-area {
+
+            padding: 5px 25px 0;
+        }
+
+
+        .product-row {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 18px;
+
+            padding: 22px 0;
+
+            border-bottom: 1px solid #eeeeee;
+        }
+
+
+
+        /* =====================================================
+           PRODUCT IMAGE
+        ===================================================== */
+
+        .product-image {
+
+            width: 105px;
+
+            height: 105px;
+
+            border-radius: 13px;
+
+            object-fit: cover;
+
+            border: 1px solid #e4e7e9;
+
+            background: #f5f5f5;
+
+            flex-shrink: 0;
+        }
+
+
+        .no-image {
+
+            width: 105px;
+
+            height: 105px;
+
+            border-radius: 13px;
+
+            background: #f2f4f5;
+
+            border: 1px solid #e4e7e9;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            color: #999;
+
+            font-size: 12px;
+
+            flex-shrink: 0;
+        }
+
+
+
+        /* =====================================================
+           PRODUCT INFORMATION
+        ===================================================== */
+
+        .product-info {
+
+            flex: 1;
+
+            min-width: 0;
+        }
+
+
+        .product-name {
+
+            font-size: 18px;
+
+            font-weight: 750;
+
+            margin-bottom: 8px;
+
+            color: #263238;
+        }
+
+
+        .vendor-info {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 4px;
+
+            margin-bottom: 9px;
+        }
+
+
+        .vendor-name {
+
+            font-size: 13px;
+
+            color: #555;
+        }
+
+
+        .vendor-address {
+
+            font-size: 12px;
+
+            color: #888;
+
+            line-height: 1.4;
+        }
+
+
+        .quantity {
+
+            color: #777;
+
+            font-size: 13px;
+
+            margin-bottom: 8px;
+        }
+
+
+
+        /* =====================================================
+           STATUS
+        ===================================================== */
+
+        .status-area {
+
+            margin-top: 10px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .status-label {
+
+            color: #888;
+
+            font-size: 12px;
+
+            font-weight: 600;
+        }
+
+
+        .item-status {
+
+            padding: 6px 12px;
+
+            border-radius: 18px;
+
+            font-size: 12px;
+
+            font-weight: 700;
+        }
+
+
+        .status-pending {
+
+            background: #fff3e8;
+
+            color: #e8874f;
+        }
+
+
+        .status-processing {
+
+            background: #eef7fb;
+
+            color: #3599c3;
+        }
+
+
+        .status-shipped {
+
+            background: #eaf6ee;
+
+            color: #2e8b57;
+        }
+
+
+        .status-delivered {
+
+            background: #e7f7ed;
+
+            color: #218838;
+        }
+
+
+        .status-cancelled {
+
+            background: #fdecec;
+
+            color: #d9534f;
+        }
+
+
+
+        /* =====================================================
+           STATUS TIMELINE
+        ===================================================== */
+
+        .timeline {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            margin-top: 18px;
+
+            width: 100%;
+
+            max-width: 620px;
+        }
+
+
+        .timeline-step {
+
+            flex: 1;
+
+            position: relative;
+
+            text-align: center;
+        }
+
+
+        .timeline-step:not(:last-child)::after {
+
+            content: "";
+
+            position: absolute;
+
+            top: 8px;
+
+            left: 50%;
+
+            width: 100%;
+
+            height: 2px;
+
+            background: #e1e5e7;
+
+            z-index: 0;
+        }
+
+
+        .timeline-dot {
+
+            width: 16px;
+
+            height: 16px;
+
+            border-radius: 50%;
+
+            background: #d9dee1;
+
+            border: 3px solid white;
+
+            box-shadow:
+                0 0 0 1px #d9dee1;
+
+            margin: 0 auto 7px;
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+
+        .timeline-step.active .timeline-dot {
+
+            background: #45a8cf;
+
+            box-shadow:
+                0 0 0 1px #45a8cf;
+        }
+
+
+        .timeline-step.completed .timeline-dot {
+
+            background: #45a8cf;
+
+            box-shadow:
+                0 0 0 1px #45a8cf;
+        }
+
+
+        .timeline-step.completed:not(:last-child)::after {
+
+            background: #45a8cf;
+        }
+
+
+        .timeline-text {
+
+            font-size: 10px;
+
+            color: #999;
+
+            white-space: nowrap;
+        }
+
+
+        .timeline-step.active .timeline-text,
+
+        .timeline-step.completed .timeline-text {
+
+            color: #3599c3;
+
+            font-weight: 700;
+        }
+
+
+        .timeline-cancelled {
+
+            margin-top: 15px;
+
+            display: inline-block;
+
+            padding: 7px 13px;
+
+            border-radius: 18px;
+
+            background: #fdecec;
+
+            color: #d9534f;
+
+            font-size: 11px;
+
+            font-weight: 700;
+        }
+
+
+
+        /* =====================================================
+           CANCEL BUTTON
+        ===================================================== */
+
+        .cancel-form {
+
+            margin-top: 12px;
+        }
+
+
+        .cancel-btn {
+
+            border: 1px solid #f0b8b8;
+
+            background: #fff7f7;
+
+            color: #d9534f;
+
+            padding: 7px 14px;
+
+            border-radius: 18px;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .cancel-btn:hover {
+
+            background: #fdecec;
+
+            border-color: #e8a1a1;
+        }
+
+
+
+        /* =====================================================
+           PRODUCT PRICE
+        ===================================================== */
+
+        .product-price {
+
+            min-width: 115px;
+
+            text-align: right;
+
+            font-size: 18px;
+
+            font-weight: 750;
+
+            white-space: nowrap;
+
+            padding-top: 4px;
+        }
+
+
+
+        /* =====================================================
+           ORDER DETAILS
+        ===================================================== */
+
+        .order-details {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr
+                1fr
+                auto;
+
+            gap: 20px;
+
+            padding: 25px;
+
+            background: white;
+        }
+
+
+
+        /* =====================================================
+           DELIVERY BOX
+        ===================================================== */
+
+        .delivery-box {
+
+            background: #fafafa;
+
+            border: 1px solid #eeeeee;
+
+            border-radius: 13px;
+
+            padding: 17px;
+        }
+
+
+        .detail-title {
+
+            font-size: 13px;
+
+            font-weight: 750;
+
+            margin-bottom: 9px;
+
+            color: #444;
+        }
+
+
+        .address-text {
+
+            color: #666;
+
+            font-size: 13px;
+
+            line-height: 1.55;
+        }
+
+
+
+        /* =====================================================
+           PAYMENT BOX
+        ===================================================== */
+
+        .payment-box {
+
+            background: #f9fcfd;
+
+            border: 1px solid #e2edf1;
+
+            border-radius: 13px;
+
+            padding: 17px;
+        }
+
+
+        .payment-title {
+
+            font-size: 14px;
+
+            font-weight: 750;
+
+            margin-bottom: 11px;
+        }
+
+
+        .payment-line {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            font-size: 13px;
+
+            margin: 8px 0;
+
+            color: #666;
+        }
+
+
+        .payment-line strong {
+
+            color: #333;
+
+            text-align: right;
+
+            word-break: break-word;
+        }
+
+
+
+        /* =====================================================
+           PAYMENT STATUS
+        ===================================================== */
+
+        .payment-status {
+
+            font-weight: 700;
+
+            padding: 4px 9px;
+
+            border-radius: 14px;
+
+            font-size: 11px;
+        }
+
+
+        .payment-pending {
+
+            background: #fff3e8;
+
+            color: #e8874f;
+        }
+
+
+        .payment-paid {
+
+            background: #e8f7ef;
+
+            color: #218838;
+        }
+
+
+        .payment-failed {
+
+            background: #fdecec;
+
+            color: #d9534f;
+        }
+
+
+        .payment-refunded {
+
+            background: #eef7fb;
+
+            color: #3599c3;
+        }
+
+
+
+        /* =====================================================
+           TOTAL
+        ===================================================== */
+
+        .total-box {
+
+            min-width: 175px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: flex-end;
+
+            padding: 10px 5px;
+        }
+
+
+        .total-label {
+
+            color: #777;
+
+            font-size: 13px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .total-amount {
+
+            font-size: 26px;
+
+            font-weight: 800;
+
+            color: #263238;
+        }
+
+
+
+        /* =====================================================
+           EMPTY ORDERS
+        ===================================================== */
+
+        .empty-orders {
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 75px 30px;
+
+            text-align: center;
+
+            border: 1px solid #e8ecef;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.04);
+        }
+
+
+        .empty-icon {
+
+            font-size: 45px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .empty-orders h2 {
+
+            margin: 0 0 8px;
+
+            font-size: 24px;
+        }
+
+
+        .empty-orders p {
+
+            color: #777;
+
+            margin-bottom: 22px;
+        }
+
+
+        .shop-btn {
+
+            display: inline-block;
+
+            padding: 12px 25px;
+
+            background: #45a8cf;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 24px;
+
+            font-weight: 700;
+
+            font-size: 14px;
+        }
+
+
+        .shop-btn:hover {
+
+            background: #3599c3;
+        }
+
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 900px) {
+
+            .order-details {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .total-box {
+
+                align-items: flex-start;
+
+                padding: 5px 0;
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .header {
+
+                padding: 0 4%;
+
+                height: 68px;
+            }
+
+
+            .logo {
+
+                font-size: 24px;
+            }
+
+
+            .back-btn {
+
+                font-size: 12px;
+
+                padding: 8px;
+            }
+
+
+            .container {
+
+                width: 94%;
+
+                margin-top: 25px;
+            }
+
+
+            .page-heading h1 {
+
+                font-size: 27px;
+            }
+
+
+            .order-top {
+
+                padding: 17px;
+
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+
+            .products-area {
+
+                padding: 5px 17px 0;
+            }
+
+
+            .product-row {
+
+                flex-wrap: wrap;
+
+                gap: 14px;
+            }
+
+
+            .product-image,
+
+            .no-image {
+
+                width: 78px;
+
+                height: 78px;
+            }
+
+
+            .product-info {
+
+                width: calc(100% - 95px);
+            }
+
+
+            .product-price {
+
+                width: 100%;
+
+                text-align: left;
+
+                padding-left: 92px;
+            }
+
+
+            .timeline {
+
+                max-width: 100%;
+
+                overflow-x: auto;
+
+                padding-bottom: 5px;
+            }
+
+
+            .timeline-text {
+
+                font-size: 9px;
+            }
+
+
+            .order-details {
+
+                padding: 17px;
+            }
+
+        }
+
+            .write-review-btn {
+                display: inline-block;
+                margin-top: 15px;
+                padding: 9px 18px;
+                background: #4da8c5;
+                color: #ffffff;
+                text-decoration: none;
+                border-radius: 22px;
+                font-size: 13px;
+                font-weight: 700;
+                transition: 0.3s ease;
+            }
+
+            .write-review-btn:hover {
+                background: #ef946d;
+                transform: translateY(-1px);
+           }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+    <div class="logo">
+
+        <span class="logo-blue">
+            happi
+        </span>
+
+        <span class="logo-orange">
+            Shoppi
+        </span>
+
+    </div>
+
+
+    <a href="{% url 'customer_dashboard' %}"
+       class="back-btn">
+
+        ← Back to Dashboard
+
+    </a>
+
+</header>
+{% if messages %}
+    {% for message in messages %}
+        <div class="message {{ message.tags }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<div class="container">
+
+
+    <div class="page-heading">
+
+        <h1>
+            My Orders
+        </h1>
+
+        <p>
+            Track your orders, products and payment details.
+        </p>
+
+    </div>
+
+
+
+    {% if orders %}
+
+
+        {% for order in orders %}
+
+
+        <div class="order-card">
+
+
+            <!-- =================================================
+                 ORDER HEADER
+            ================================================= -->
+
+            <div class="order-top">
+
+
+                <div class="order-info">
+
+                    <div class="order-number">
+
+                        Order #{{ order.id }}
+
+                    </div>
+
+
+                    <div class="order-date">
+
+                        Placed on
+                        {{ order.created_at|date:"d M Y, h:i A" }}
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- PAYMENT METHOD -->
+
+                {% if order.payment %}
+
+                    {% if order.payment.payment_method == 'COD' %}
+
+                        <div class="payment-method">
+
+                            💵 Cash on Delivery
+
+                        </div>
+
+
+                    {% elif order.payment.payment_method == 'UPI' %}
+
+                        <div class="payment-method">
+
+                            📱 UPI Payment
+
+                        </div>
+
+
+                    {% elif order.payment.payment_method == 'CARD' %}
+
+                        <div class="payment-method">
+
+                            💳 Card Payment
+
+                        </div>
+
+
+                    {% else %}
+
+                        <div class="payment-method">
+
+                            {{ order.payment.payment_method }}
+
+                        </div>
+
+                    {% endif %}
+
+                {% else %}
+
+                    <div class="payment-method">
+
+                        Payment
+
+                    </div>
+
+                {% endif %}
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PRODUCTS
+            ================================================= -->
+
+            <div class="products-area">
+
+
+                {% for item in order.items.all %}
+
+
+                <div class="product-row">
+
+
+                    <!-- PRODUCT IMAGE -->
+
+                    {% if item.product.product_image %}
+
+                        <img
+                            src="/media/{{ item.product.product_image }}"
+                            alt="{{ item.product.product_name }}"
+                            class="product-image"
+                        >
+
+                    {% else %}
+
+                        <div class="no-image">
+
+                            No Image
+
+                        </div>
+
+                    {% endif %}
+
+
+
+                    <!-- PRODUCT INFORMATION -->
+
+                    <div class="product-info">
+
+
+                        <div class="product-name">
+
+                            {{ item.product.product_name }}
+
+                        </div>
+
+
+
+                        <!-- VENDOR -->
+
+                        <div class="vendor-info">
+
+                            <div class="vendor-name">
+
+                                <strong>Vendor:</strong>
+                                {{ item.vendor.name }}
+
+                            </div>
+
+
+                            {% if item.vendor.address %}
+
+                                <div class="vendor-address">
+
+                                    📍 {{ item.vendor.address }}
+
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+
+
+                        <div class="quantity">
+
+                            Quantity:
+                            {{ item.quantity }}
+
+                        </div>
+
+
+
+                        <!-- CURRENT STATUS -->
+
+                        <div class="status-area">
+
+                            <span class="status-label">
+
+                                Product Status:
+
+                            </span>
+
+
+                            {% if item.item_status == 'PENDING' %}
+
+                                <span class="item-status status-pending">
+
+                                    Pending
+
+                                </span>
+
+
+                            {% elif item.item_status == 'PROCESSING' %}
+
+                                <span class="item-status status-processing">
+
+                                    Processing
+
+                                </span>
+
+
+                            {% elif item.item_status == 'SHIPPED' %}
+
+                                <span class="item-status status-shipped">
+
+                                    Shipped
+
+                                </span>
+
+
+                            {% elif item.item_status == 'DELIVERED' %}
+
+                                <span class="item-status status-delivered">
+
+                                    Delivered
+
+                                </span>
+
+
+                            {% elif item.item_status == 'CANCELLED' %}
+
+                                <span class="item-status status-cancelled">
+
+                                    Cancelled
+
+                                </span>
+
+
+                            {% else %}
+
+                                <span class="item-status">
+
+                                    {{ item.item_status }}
+
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+                        {% if item.item_status == 'DELIVERED' %}
+
+                           <a href="{% url 'add_review' item.product.id %}"
+                              class="write-review-btn">
+
+                                ⭐ Write Review
+
+                            </a>
+
+                        {% endif %}
+
+
+
+                        <!-- =================================================
+                             ORDER STATUS TIMELINE
+                        ================================================= -->
+
+                        {% if item.item_status != 'CANCELLED' %}
+
+                        <div class="timeline">
+
+
+                            <!-- PENDING -->
+
+                            <div class="timeline-step
+                                {% if item.item_status == 'PENDING' %}
+                                    active
+                                {% elif item.item_status == 'PROCESSING' or item.item_status == 'SHIPPED' or item.item_status == 'DELIVERED' %}
+                                    completed
+                                {% endif %}">
+
+                                <div class="timeline-dot"></div>
+
+                                <div class="timeline-text">
+
+                                    Ordered
+
+                                </div>
+
+                            </div>
+
+
+
+                            <!-- PROCESSING -->
+
+                            <div class="timeline-step
+                                {% if item.item_status == 'PROCESSING' %}
+                                    active
+                                {% elif item.item_status == 'SHIPPED' or item.item_status == 'DELIVERED' %}
+                                    completed
+                                {% endif %}">
+
+                                <div class="timeline-dot"></div>
+
+                                <div class="timeline-text">
+
+                                    Confirmed
+
+                                </div>
+
+                            </div>
+
+
+
+                            <!-- SHIPPED -->
+
+                            <div class="timeline-step
+                                {% if item.item_status == 'SHIPPED' %}
+                                    active
+                                {% elif item.item_status == 'DELIVERED' %}
+                                    completed
+                                {% endif %}">
+
+                                <div class="timeline-dot"></div>
+
+                                <div class="timeline-text">
+
+                                    Shipped
+
+                                </div>
+
+                            </div>
+
+
+
+                            <!-- DELIVERED -->
+
+                            <div class="timeline-step
+                                {% if item.item_status == 'DELIVERED' %}
+                                    active
+                                {% endif %}">
+
+                                <div class="timeline-dot"></div>
+
+                                <div class="timeline-text">
+
+                                    Delivered
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                        {% else %}
+
+                            <div class="timeline-cancelled">
+
+                                ✕ This product was cancelled
+
+                            </div>
+
+                        {% endif %}
+
+
+
+                        <!-- CANCEL BUTTON -->
+
+                        {% if item.item_status == 'PENDING' or item.item_status == 'PROCESSING' %}
+
+
+                            <form
+                                method="POST"
+                                action="{% url 'cancel_order_item' item.id %}"
+                                class="cancel-form"
+                            >
+
+                                {% csrf_token %}
+
+                                <button
+                                    type="submit"
+                                    class="cancel-btn"
+                                    onclick="return confirm('Are you sure you want to cancel this product?');"
+                                >
+
+                                    Cancel Product
+
+                                </button>
+
+                            </form>
+
+
+                        {% endif %}
+
+
+                    </div>
+
+
+
+                    <!-- PRICE -->
+
+                    <div class="product-price">
+
+                        ₹{{ item.price }}
+
+                    </div>
+
+
+                </div>
+
+
+                {% endfor %}
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 ORDER DETAILS
+            ================================================= -->
+
+            <div class="order-details">
+
+
+                <!-- DELIVERY -->
+
+                <div class="delivery-box">
+
+                    <div class="detail-title">
+
+                        🚚 Delivery Address
+
+                    </div>
+
+
+                    <div class="address-text">
+
+                        {{ order.shipping_address }}
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- PAYMENT -->
+
+                <div class="payment-box">
+
+
+                    <div class="payment-title">
+
+                        💳 Payment Details
+
+                    </div>
+
+
+                    {% if order.payment %}
+
+
+                        <div class="payment-line">
+
+                            <span>
+                                Method
+                            </span>
+
+
+                            <strong>
+
+                                {% if order.payment.payment_method == 'COD' %}
+
+                                    Cash on Delivery
+
+                                {% elif order.payment.payment_method == 'UPI' %}
+
+                                    UPI
+
+                                {% elif order.payment.payment_method == 'CARD' %}
+
+                                    Card
+
+                                {% else %}
+
+                                    {{ order.payment.payment_method }}
+
+                                {% endif %}
+
+                            </strong>
+
+                        </div>
+
+
+
+                        <div class="payment-line">
+
+                            <span>
+                                Status
+                            </span>
+
+
+                            {% if order.payment.payment_status == 'PENDING' %}
+
+                                <strong class="payment-status payment-pending">
+
+                                    Pending
+
+                                </strong>
+
+
+                            {% elif order.payment.payment_status == 'PAID' %}
+
+                                <strong class="payment-status payment-paid">
+
+                                    Paid
+
+                                </strong>
+
+
+                            {% elif order.payment.payment_status == 'FAILED' %}
+
+                                <strong class="payment-status payment-failed">
+
+                                    Failed
+
+                                </strong>
+
+
+                            {% elif order.payment.payment_status == 'REFUNDED' %}
+
+                                <strong class="payment-status payment-refunded">
+
+                                    Refunded
+
+                                </strong>
+
+
+                            {% else %}
+
+                                <strong>
+
+                                    {{ order.payment.payment_status }}
+
+                                </strong>
+
+                            {% endif %}
+
+                        </div>
+
+
+
+                        <div class="payment-line">
+
+                            <span>
+                                Amount
+                            </span>
+
+
+                            <strong>
+
+                                ₹{{ order.payment.amount }}
+
+                            </strong>
+
+                        </div>
+
+
+
+                        {% if order.payment.transaction_id %}
+
+                            <div class="payment-line">
+
+                                <span>
+                                    Transaction ID
+                                </span>
+
+
+                                <strong>
+
+                                    {{ order.payment.transaction_id }}
+
+                                </strong>
+
+                            </div>
+
+                        {% endif %}
+
+
+
+                        {% if order.payment.paid_at %}
+
+                            <div class="payment-line">
+
+                                <span>
+                                    Paid At
+                                </span>
+
+
+                                <strong>
+
+                                    {{ order.payment.paid_at|date:"d M Y, h:i A" }}
+
+                                </strong>
+
+                            </div>
+
+                        {% endif %}
+
+
+                    {% else %}
+
+                        <div class="payment-line">
+
+                            <span>
+                                Status
+                            </span>
+
+
+                            <strong class="payment-status payment-pending">
+
+                                Pending
+
+                            </strong>
+
+                        </div>
+
+                    {% endif %}
+
+
+                </div>
+
+
+
+                <!-- TOTAL -->
+
+                <div class="total-box">
+
+                    <div class="total-label">
+
+                        Order Total
+
+                    </div>
+
+
+                    <div class="total-amount">
+
+                        ₹{{ order.total_amount }}
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+        {% endfor %}
+
+
+
+    {% else %}
+
+
+        <!-- EMPTY -->
+
+        <div class="empty-orders">
+
+
+            <div class="empty-icon">
+
+                🛍️
+
+            </div>
+
+
+            <h2>
+
+                No Orders Yet
+
+            </h2>
+
+
+            <p>
+
+                Your placed orders will appear here.
+
+            </p>
+
+
+            <a
+                href="{% url 'customer_dashboard' %}"
+                class="shop-btn"
+            >
+
+                Start Shopping
+
+            </a>
+
+
+        </div>
+
+
+    {% endif %}
+
+
+</div>
+
+
+</body>
+
+</html>

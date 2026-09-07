@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout - happiShoppi</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f7f9fa;
+
+            color: #263238;
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .header {
+
+            background: white;
+
+            padding: 22px 6%;
+
+            border-bottom: 1px solid #e5e5e5;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+        }
+
+
+        .logo {
+
+            font-size: 32px;
+
+            font-weight: bold;
+        }
+
+
+        .logo-blue {
+
+            color: #45a8cf;
+        }
+
+
+        .logo-orange {
+
+            color: #f39468;
+        }
+
+
+        .back-btn {
+
+            text-decoration: none;
+
+            color: #45a8cf;
+
+            font-weight: bold;
+        }
+
+
+        /* =====================================================
+           CONTAINER
+        ===================================================== */
+
+        .container {
+
+            width: 90%;
+
+            max-width: 1200px;
+
+            margin: 35px auto;
+        }
+
+
+        .title {
+
+            margin-bottom: 25px;
+        }
+
+
+        .title h1 {
+
+            margin-bottom: 8px;
+
+            font-size: 34px;
+        }
+
+
+        .title p {
+
+            color: #777;
+        }
+
+
+        /* =====================================================
+           CHECKOUT GRID
+        ===================================================== */
+
+        .checkout-grid {
+
+            display: grid;
+
+            grid-template-columns: 1.7fr 1fr;
+
+            gap: 25px;
+        }
+
+
+        /* =====================================================
+           CARD
+        ===================================================== */
+
+        .card {
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 25px;
+
+            box-shadow:
+                0 3px 15px rgba(0,0,0,0.05);
+        }
+
+
+        .card h2 {
+
+            margin-top: 0;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* =====================================================
+           PRODUCT ROW
+        ===================================================== */
+
+        .product-row {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 18px;
+
+            padding: 18px 0;
+
+            border-bottom: 1px solid #eeeeee;
+        }
+
+
+        /* =====================================================
+           PRODUCT IMAGE
+        ===================================================== */
+
+        .checkout-product-image {
+
+            width: 120px;
+
+            height: 120px;
+
+            flex-shrink: 0;
+
+            border-radius: 12px;
+
+            overflow: hidden;
+
+            background: #f5f7f8;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border: 1px solid #eeeeee;
+        }
+
+
+        .checkout-product-image img {
+
+            width: 100%;
+
+            height: 100%;
+
+            /*
+             * IMPORTANT:
+             * contain shows the complete image
+             * without zooming or cropping.
+             */
+
+            object-fit: contain;
+
+            display: block;
+        }
+
+
+        /* =====================================================
+           IMAGE PLACEHOLDER
+        ===================================================== */
+
+        .checkout-product-placeholder {
+
+            width: 100%;
+
+            height: 100%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 42px;
+
+            color: #999;
+        }
+
+
+        /* =====================================================
+           PRODUCT INFORMATION
+        ===================================================== */
+
+        .product-info {
+
+            flex: 1;
+
+            min-width: 0;
+        }
+
+
+        .product-info h3 {
+
+            margin: 0 0 8px;
+
+            font-size: 18px;
+        }
+
+
+        .product-info p {
+
+            margin: 5px 0;
+
+            color: #777;
+
+            font-size: 14px;
+        }
+
+
+        .product-price {
+
+            white-space: nowrap;
+
+            font-size: 17px;
+        }
+
+
+        /* =====================================================
+           ADDRESS
+        ===================================================== */
+
+        .address {
+
+            margin-top: 25px;
+
+            padding: 18px;
+
+            border-radius: 12px;
+
+            background: #f7f9fa;
+        }
+
+
+        .address h3 {
+
+            margin-top: 0;
+
+            margin-bottom: 8px;
+        }
+
+
+        .address p {
+
+            margin-bottom: 0;
+
+            color: #555;
+
+            line-height: 1.6;
+        }
+
+
+        /* =====================================================
+           PAYMENT
+        ===================================================== */
+
+        .payment-option {
+
+            margin-top: 20px;
+
+            padding: 18px;
+
+            border: 2px solid #45a8cf;
+
+            border-radius: 12px;
+
+            background: #f8fcfe;
+        }
+
+
+        .payment-option label {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            font-weight: bold;
+        }
+
+
+        .payment-option p {
+
+            margin-bottom: 0;
+
+            color: #777;
+        }
+
+
+        /* =====================================================
+           SUMMARY
+        ===================================================== */
+
+        .total-row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            margin: 15px 0;
+        }
+
+
+        .grand-total {
+
+            font-size: 24px;
+
+            font-weight: bold;
+
+            border-top: 1px solid #ddd;
+
+            padding-top: 18px;
+
+            margin-top: 20px;
+        }
+
+
+        /* =====================================================
+           PLACE ORDER BUTTON
+        ===================================================== */
+
+        .place-order-btn {
+
+            width: 100%;
+
+            margin-top: 20px;
+
+            padding: 16px;
+
+            border: none;
+
+            border-radius: 30px;
+
+            background: #f39468;
+
+            color: white;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .place-order-btn:hover {
+
+            opacity: 0.9;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =====================================================
+           BACK CART
+        ===================================================== */
+
+        .back-cart {
+
+            display: block;
+
+            text-align: center;
+
+            margin-top: 18px;
+
+            color: #45a8cf;
+
+            text-decoration: none;
+
+            font-weight: bold;
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 800px) {
+
+            .checkout-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .header {
+
+                padding: 18px 5%;
+            }
+
+
+            .logo {
+
+                font-size: 25px;
+            }
+
+
+            .container {
+
+                width: 94%;
+
+                margin: 25px auto;
+            }
+
+
+            .card {
+
+                padding: 18px;
+            }
+
+
+            .product-row {
+
+                align-items: flex-start;
+
+                gap: 12px;
+            }
+
+
+            .checkout-product-image {
+
+                width: 90px;
+
+                height: 90px;
+            }
+
+
+            .checkout-product-placeholder {
+
+                font-size: 30px;
+            }
+
+
+            .product-info h3 {
+
+                font-size: 16px;
+            }
+
+
+            .product-price {
+
+                font-size: 15px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+
+    <div class="logo">
+
+        <span class="logo-blue">
+            happi
+        </span>
+
+        <span class="logo-orange">
+            Shoppi
+        </span>
+
+    </div>
+
+
+    <a
+        href="{% url 'customer_cart' %}"
+        class="back-btn"
+    >
+
+        ← Back to Cart
+
+    </a>
+
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN CONTAINER
+===================================================== -->
+
+<div class="container">
+
+
+    <!-- =================================================
+         TITLE
+    ================================================== -->
+
+    <div class="title">
+
+        <h1>
+            Checkout
+        </h1>
+
+        <p>
+            Review your order and choose your payment method.
+        </p>
+
+    </div>
+
+
+
+    <!-- =================================================
+         CHECKOUT GRID
+    ================================================== -->
+
+    <div class="checkout-grid">
+
+
+        <!-- =================================================
+             ORDER DETAILS
+        ================================================== -->
+
+        <div class="card">
+
+
+            <h2>
+                Order Details
+            </h2>
+
+
+            {% for item in cart_items %}
+
+
+            <!-- =================================================
+                 PRODUCT
+            ================================================== -->
+
+            <div class="product-row">
+
+
+                <!-- PRODUCT IMAGE -->
+
+                <div class="checkout-product-image">
+
+
+                    {% if item.product.product_image %}
+
+                        <img
+                            src="/media/{{ item.product.product_image }}"
+                            alt="{{ item.product.product_name }}"
+                        >
+
+                    {% else %}
+
+                        <div class="checkout-product-placeholder">
+
+                            🛍️
+
+                        </div>
+
+                    {% endif %}
+
+
+                </div>
+
+
+
+                <!-- PRODUCT INFORMATION -->
+
+                <div class="product-info">
+
+
+                    <h3>
+
+                        {{ item.product.product_name }}
+
+                    </h3>
+
+
+                    {% if item.product.description %}
+
+                    <p>
+
+                        {{ item.product.description|truncatechars:80 }}
+
+                    </p>
+
+                    {% endif %}
+
+
+                    <p>
+
+                        Quantity:
+                        {{ item.quantity }}
+
+                    </p>
+
+
+                    <p>
+
+                        ₹{{ item.product.price }}
+
+                        ×
+
+                        {{ item.quantity }}
+
+                    </p>
+
+
+                </div>
+
+
+
+                <!-- SUBTOTAL -->
+
+                <strong class="product-price">
+
+                    ₹{{ item.subtotal }}
+
+                </strong>
+
+
+            </div>
+
+
+            {% empty %}
+
+
+            <div style="
+                text-align:center;
+                padding:30px;
+                color:#777;
+            ">
+
+                Your cart is empty.
+
+            </div>
+
+
+            {% endfor %}
+
+
+
+            <!-- =================================================
+                 SHIPPING ADDRESS
+            ================================================== -->
+
+            <div class="address">
+
+
+                <h3>
+                    Delivery Address
+                </h3>
+
+
+                <p>
+
+                    {{ customer.address }}
+
+                </p>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PAYMENT
+            ================================================== -->
+
+            <div class="payment-option">
+
+
+                <label>
+
+
+                    <input
+                        type="radio"
+                        name="payment_method"
+                        value="COD"
+                        checked
+                    >
+
+
+                    Cash on Delivery
+
+
+                </label>
+
+
+                <p>
+
+                    Pay when your order is delivered.
+
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             ORDER SUMMARY
+        ================================================== -->
+
+        <div class="card">
+
+
+            <h2>
+                Order Summary
+            </h2>
+
+
+
+            <div class="total-row">
+
+
+                <span>
+                    Items
+                </span>
+
+
+                <strong>
+
+                    {{ cart_items|length }}
+
+                </strong>
+
+
+            </div>
+
+
+
+            <div class="total-row">
+
+
+                <span>
+                    Delivery
+                </span>
+
+
+                <strong>
+                    FREE
+                </strong>
+
+
+            </div>
+
+
+
+            <div class="total-row grand-total">
+
+
+                <span>
+                    Total
+                </span>
+
+
+                <span>
+
+                    ₹{{ total }}
+
+                </span>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PLACE ORDER
+            ================================================== -->
+
+            <form
+                method="POST"
+                action="{% url 'place_order' %}"
+            >
+
+
+                {% csrf_token %}
+
+
+                <button
+                    type="submit"
+                    class="place-order-btn"
+                >
+
+                    Place Order - Cash on Delivery
+
+                </button>
+
+
+            </form>
+
+
+
+            <a
+                href="{% url 'customer_cart' %}"
+                class="back-cart"
+            >
+
+                ← Return to Cart
+
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

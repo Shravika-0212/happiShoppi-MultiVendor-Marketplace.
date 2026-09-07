@@ -1,0 +1,628 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>{{ product.product_name }} - happiShoppi</title>
+
+    <style>
+
+        /* =====================================================
+           GLOBAL
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f6f7fb;
+            color: #222;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .main-header {
+            height: 72px;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 45px;
+
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+
+        .logo {
+            font-size: 26px;
+            font-weight: 800;
+            color: #51bad7;
+            text-decoration: none;
+            letter-spacing: 0.3px;
+        }
+
+        .logo span {
+            color:#ef946d;
+        }
+
+
+        /* =====================================================
+           NAVIGATION
+        ===================================================== */
+
+        .header-nav {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .header-nav a {
+            text-decoration: none;
+            color: #444;
+            font-size: 14px;
+            font-weight: 600;
+
+            transition: 0.2s ease;
+        }
+
+        .header-nav a:hover {
+            color: #e91e63;
+        }
+
+
+        /* =====================================================
+           PAGE
+        ===================================================== */
+
+        .page-container {
+            width: 92%;
+            max-width: 1150px;
+
+            margin: 45px auto;
+
+            flex: 1;
+        }
+
+
+        .page-title {
+            margin-bottom: 25px;
+        }
+
+        .page-title h1 {
+            font-size: 30px;
+            color: #222;
+            margin-bottom: 7px;
+        }
+
+        .page-title p {
+            color: #777;
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           PRODUCT CARD
+        ===================================================== */
+
+        .product-card {
+            background: #ffffff;
+
+            border-radius: 16px;
+
+            padding: 30px;
+
+            display: grid;
+            grid-template-columns: 45% 55%;
+
+            gap: 40px;
+
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+
+            border: 1px solid #eeeeee;
+        }
+
+
+        /* =====================================================
+           IMAGE SECTION
+        ===================================================== */
+
+        .product-image-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #f8f8fa;
+
+            border-radius: 14px;
+
+            min-height: 430px;
+
+            padding: 25px;
+        }
+
+
+        .product-image-section img {
+            width: 100%;
+            height: 380px;
+
+            object-fit: contain;
+
+            border-radius: 10px;
+
+            display: block;
+        }
+
+
+        .no-image {
+            color: #999;
+            font-size: 15px;
+        }
+
+
+        /* =====================================================
+           PRODUCT DETAILS
+        ===================================================== */
+
+        .product-details {
+            padding: 10px 10px 10px 5px;
+        }
+
+
+        .product-name {
+            font-size: 30px;
+            font-weight: 700;
+
+            color: #222;
+
+            margin-bottom: 22px;
+        }
+
+
+        .detail-row {
+            padding: 17px 0;
+
+            border-bottom: 1px solid #eeeeee;
+
+            display: flex;
+            flex-direction: column;
+
+            gap: 6px;
+        }
+
+
+        .detail-label {
+            font-size: 13px;
+            font-weight: 700;
+
+            color: #888;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.5px;
+        }
+
+
+        .detail-value {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.5;
+        }
+
+
+        .price {
+            font-size: 25px;
+            font-weight: 700;
+            color: #e91e63;
+        }
+
+
+        .stock {
+            display: inline-block;
+
+            width: fit-content;
+
+            padding: 7px 14px;
+
+            border-radius: 20px;
+
+            background: #e8f7ee;
+
+            color: #198754;
+
+            font-size: 14px;
+
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           ACTIONS
+        ===================================================== */
+
+        .product-actions {
+            margin-top: 28px;
+
+            display: flex;
+            gap: 12px;
+        }
+
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 12px 22px;
+
+            background: #222;
+            color: #ffffff;
+
+            border-radius: 8px;
+
+            text-decoration: none;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            transition: 0.2s ease;
+        }
+
+
+        .back-btn:hover {
+            background: #e91e63;
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        /* =========================================================
+         FOOTER
+         ========================================================= */
+
+        .main-footer {
+           background: #222;
+           color: #ffffff;
+           padding: 25px 45px;
+           margin-top: auto;
+           border-top: 3px solid #4da8c5;
+        }
+
+
+        .footer-content {
+           max-width: 1150px;
+           margin: auto;
+
+           display: flex;
+           align-items: center;
+           justify-content: space-between;
+        }
+
+
+         .footer-logo {
+            font-size: 22px;
+             font-weight: 800;
+            letter-spacing: -0.5px;
+            color: #4da8c5;
+        }
+
+
+           .footer-logo span {
+            color: #ef946d;
+        }
+
+
+        .footer-text {
+             color: #4da8c5;
+          font-size: 13px;
+        }
+
+
+        .footer-text span {
+           color: #ef946d;
+        }
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 850px) {
+
+            .main-header {
+                padding: 0 20px;
+            }
+
+            .header-nav {
+                gap: 14px;
+            }
+
+            .header-nav a {
+                font-size: 12px;
+            }
+
+            .product-card {
+                grid-template-columns: 1fr;
+            }
+
+            .product-image-section {
+                min-height: 350px;
+            }
+
+            .product-image-section img {
+                height: 320px;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .header-nav a {
+                display: none;
+            }
+
+            .page-container {
+                width: 94%;
+                margin: 25px auto;
+            }
+
+            .product-card {
+                padding: 18px;
+            }
+
+            .product-name {
+                font-size: 24px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         HEADER
+    ===================================================== -->
+
+    <header class="main-header">
+
+        <a href="{% url 'vendor_dashboard' %}"
+           class="logo">
+
+            happi<span>Shoppi</span>
+
+        </a>
+
+
+        <nav class="header-nav">
+
+            <a href="{% url 'vendor_dashboard' %}">
+                Dashboard
+            </a>
+
+            <a href="{% url 'vendor_orders' %}">
+                Orders
+            </a>
+
+            <a href="{% url 'vendor_notifications' %}">
+                Notifications
+            </a>
+
+            <a href="{% url 'vendor_profile' %}">
+                Profile
+            </a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ===================================================== -->
+
+    <main class="page-container">
+
+
+        <div class="page-title">
+
+            <h1>
+                Product Details
+            </h1>
+
+            <p>
+                View the details of your listed product.
+            </p>
+
+        </div>
+
+
+
+        <div class="product-card">
+
+
+            <!-- =================================================
+                 PRODUCT IMAGE
+            ================================================= -->
+
+            <div class="product-image-section">
+
+                {% if product.product_image %}
+
+                    <img
+                        src="/media/{{ product.product_image }}"
+                        alt="{{ product.product_name }}"
+                    >
+
+                {% else %}
+
+                    <p class="no-image">
+                        No Image Available
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PRODUCT INFORMATION
+            ================================================= -->
+
+            <div class="product-details">
+
+
+                <h2 class="product-name">
+                    {{ product.product_name }}
+                </h2>
+
+
+                <div class="detail-row">
+
+                    <span class="detail-label">
+                        Category
+                    </span>
+
+                    <span class="detail-value">
+                        {{ product.category.category_name }}
+                    </span>
+
+                </div>
+
+
+
+                <div class="detail-row">
+
+                    <span class="detail-label">
+                        Description
+                    </span>
+
+                    <span class="detail-value">
+                        {{ product.description }}
+                    </span>
+
+                </div>
+
+
+
+                <div class="detail-row">
+
+                    <span class="detail-label">
+                        Price
+                    </span>
+
+                    <span class="detail-value price">
+                        ₹{{ product.price }}
+                    </span>
+
+                </div>
+
+
+
+                <div class="detail-row">
+
+                    <span class="detail-label">
+                        Available Stock
+                    </span>
+
+                    <span class="detail-value">
+
+                        <span class="stock">
+                            {{ product.stock_quantity }} units available
+                        </span>
+
+                    </span>
+
+                </div>
+
+
+
+                <div class="product-actions">
+
+                    <a href="{% url 'vendor_dashboard' %}"
+                       class="back-btn">
+
+                        ← Back to Dashboard
+
+                    </a>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ===================================================== -->
+
+    <footer class="main-footer">
+
+        <div class="footer-content">
+
+            <div class="footer-logo">
+
+                happi<span>Shoppi</span>
+
+            </div>
+
+
+            <div class="footer-text">
+
+                © 2026 happiShoppi. All rights reserved.
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+</body>
+
+</html>
+```

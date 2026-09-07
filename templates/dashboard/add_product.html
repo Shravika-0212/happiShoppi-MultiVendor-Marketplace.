@@ -1,0 +1,352 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Add Product - happiShoppi</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/add_product.css' %}">
+
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="site-header">
+
+    <div class="header-container">
+
+        <a href="{% url 'home' %}"
+           class="logo">
+
+            happi<span>Shoppi</span>
+
+        </a>
+
+
+        <div class="header-right">
+
+            <span class="welcome-text">
+                Welcome, {{ vendor.name }}
+            </span>
+
+            <a href="{% url 'home' %}"
+               class="home-button">
+                Home
+            </a>
+
+            <a href="{% url 'logout' %}"
+               class="logout-button">
+                Logout
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="add-product-main">
+
+    <div class="add-product-container">
+
+        <div class="page-heading">
+
+            <span class="page-label">
+                PRODUCT MANAGEMENT
+            </span>
+
+            <h1>
+                Add New Product
+            </h1>
+
+            <p>
+                Add a new product to your happiShoppi store.
+            </p>
+
+        </div>
+
+
+        <div class="add-product-card">
+
+            <div class="vendor-info">
+                Vendor:
+                <strong>{{ vendor.name }}</strong>
+            </div>
+
+
+            <!-- YOUR EXISTING FORM -->
+
+            <form method="POST"
+                  enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+                <!-- Keep your existing fields here -->
+
+                <!-- Product Name -->
+                <div class="form-group">
+
+                    <label>
+                        Product Name
+                    </label>
+
+                    <input type="text"
+                           name="product_name"
+                           required>
+
+                </div>
+
+
+                <!-- Description -->
+                <div class="form-group">
+
+                    <label>
+                        Description
+                    </label>
+
+                    <textarea name="description"
+                              required></textarea>
+
+                </div>
+
+
+                <!-- Category -->
+                <div class="form-group">
+
+                    <label>
+                        Category
+                    </label>
+
+                    <select name="category"
+                            required>
+
+                        <option value="">
+                            Select Category
+                        </option>
+
+                        {% for category in categories %}
+
+                            <option value="{{ category.id }}">
+                                {{ category.category_name }}
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- Price -->
+                <div class="form-group">
+
+                    <label>
+                        Price
+                    </label>
+
+                    <input type="number"
+                           name="price"
+                           step="0.01"
+                           required>
+
+                </div>
+
+
+                <!-- Stock -->
+                <div class="form-group">
+
+                    <label>
+                        Stock Quantity
+                    </label>
+
+                    <input type="number"
+                           name="stock_quantity"
+                           min="0"
+                           value="0"
+                           required>
+
+                </div>
+
+
+                <!-- Image -->
+                <div class="form-group">
+
+                    <label>
+                        Product Image
+                    </label>
+
+                    <input type="file"
+                           name="product_image"
+                           accept="image/*">
+
+                </div>
+
+
+                <div class="form-actions">
+
+                    <button type="submit"
+                            class="add-product-button">
+
+                        Add Product
+
+                    </button>
+
+
+                    <a href="{% url 'vendor_dashboard' %}"
+                       class="cancel-button">
+
+                        Cancel
+
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</main>
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="site-footer">
+
+    <div class="footer-container">
+
+
+        <!-- BRAND -->
+
+        <div class="footer-column footer-brand">
+
+            <h2>
+                happi<span>Shoppi</span>
+            </h2>
+
+            <p class="footer-tagline">
+                Your Happiness, Delivered.
+            </p>
+
+            <p class="footer-description">
+                A multi-vendor marketplace where customers
+                discover products from multiple trusted sellers.
+            </p>
+
+        </div>
+
+
+        <!-- QUICK LINKS -->
+
+        <div class="footer-column">
+
+            <h3>
+                Quick Links
+            </h3>
+
+            <a href="{% url 'home' %}">
+                Home
+            </a>
+
+            <a href="{% url 'vendor_dashboard' %}">
+                Dashboard
+            </a>
+
+            <a href="{% url 'add_product' %}">
+                Add Product
+            </a>
+
+            <a href="{% url 'logout' %}">
+                Logout
+            </a>
+
+        </div>
+
+
+        <!-- VENDOR -->
+
+        <div class="footer-column">
+
+            <h3>
+                Vendor
+            </h3>
+
+            <a href="{% url 'vendor_dashboard' %}">
+                My Products
+            </a>
+
+            <a href="{% url 'vendor_orders' %}">
+                Orders
+            </a>
+
+            <a href="{% url 'vendor_notifications' %}">
+                Notifications
+            </a>
+
+            <a href="{% url 'vendor_profile' %}">
+                My Profile
+            </a>
+
+        </div>
+
+
+        <!-- SHOPPING -->
+
+        <div class="footer-column">
+
+            <h3>
+                happiShoppi
+            </h3>
+
+            <a href="{% url 'about' %}">
+                About Us
+            </a>
+
+            <a href="#">
+                Multiple Vendors
+            </a>
+
+            <a href="#">
+                Wide Range of Products
+            </a>
+
+            <a href="#">
+                Secure Shopping
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- COPYRIGHT -->
+
+    <div class="footer-bottom">
+
+        <p>
+            © 2026 happiShoppi. All rights reserved.
+        </p>
+
+    </div>
+
+</footer>
+
+
+</body>
+</html>

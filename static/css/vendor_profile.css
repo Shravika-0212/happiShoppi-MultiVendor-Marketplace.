@@ -1,0 +1,705 @@
+/* =====================================================
+   GENERAL
+===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f7f5f0;
+    color: #263238;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.site-header {
+    width: 100%;
+    min-height: 78px;
+    background: #ffffff;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.header-container {
+    width: 92%;
+    max-width: 1300px;
+    min-height: 78px;
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.logo {
+    text-decoration: none;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -1.2px;
+    color: #4da8c5;
+}
+
+.logo span {
+    color: #ef946d;
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+.navbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #4a4a4a;
+    font-size: 14px;
+    font-weight: 600;
+
+    padding: 10px 15px;
+    border-radius: 20px;
+
+    transition: 0.25s ease;
+}
+
+.nav-link:hover {
+    color: #4da8c5;
+    background: #f2f9fb;
+}
+
+.logout-button {
+    text-decoration: none;
+    background: #ef946d;
+    color: white;
+
+    padding: 11px 20px;
+    border-radius: 22px;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    transition: 0.25s ease;
+}
+
+.logout-button:hover {
+    background: #e57e53;
+    transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   MESSAGES
+===================================================== */
+
+.message {
+    width: 92%;
+    max-width: 900px;
+    margin: 20px auto 0;
+
+    padding: 13px 18px;
+
+    border-radius: 8px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.message.success {
+    background: #e8f7ef;
+    color: #287a4b;
+    border: 1px solid #bde5ce;
+}
+
+.message.error {
+    background: #fdeaea;
+    color: #a33a3a;
+    border: 1px solid #f0c1c1;
+}
+
+.message.warning {
+    background: #fff5df;
+    color: #946b20;
+    border: 1px solid #efd9a5;
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.profile-main {
+    flex: 1;
+
+    width: 100%;
+
+    padding: 55px 20px 70px;
+
+    display: flex;
+    justify-content: center;
+}
+
+.profile-container {
+    width: 100%;
+    max-width: 850px;
+}
+
+
+/* =====================================================
+   HEADING
+===================================================== */
+
+.profile-heading {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.profile-heading h1 {
+    margin: 0 0 8px;
+
+    font-size: 36px;
+    font-weight: 800;
+
+    color: #263238;
+}
+
+.profile-heading p {
+    margin: 0;
+
+    color: #777777;
+    font-size: 15px;
+}
+
+
+/* =====================================================
+   PROFILE CARD
+===================================================== */
+
+.profile-card {
+    background: #ffffff;
+
+    border-radius: 18px;
+
+    padding: 40px;
+
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.08);
+
+    border: 1px solid #eeeeee;
+}
+
+
+/* =====================================================
+   PROFILE ICON
+===================================================== */
+
+.profile-icon {
+    width: 82px;
+    height: 82px;
+
+    margin: 0 auto 30px;
+
+    border-radius: 50%;
+
+    background: #4da8c5;
+
+    color: #ffffff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 32px;
+    font-weight: 800;
+
+    box-shadow:
+        0 8px 20px rgba(77, 168, 197, 0.25);
+}
+
+
+/* =====================================================
+   PROFILE DETAILS
+===================================================== */
+
+.profile-details {
+    width: 100%;
+}
+
+.profile-row {
+    display: flex;
+    align-items: center;
+
+    min-height: 62px;
+
+    border-bottom: 1px solid #eeeeee;
+}
+
+.profile-row:last-child {
+    border-bottom: none;
+}
+
+.label {
+    width: 180px;
+
+    color: #777777;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.value {
+    flex: 1;
+
+    color: #263238;
+
+    font-size: 15px;
+}
+
+
+/* =====================================================
+   ROLE
+===================================================== */
+
+.role-badge {
+    display: inline-block;
+
+    padding: 6px 13px;
+
+    border-radius: 20px;
+
+    background: #f2f9fb;
+    color: #4da8c5;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   PROFILE ACTIONS
+===================================================== */
+
+.profile-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 30px;
+}
+
+
+/* =====================================================
+   EDIT BUTTON
+===================================================== */
+
+.edit-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 150px;
+    height: 46px;
+
+    padding: 0 22px;
+
+    border: none;
+    border-radius: 23px;
+
+    background: #ef946d;
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    text-decoration: none;
+    cursor: pointer;
+
+    box-shadow:
+        0 7px 18px rgba(239, 148, 109, 0.22);
+
+    transition: all 0.25s ease;
+}
+
+.edit-button:hover {
+    background: #e57e53;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 22px rgba(239, 148, 109, 0.30);
+}
+
+
+/* =====================================================
+   BACK BUTTON
+===================================================== */
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 150px;
+    height: 46px;
+
+    padding: 0 22px;
+
+    border-radius: 23px;
+
+    background: #f2f9fb;
+
+    color: #4da8c5;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    text-decoration: none;
+
+    transition: all 0.25s ease;
+}
+
+.back-button:hover {
+    background: #e3f3f7;
+    transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   EDIT FORM
+===================================================== */
+
+.profile-form {
+    width: 100%;
+}
+
+.profile-form label {
+    display: block;
+
+    margin: 0 0 8px;
+
+    color: #444444;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.profile-form input,
+.profile-form textarea {
+    width: 100%;
+
+    border: 1px solid #dddddd;
+
+    border-radius: 9px;
+
+    background: #fafafa;
+
+    color: #263238;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-size: 15px;
+
+    outline: none;
+
+    transition: 0.25s ease;
+}
+
+.profile-form input {
+    height: 48px;
+
+    padding: 0 15px;
+
+    margin-bottom: 20px;
+}
+
+.profile-form textarea {
+    padding: 13px 15px;
+
+    resize: vertical;
+
+    margin-bottom: 8px;
+}
+
+.profile-form input:focus,
+.profile-form textarea:focus {
+    background: #ffffff;
+
+    border-color: #4da8c5;
+
+    box-shadow:
+        0 0 0 3px rgba(77, 168, 197, 0.12);
+}
+
+.profile-form input:disabled {
+    background: #eeeeee;
+    color: #777777;
+    cursor: not-allowed;
+}
+
+.profile-form small {
+    display: block;
+
+    margin-top: -3px;
+    margin-bottom: 20px;
+
+    color: #999999;
+
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   SAVE BUTTON
+===================================================== */
+
+.save-button {
+    min-width: 150px;
+    height: 46px;
+
+    padding: 0 22px;
+
+    border: none;
+    border-radius: 23px;
+
+    background: #4da8c5;
+
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+}
+
+.save-button:hover {
+    background: #3d96b2;
+
+    transform: translateY(-2px);
+}
+
+
+/* =====================================================
+   CANCEL BUTTON
+===================================================== */
+
+.cancel-button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 150px;
+    height: 46px;
+
+    padding: 0 22px;
+
+    border-radius: 23px;
+
+    background: #eeeeee;
+
+    color: #555555;
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    transition: 0.25s ease;
+}
+
+.cancel-button:hover {
+    background: #dddddd;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.site-footer {
+    width: 100%;
+
+    background: #263238;
+
+    color: #d7dfe2;
+
+    margin-top: auto;
+}
+
+.footer-container {
+    width: 92%;
+    max-width: 1300px;
+
+    margin: 0 auto;
+
+    padding: 45px 0;
+
+    display: grid;
+
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+
+    gap: 60px;
+}
+
+.footer-column {
+    min-width: 0;
+}
+
+.footer-brand h2 {
+    margin: 0 0 10px;
+
+    color: #ffffff;
+
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.footer-brand h2 span {
+    color: #ef946d;
+}
+
+.footer-tagline {
+    color: #ef946d;
+
+    font-size: 16px;
+
+    margin: 0 0 18px;
+}
+
+.footer-description {
+    max-width: 370px;
+
+    color: #d1d9dc;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+
+    margin: 0;
+}
+
+.footer-column h3 {
+    color: #ffffff;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    margin: 0 0 20px;
+}
+
+.footer-column a {
+    display: block;
+
+    color: #cbd4d8;
+
+    text-decoration: none;
+
+    font-size: 15px;
+
+    margin-bottom: 13px;
+
+    transition: 0.25s ease;
+}
+
+.footer-column a:hover {
+    color: #ef946d;
+}
+
+
+/* =====================================================
+   FOOTER BOTTOM
+===================================================== */
+
+.footer-bottom {
+    width: 100%;
+
+    border-top: 1px solid #39464b;
+
+    text-align: center;
+
+    padding: 20px 15px;
+}
+
+.footer-bottom p {
+    margin: 0;
+
+    color: #cbd4d8;
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 700px) {
+
+    .header-container {
+        flex-direction: column;
+
+        gap: 12px;
+
+        padding: 15px 0;
+    }
+
+    .profile-card {
+        padding: 30px 22px;
+    }
+
+    .profile-row {
+        display: block;
+
+        padding: 15px 0;
+    }
+
+    .label {
+        display: block;
+
+        width: 100%;
+
+        margin-bottom: 6px;
+    }
+
+    .profile-actions {
+        flex-direction: column;
+    }
+
+    .edit-button,
+    .back-button,
+    .save-button,
+    .cancel-button {
+        width: 100%;
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr;
+
+        gap: 30px;
+    }
+}

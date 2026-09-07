@@ -1,0 +1,58 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Delete Product - happiShoppi</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/vendor_dashboard.css' %}">
+
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+
+        <div class="no-products">
+
+            <h2>Delete Product</h2>
+
+            <p>
+                Are you sure you want to delete
+                <strong>{{ product.product_name }}</strong>?
+            </p>
+
+            <p>
+                This action cannot be undone.
+            </p>
+
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <button type="submit">
+                    Yes, Delete Product
+                </button>
+
+                <a href="{% url 'vendor_dashboard' %}">
+                    Cancel
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,1061 @@
+{% load static %}
+
+{% get_media_prefix as MEDIA_URL %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Vendor Orders - happiShoppi</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/vendor_dashboard.css' %}">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="site-header">
+
+    <div class="header-container">
+
+        <a href="{% url 'home' %}"
+           class="logo">
+
+            happi<span>Shoppi</span>
+
+        </a>
+
+
+        <div class="header-right">
+
+            <span class="welcome-text">
+
+                Welcome, {{ vendor.name }}
+
+            </span>
+
+
+            <a href="{% url 'home' %}"
+               class="home-button">
+
+                Home
+
+            </a>
+
+
+            <a href="{% url 'logout' %}"
+               class="logout-button">
+
+                Logout
+
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     DASHBOARD LAYOUT
+===================================================== -->
+
+<div class="dashboard-layout">
+
+
+    <!-- =================================================
+         SIDEBAR
+    ================================================== -->
+
+    <aside class="sidebar">
+
+
+        <!-- VENDOR PROFILE -->
+
+        <div class="sidebar-profile">
+
+            <div class="profile-avatar">
+
+                {{ vendor.name|first|upper }}
+
+            </div>
+
+
+            <div class="sidebar-profile-info">
+
+                <h3>
+                    {{ vendor.name }}
+                </h3>
+
+                <span>
+                    Vendor
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- SIDEBAR MENU -->
+
+        <nav class="sidebar-menu">
+
+
+            <!-- DASHBOARD -->
+
+            <a href="{% url 'vendor_dashboard' %}"
+               class="sidebar-link">
+
+                <span class="sidebar-icon">
+                    ⌂
+                </span>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+
+            <!-- PRODUCTS -->
+
+            <a href="{% url 'vendor_dashboard' %}"
+               class="sidebar-link">
+
+                <span class="sidebar-icon">
+                    ▣
+                </span>
+
+                <span>
+                    My Products
+                </span>
+
+            </a>
+
+
+
+            <!-- ADD PRODUCT -->
+
+            <a href="{% url 'add_product' %}"
+               class="sidebar-link">
+
+                <span class="sidebar-icon">
+                    ＋
+                </span>
+
+                <span>
+                    Add Product
+                </span>
+
+            </a>
+
+
+
+            <!-- ORDERS -->
+
+            <a href="{% url 'vendor_orders' %}"
+               class="sidebar-link active">
+
+                <span class="sidebar-icon">
+                    🛒
+                </span>
+
+                <span>
+                    Orders
+                </span>
+
+                <span class="menu-badge">
+
+                    {{ order_items|length }}
+
+                </span>
+
+            </a>
+
+
+
+            <!-- NOTIFICATIONS -->
+
+            <a href="{% url 'vendor_notifications' %}"
+               class="sidebar-link">
+
+                <span class="sidebar-icon">
+                    🔔
+                </span>
+
+                <span>
+                    Notifications
+                </span>
+
+                <span class="menu-badge notification-badge">
+
+                    {{ notification_count }}
+
+                </span>
+
+            </a>
+
+
+
+            <!-- PROFILE -->
+
+            <a href="{% url 'vendor_profile' %}"
+               class="sidebar-link">
+
+                <span class="sidebar-icon">
+                    ◉
+                </span>
+
+                <span>
+                    My Profile
+                </span>
+
+            </a>
+
+
+
+            <div class="sidebar-divider"></div>
+
+
+
+            <!-- HOME -->
+
+            <a href="{% url 'home' %}"
+               class="sidebar-link">
+
+                <span class="sidebar-icon">
+                    ⌂
+                </span>
+
+                <span>
+                    Visit Store
+                </span>
+
+            </a>
+
+
+
+            <!-- LOGOUT -->
+
+            <a href="{% url 'logout' %}"
+               class="sidebar-link logout-link">
+
+                <span class="sidebar-icon">
+                    ↪
+                </span>
+
+                <span>
+                    Logout
+                </span>
+
+            </a>
+
+
+        </nav>
+
+
+
+        <!-- SIDEBAR HELP -->
+
+        <div class="sidebar-help">
+
+            <div class="help-icon">
+                ?
+            </div>
+
+            <div>
+
+                <strong>
+                    Vendor Support
+                </strong>
+
+                <p>
+                    Manage your store easily.
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- =================================================
+         MAIN CONTENT
+    ================================================== -->
+
+    <main class="dashboard-main">
+
+
+        <!-- PAGE HEADING -->
+
+        <div class="page-heading">
+
+            <div>
+
+                <span class="page-label">
+
+                    ORDER MANAGEMENT
+
+                </span>
+
+
+                <h1>
+
+                    Vendor Orders
+
+                </h1>
+
+
+                <p>
+
+                    View and manage orders containing
+                    products from your store.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             ORDERS
+        ================================================== -->
+
+        <section class="products-section">
+
+
+            {% if order_items %}
+
+
+                <div class="orders-container">
+
+
+                    <!-- GROUP ITEMS BY ORDER -->
+
+                    {% regroup order_items by order as grouped_orders %}
+
+
+                    {% for group in grouped_orders %}
+
+
+                        <!-- =================================================
+                             ORDER CARD
+                        ================================================= -->
+
+                        <div class="order-card">
+
+
+                            <!-- =================================================
+                                 ORDER HEADER
+                            ================================================= -->
+
+                            <div class="order-header">
+
+
+                                <div>
+
+                                    <span class="section-label">
+
+                                        ORDER #{{ group.grouper.id }}
+
+                                    </span>
+
+
+                                    <h2>
+
+                                        Customer Order
+
+                                    </h2>
+
+                                </div>
+
+
+                                <div class="order-summary-status">
+
+                                    {{ group.list|length }}
+
+                                    Product{% if group.list|length != 1 %}s{% endif %}
+
+                                </div>
+
+
+                            </div>
+
+
+
+                            <!-- =================================================
+                                 ORDER INFORMATION
+                            ================================================= -->
+
+                            <div class="order-details">
+
+
+                                <!-- CUSTOMER -->
+
+                                <div class="order-detail">
+
+                                    <span>
+                                        Customer
+                                    </span>
+
+                                    <strong>
+
+                                        {{ group.grouper.customer.name }}
+
+                                    </strong>
+
+                                </div>
+
+
+
+                                <!-- ORDER DATE -->
+
+                                <div class="order-detail">
+
+                                    <span>
+                                        Order Date
+                                    </span>
+
+                                    <strong>
+
+                                        {{ group.grouper.created_at|date:"d M Y, h:i A" }}
+
+                                    </strong>
+
+                                </div>
+
+
+
+                                <!-- SHIPPING ADDRESS -->
+
+                                <div class="order-detail">
+
+                                    <span>
+                                        Shipping Address
+                                    </span>
+
+                                    <strong>
+
+                                        {{ group.grouper.shipping_address }}
+
+                                    </strong>
+
+                                </div>
+
+
+
+                                <!-- PAYMENT -->
+
+                                <div class="order-detail">
+
+                                    <span>
+                                        Payment
+                                    </span>
+
+                                    <strong>
+
+                                        Cash on Delivery
+
+                                    </strong>
+
+                                </div>
+
+
+                            </div>
+
+
+
+                            <!-- =================================================
+                                 PRODUCTS FROM THIS VENDOR
+                            ================================================= -->
+
+                            <div class="order-products">
+
+
+                                <h3>
+
+                                    Products From Your Store
+
+                                </h3>
+
+
+
+                                <!-- =============================================
+                                     EACH PRODUCT
+                                ============================================== -->
+
+                                {% for item in group.list %}
+
+
+                                    <div class="order-product">
+
+
+                                        <!-- =====================================
+                                             PRODUCT IMAGE
+                                        ====================================== -->
+
+                                        <div class="vendor-product-image">
+
+
+                                            {% if item.product.product_image %}
+
+                                                <img
+                                                    src="{{ MEDIA_URL }}{{ item.product.product_image }}"
+                                                    alt="{{ item.product.product_name }}"
+                                                >
+
+                                            {% else %}
+
+                                                <div class="no-product-image">
+
+                                                    No Image
+
+                                                </div>
+
+                                            {% endif %}
+
+
+                                        </div>
+
+
+
+                                        <!-- =====================================
+                                             PRODUCT DETAILS
+                                        ====================================== -->
+
+                                        <div class="vendor-product-details">
+
+
+                                            <h3>
+
+                                                {{ item.product.product_name }}
+
+                                            </h3>
+
+
+                                            <p>
+
+                                                Quantity:
+                                                {{ item.quantity }}
+
+                                            </p>
+
+
+                                            <strong class="vendor-product-price">
+
+                                                ₹{{ item.price }}
+
+                                            </strong>
+
+
+                                        </div>
+
+
+
+                                        <!-- =====================================
+                                             PRODUCT STATUS
+                                        ====================================== -->
+
+                                        <div class="vendor-product-status">
+
+
+                                            <span class="status-label">
+
+                                                Product Status
+
+                                            </span>
+
+
+
+                                            {% if item.item_status == 'PENDING' %}
+
+                                                <span class="item-status status-pending">
+
+                                                    Pending
+
+                                                </span>
+
+
+                                            {% elif item.item_status == 'CONFIRMED' %}
+
+                                                <span class="item-status status-confirmed">
+
+                                                    Confirmed
+
+                                                </span>
+
+
+                                            {% elif item.item_status == 'PROCESSING' %}
+
+                                                <span class="item-status status-processing">
+
+                                                    Processing
+
+                                                </span>
+
+
+                                            {% elif item.item_status == 'SHIPPED' %}
+
+                                                <span class="item-status status-shipped">
+
+                                                    Shipped
+
+                                                </span>
+
+
+                                            {% elif item.item_status == 'DELIVERED' %}
+
+                                                <span class="item-status status-delivered">
+
+                                                    Delivered
+
+                                                </span>
+
+
+                                            {% elif item.item_status == 'CANCELLED' %}
+
+                                                <span class="item-status status-cancelled">
+
+                                                    Cancelled
+
+                                                </span>
+
+
+                                            {% else %}
+
+                                                <span class="item-status">
+
+                                                    {{ item.item_status }}
+
+                                                </span>
+
+                                            {% endif %}
+
+
+                                        </div>
+
+
+
+                                        <!-- =====================================
+                                             ACTION BUTTON
+                                        ====================================== -->
+
+                                        <div class="vendor-product-action">
+
+
+                                            <!-- =================================
+                                                 PENDING
+                                                 Vendor must CONFIRM first
+                                            ================================== -->
+
+                                            {% if item.item_status == 'PENDING' %}
+
+
+                                                <form
+                                                    method="POST"
+                                                    action="{% url 'vendor_orders' %}"
+                                                >
+
+                                                    {% csrf_token %}
+
+
+                                                    <input
+                                                        type="hidden"
+                                                        name="item_id"
+                                                        value="{{ item.id }}"
+                                                    >
+
+
+                                                    <button type="submit">
+
+                                                        Confirm Order
+
+                                                    </button>
+
+                                                </form>
+
+
+                                            <!-- =================================
+                                                 CONFIRMED
+                                                 Now vendor can start processing
+                                            ================================== -->
+
+                                            {% elif item.item_status == 'CONFIRMED' %}
+
+
+                                                <form
+                                                    method="POST"
+                                                    action="{% url 'update_vendor_order_status' item.id %}"
+                                                >
+
+                                                    {% csrf_token %}
+
+
+                                                    <input
+                                                        type="hidden"
+                                                        name="status"
+                                                        value="PROCESSING"
+                                                    >
+
+
+                                                    <button type="submit">
+
+                                                        Start Processing
+
+                                                    </button>
+
+                                                </form>
+
+
+                                            <!-- =================================
+                                                 PROCESSING
+                                                 Vendor can ship
+                                            ================================== -->
+
+                                            {% elif item.item_status == 'PROCESSING' %}
+
+
+                                                <form
+                                                    method="POST"
+                                                    action="{% url 'update_vendor_order_status' item.id %}"
+                                                >
+
+                                                    {% csrf_token %}
+
+
+                                                    <input
+                                                        type="hidden"
+                                                        name="status"
+                                                        value="SHIPPED"
+                                                    >
+
+
+                                                    <button type="submit">
+
+                                                        Mark as Shipped
+
+                                                    </button>
+
+                                                </form>
+
+
+                                            <!-- =================================
+                                                 SHIPPED
+                                                 Vendor can mark delivered
+                                            ================================== -->
+
+                                            {% elif item.item_status == 'SHIPPED' %}
+
+
+                                                <form
+                                                    method="POST"
+                                                    action="{% url 'update_vendor_order_status' item.id %}"
+                                                >
+
+                                                    {% csrf_token %}
+
+
+                                                    <input
+                                                        type="hidden"
+                                                        name="status"
+                                                        value="DELIVERED"
+                                                    >
+
+
+                                                    <button type="submit">
+
+                                                        Mark as Delivered
+
+                                                    </button>
+
+                                                </form>
+
+
+                                            <!-- =================================
+                                                 DELIVERED
+                                            ================================== -->
+
+                                            {% elif item.item_status == 'DELIVERED' %}
+
+
+                                                <span class="completed-status">
+
+                                                    ✓ Delivered
+
+                                                </span>
+
+
+                                            <!-- =================================
+                                                 CANCELLED BY CUSTOMER
+                                            ================================== -->
+
+                                            {% elif item.item_status == 'CANCELLED' %}
+
+
+                                                <span class="completed-status">
+
+                                                    ✕ Cancelled by Customer
+
+                                                </span>
+
+
+                                            {% endif %}
+
+
+                                        </div>
+
+
+                                    </div>
+
+
+                                {% endfor %}
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    {% endfor %}
+
+
+                </div>
+
+
+            {% else %}
+
+
+                <!-- =================================================
+                     NO ORDERS
+                ================================================== -->
+
+                <div class="no-products">
+
+
+                    <div class="empty-icon">
+
+                        🛒
+
+                    </div>
+
+
+                    <h3>
+
+                        No Orders Yet
+
+                    </h3>
+
+
+                    <p>
+
+                        You don't have any customer orders
+                        containing your products.
+
+                    </p>
+
+
+                    <a
+                        href="{% url 'vendor_dashboard' %}"
+                        class="add-product-button"
+                    >
+
+                        ← Back to Dashboard
+
+                    </a>
+
+
+                </div>
+
+
+            {% endif %}
+
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="site-footer">
+
+
+    <div class="footer-container">
+
+
+        <!-- BRAND -->
+
+        <div class="footer-column footer-brand">
+
+            <h2>
+
+                happi<span>Shoppi</span>
+
+            </h2>
+
+
+            <p class="footer-tagline">
+
+                Your Happiness, Delivered.
+
+            </p>
+
+
+            <p class="footer-description">
+
+                A multi-vendor marketplace where customers
+                discover products from multiple trusted sellers.
+
+            </p>
+
+        </div>
+
+
+
+        <!-- QUICK LINKS -->
+
+        <div class="footer-column">
+
+            <h3>
+                Quick Links
+            </h3>
+
+
+            <a href="{% url 'home' %}">
+                Home
+            </a>
+
+
+            <a href="{% url 'vendor_dashboard' %}">
+                Dashboard
+            </a>
+
+
+            <a href="{% url 'add_product' %}">
+                Add Product
+            </a>
+
+
+            <a href="{% url 'logout' %}">
+                Logout
+            </a>
+
+        </div>
+
+
+
+        <!-- VENDOR -->
+
+        <div class="footer-column">
+
+            <h3>
+                Vendor
+            </h3>
+
+
+            <a href="{% url 'vendor_dashboard' %}">
+                My Products
+            </a>
+
+
+            <a href="{% url 'vendor_orders' %}">
+                Orders
+            </a>
+
+
+            <a href="#">
+                Notifications
+            </a>
+
+
+            <a href="{% url 'vendor_profile' %}">
+                My Profile
+            </a>
+
+        </div>
+
+
+
+        <!-- SHOPPING -->
+
+        <div class="footer-column">
+
+            <h3>
+                happiShoppi
+            </h3>
+
+
+            <a href="{% url 'about' %}">
+                About Us
+            </a>
+
+
+            <a href="#">
+                Multiple Vendors
+            </a>
+
+
+            <a href="#">
+                Wide Range of Products
+            </a>
+
+
+            <a href="#">
+                Secure Shopping
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- COPYRIGHT -->
+
+    <div class="footer-bottom">
+
+        <p>
+
+            © 2026 happiShoppi. All rights reserved.
+
+        </p>
+
+    </div>
+
+
+</footer>
+
+
+</body>
+
+</html>

@@ -1,0 +1,740 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Vendor Dashboard - happiShoppi</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/vendor_dashboard.css' %}">
+
+</head>
+
+
+<body>
+<!-- =====================================================
+     DJANGO MESSAGES
+===================================================== -->
+
+{% if messages %}
+
+    <div class="dashboard-alert-container">
+
+        {% for message in messages %}
+
+            <div class="dashboard-alert {{ message.tags }}">
+
+                <div class="alert-icon">
+
+                    {% if message.tags == 'error' %}
+                        ⚠
+                    {% elif message.tags == 'success' %}
+                        ✓
+                    {% else %}
+                        ℹ
+                    {% endif %}
+
+                </div>
+
+                <div class="alert-content">
+
+                    <strong>
+                        {% if message.tags == 'error' %}
+                            Action Failed
+                        {% elif message.tags == 'success' %}
+                            Success
+                        {% else %}
+                            Notice
+                        {% endif %}
+                    </strong>
+
+                    <span>
+                        {{ message }}
+                    </span>
+
+                </div>
+
+                <button
+                    type="button"
+                    class="alert-close"
+                    onclick="this.parentElement.remove()"
+                >
+                    ×
+                </button>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+{% endif %} 
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="site-header">
+
+    <div class="header-container">
+
+
+        <!-- LOGO -->
+
+        <a href="{% url 'home' %}" class="logo">
+
+            happi<span>Shoppi</span>
+
+        </a>
+
+
+        <!-- HEADER RIGHT -->
+
+        <div class="header-right">
+
+            <span class="welcome-text">
+
+                Welcome, {{ vendor.name }}
+
+            </span>
+
+
+            <a href="{% url 'home' %}"
+               class="home-button">
+
+                Home
+
+            </a>
+
+
+            <a href="{% url 'logout' %}"
+               class="logout-button">
+
+                Logout
+
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     DASHBOARD LAYOUT
+===================================================== -->
+
+<div class="dashboard-layout">
+
+
+    <!-- =================================================
+         SIDEBAR
+    ================================================== -->
+
+    <aside class="sidebar">
+
+
+        <!-- VENDOR PROFILE MINI CARD -->
+
+        <div class="sidebar-profile">
+
+            <div class="profile-avatar">
+
+                {{ vendor.name|first|upper }}
+
+            </div>
+
+
+            <div class="sidebar-profile-info">
+
+                <h3>
+                    {{ vendor.name }}
+                </h3>
+
+                <span>
+                    Vendor
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- SIDEBAR MENU -->
+
+        <nav class="sidebar-menu">
+
+
+            <!-- DASHBOARD -->
+
+            <a href="{% url 'vendor_dashboard' %}"
+               class="sidebar-link active">
+
+                <span class="sidebar-icon">⌂</span>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+
+            <!-- PRODUCTS -->
+
+            <a href="{% url 'vendor_dashboard' %}"
+               class="sidebar-link">
+
+                <span class="sidebar-icon">▣</span>
+
+                <span>
+                    My Products
+                </span>
+
+            </a>
+
+
+
+            <!-- ADD PRODUCT -->
+
+            <a href="{% url 'add_product' %}"
+               class="sidebar-link">
+
+                <span class="sidebar-icon">＋</span>
+
+                <span>
+                    Add Product
+                </span>
+
+            </a>
+
+
+
+            <!-- =================================================
+                 ORDERS
+            ================================================== -->
+
+            <a href="{% url 'vendor_orders' %}"
+               class="sidebar-link">
+
+                <span class="sidebar-icon">🛒</span>
+
+                <span>
+                    Orders
+                </span>
+
+
+                {% if new_order_count > 0 %}
+
+                    <span class="menu-badge">
+                        {{ new_order_count }}
+                    </span>
+
+                {% endif %}
+
+            </a>
+
+
+
+            <!-- =================================================
+                 NOTIFICATIONS
+            ================================================== -->
+
+            <a href="{% url 'vendor_notifications' %}"
+               class="sidebar-link">
+
+                <span class="sidebar-icon">🔔</span>
+
+                <span>
+                    Notifications
+                </span>
+
+
+                {% if notification_count > 0 %}
+
+                    <span class="menu-badge notification-badge">
+                        {{ notification_count }}
+                    </span>
+
+                {% endif %}
+
+            </a>
+
+
+
+            <!-- PROFILE -->
+
+            <a href="{% url 'vendor_profile' %}"
+               class="sidebar-link">
+
+                <span class="sidebar-icon">◉</span>
+
+                <span>
+                    My Profile
+                </span>
+
+            </a>
+
+
+
+            <div class="sidebar-divider"></div>
+
+
+
+            <!-- HOME -->
+
+            <a href="{% url 'home' %}"
+               class="sidebar-link">
+
+                <span class="sidebar-icon">⌂</span>
+
+                <span>
+                    Visit Store
+                </span>
+
+            </a>
+
+
+
+            <!-- LOGOUT -->
+
+            <a href="{% url 'logout' %}"
+               class="sidebar-link logout-link">
+
+                <span class="sidebar-icon">↪</span>
+
+                <span>
+                    Logout
+                </span>
+
+            </a>
+
+        </nav>
+
+
+
+        <!-- SIDEBAR BOTTOM -->
+
+        <div class="sidebar-help">
+
+            <div class="help-icon">
+                ?
+            </div>
+
+            <div>
+
+                <strong>
+                    Vendor Support
+                </strong>
+
+                <p>
+                    Manage your store easily.
+                </p>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =================================================
+         MAIN DASHBOARD
+    ================================================== -->
+
+    <main class="dashboard-main">
+
+
+        <!-- PAGE HEADING -->
+
+        <div class="page-heading">
+
+            <div>
+
+                <span class="page-label">
+                    VENDOR PANEL
+                </span>
+
+                <h1>
+                    Vendor Dashboard
+                </h1>
+
+                <p>
+                    Manage your products, orders and store activity.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             PRODUCTS
+        ================================================== -->
+
+        <section class="products-section">
+
+
+            <div class="section-heading products-heading">
+
+
+                <div>
+
+                    <span class="section-label">
+                        STORE MANAGEMENT
+                    </span>
+
+                    <h2>
+                        My Products
+                    </h2>
+
+                    <p>
+                        Manage products added by your vendor account.
+                    </p>
+
+                </div>
+
+
+                <a href="{% url 'add_product' %}"
+                   class="add-product-button">
+
+                    <span>＋</span>
+
+                    Add Product
+
+                </a>
+
+            </div>
+
+
+
+            {% if products %}
+
+
+                <div class="product-grid">
+
+
+                    {% for product in products %}
+
+
+                        <div class="product-card">
+
+
+                            <!-- IMAGE -->
+
+                            <div class="product-image">
+
+                                {% if product.product_image %}
+
+                                    <img
+                                        src="/media/{{ product.product_image }}"
+                                        alt="{{ product.product_name }}"
+                                    >
+
+                                {% else %}
+
+                                    <div class="image-placeholder">
+
+                                        <span>
+                                            📦
+                                        </span>
+
+                                        <p>
+                                            No Image
+                                        </p>
+
+                                    </div>
+
+                                {% endif %}
+
+                            </div>
+
+
+
+                            <!-- CONTENT -->
+
+                            <div class="product-content">
+
+
+                                <span class="category-name">
+
+                                    {{ product.category.category_name }}
+
+                                </span>
+
+
+                                <h3>
+                                    {{ product.product_name }}
+                                </h3>
+
+
+                                <p class="description">
+
+                                    {% if product.description %}
+
+                                        {{ product.description }}
+
+                                    {% else %}
+
+                                        No description available.
+
+                                    {% endif %}
+
+                                </p>
+
+
+
+                                <div class="product-info">
+
+                                    <span class="price">
+
+                                        ₹{{ product.price }}
+
+                                    </span>
+
+
+                                    <span class="stock">
+
+                                        Stock:
+                                        {{ product.stock_quantity }}
+
+                                    </span>
+
+                                </div>
+
+
+
+                                <!-- ACTIONS -->
+
+                                <div class="product-actions">
+
+
+                                    <a
+                                        href="{% url 'view_product' product.id %}"
+                                        class="view-btn"
+                                    >
+
+                                        View
+
+                                    </a>
+
+
+                                    <a
+                                        href="{% url 'edit_product' product.id %}"
+                                        class="update-btn"
+                                    >
+
+                                        Update
+
+                                    </a>
+
+
+                                    <a
+                                        href="{% url 'delete_product' product.id %}"
+                                        class="delete-btn"
+                                    >
+
+                                        Delete
+
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    {% endfor %}
+
+                </div>
+
+
+            {% else %}
+
+
+                <div class="no-products">
+
+                    <div class="empty-icon">
+                        📦
+                    </div>
+
+                    <h3>
+                        No Products Yet
+                    </h3>
+
+                    <p>
+                        You have not added any products.
+                    </p>
+
+                    <a
+                        href="{% url 'add_product' %}"
+                        class="add-product-button"
+                    >
+
+                        ＋ Add Your First Product
+
+                    </a>
+
+                </div>
+
+
+            {% endif %}
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="site-footer">
+
+
+    <div class="footer-container">
+
+
+        <!-- BRAND -->
+
+        <div class="footer-column footer-brand">
+
+            <h2>
+                happi<span>Shoppi</span>
+            </h2>
+
+            <p class="footer-tagline">
+                Your Happiness, Delivered.
+            </p>
+
+            <p class="footer-description">
+
+                A multi-vendor marketplace where customers
+                discover products from multiple trusted sellers.
+
+            </p>
+
+        </div>
+
+
+
+        <!-- QUICK LINKS -->
+
+        <div class="footer-column">
+
+            <h3>
+                Quick Links
+            </h3>
+
+            <a href="{% url 'home' %}">
+                Home
+            </a>
+
+            <a href="{% url 'vendor_dashboard' %}">
+                Dashboard
+            </a>
+
+            <a href="{% url 'add_product' %}">
+                Add Product
+            </a>
+
+            <a href="{% url 'logout' %}">
+                Logout
+            </a>
+
+        </div>
+
+
+
+        <!-- VENDOR -->
+
+        <div class="footer-column">
+
+            <h3>
+                Vendor
+            </h3>
+
+            <a href="{% url 'vendor_dashboard' %}">
+                My Products
+            </a>
+
+            <a href="{% url 'vendor_orders' %}">
+                Orders
+            </a>
+
+            <a href="{% url 'vendor_notifications' %}">
+                Notifications
+            </a>
+
+            <a href="{% url 'vendor_profile' %}">
+                My Profile
+            </a>
+
+        </div>
+
+
+
+        <!-- SHOPPING -->
+
+        <div class="footer-column">
+
+            <h3>
+                happiShoppi
+            </h3>
+
+            <a href="{% url 'about' %}">
+                About Us
+            </a>
+
+            <a href="#">
+                Multiple Vendors
+            </a>
+
+            <a href="#">
+                Wide Range of Products
+            </a>
+
+            <a href="#">
+                Secure Shopping
+            </a>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- COPYRIGHT -->
+
+    <div class="footer-bottom">
+
+        <p>
+            © 2026 happiShoppi. All rights reserved.
+        </p>
+
+    </div>
+
+</footer>
+
+
+</body>
+
+</html>

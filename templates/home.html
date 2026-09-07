@@ -1,0 +1,1107 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>happiShoppi - Online Shopping</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/home.css' %}">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="site-header">
+
+    <div class="header-container">
+
+
+        <!-- LOGO -->
+
+        <a href="{% url 'home' %}"
+           class="logo">
+
+            happi<span>Shoppi</span>
+
+        </a>
+
+
+        <!-- SEARCH -->
+
+        <form method="GET"
+              action="{% url 'home' %}"
+              class="search-form">
+
+            <span class="search-icon">
+                ⌕
+            </span>
+
+            <input
+                type="text"
+                name="q"
+                value="{{ search_query }}"
+                placeholder="Search products or categories..."
+                autocomplete="off">
+
+            <button type="submit">
+                Search
+            </button>
+
+        </form>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="navbar">
+
+            <a href="{% url 'home' %}"
+               class="nav-link active">
+
+                Home
+
+            </a>
+
+
+            <a href="{% url 'about' %}"
+               class="nav-link">
+
+                About
+
+            </a>
+
+
+            <a href="{% url 'login' %}"
+               class="nav-link">
+
+                Login
+
+            </a>
+
+
+            <a href="{% url 'signup' %}"
+               class="signup-button">
+
+                Sign Up
+
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN CONTENT
+===================================================== -->
+
+<main class="home-content">
+
+
+
+    <!-- =================================================
+         HERO SECTION
+    ================================================== -->
+
+    <section class="hero-section">
+
+        <div class="hero-content">
+
+            <p class="welcome-text">
+
+                WELCOME TO HAPPISHOPPI
+
+            </p>
+
+
+            <h1>
+
+                Discover More.
+                <span>Shop Happier.</span>
+
+            </h1>
+
+
+            <p class="hero-description">
+
+                Explore fashion, beauty, electronics,
+                footwear and more from multiple trusted
+                vendors — all in one place.
+
+            </p>
+
+
+            <div class="hero-buttons">
+
+                <a href="#categories"
+                   class="primary-button">
+
+                    Explore Categories
+
+                </a>
+
+
+                <a href="{% url 'signup' %}"
+                   class="secondary-button">
+
+                    Create Account
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         CATEGORIES
+    ================================================== -->
+
+    <section class="categories-section"
+             id="categories">
+
+
+        <div class="section-heading">
+
+            <p>
+                EXPLORE
+            </p>
+
+            <h2>
+                Shop by Category
+            </h2>
+
+            <span>
+                Find everything you need in one place
+            </span>
+
+        </div>
+
+
+
+        <div class="category-grid">
+
+
+            {% for category in categories %}
+
+
+            <a href="{% url 'home' %}?category={{ category.id }}"
+               class="category-card">
+
+
+                <div class="category-icon">
+
+
+                    {% if category.category_name == "Men's Wear" %}
+
+                        👔
+
+                    {% elif category.category_name == "Women's Wear" %}
+
+                        👗
+
+                    {% elif category.category_name == "Footwear" %}
+
+                        👟
+
+                    {% elif category.category_name == "Beauty" %}
+
+                        💄
+
+                    {% elif category.category_name == "Electronics" %}
+
+                        📱
+
+                    {% elif category.category_name == "Accessories" %}
+
+                        👜
+
+                    {% else %}
+
+                        🛍️
+
+                    {% endif %}
+
+
+                </div>
+
+
+
+                <h3>
+
+                    {{ category.category_name }}
+
+                </h3>
+
+
+
+                {% if category.description %}
+
+                    <p>
+
+                        {{ category.description }}
+
+                    </p>
+
+                {% else %}
+
+                    <p>
+
+                        Explore now
+
+                    </p>
+
+                {% endif %}
+
+
+            </a>
+
+
+            {% empty %}
+
+
+            <div class="empty-message">
+
+                <h3>
+                    No categories available
+                </h3>
+
+                <p>
+
+                    Categories will appear here once
+                    they are added to the database.
+
+                </p>
+
+            </div>
+
+
+            {% endfor %}
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         SEARCH RESULT HEADING
+    ================================================== -->
+
+    {% if search_query %}
+
+    <section class="results-heading">
+
+        <p>
+            SEARCH RESULTS
+        </p>
+
+        <h2>
+
+            Results for "{{ search_query }}"
+
+        </h2>
+
+    </section>
+
+    {% endif %}
+
+
+
+    <!-- =================================================
+         PRODUCTS
+    ================================================== -->
+
+    <section class="products-section">
+
+
+        <div class="section-heading">
+
+
+            {% if search_query %}
+
+                <p>
+                    RESULTS
+                </p>
+
+                <h2>
+                    Products
+                </h2>
+
+
+            {% elif selected_category %}
+
+                <p>
+                    CATEGORY
+                </p>
+
+                <h2>
+                    Products
+                </h2>
+
+
+            {% else %}
+
+                <p>
+                    SHOP NOW
+                </p>
+
+                <h2>
+                    Featured Products
+                </h2>
+
+                <span>
+                    Discover products from our vendors
+                </span>
+
+            {% endif %}
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             PRODUCT GRID
+        ================================================== -->
+
+        <div class="product-grid">
+
+
+            {% for product in products %}
+
+
+            <!-- =================================================
+                 PRODUCT CARD
+            ================================================= -->
+
+            <a href="{% url 'login' %}"
+               class="product-card">
+
+
+                <!-- =========================================
+                     PRODUCT IMAGE
+                ========================================== -->
+
+                <div class="product-image">
+
+
+                    {% if product.product_image %}
+
+
+                        <img
+                            src="/media/{{ product.product_image }}"
+                            alt="{{ product.product_name }}">
+
+
+                    {% else %}
+
+
+                        <div class="product-placeholder">
+
+                            <span>
+                                🛍️
+                            </span>
+
+                        </div>
+
+
+                    {% endif %}
+
+
+                </div>
+
+
+
+                <!-- =========================================
+                     PRODUCT INFORMATION
+                ========================================== -->
+
+                <div class="product-info">
+
+
+                    <!-- CATEGORY -->
+
+                    <p class="product-category">
+
+                        {{ product.category_name }}
+
+                    </p>
+
+
+
+                    <!-- PRODUCT NAME -->
+
+                    <h3>
+
+                        {{ product.product_name }}
+
+                    </h3>
+
+
+
+                    <!-- DESCRIPTION -->
+
+                    {% if product.description %}
+
+                    <p class="product-description">
+
+                        {{ product.description|truncatechars:70 }}
+
+                    </p>
+
+                    {% endif %}
+
+
+
+                    <!-- =====================================
+                         PRODUCT REVIEW / RATING
+                    ====================================== -->
+
+                    <div class="product-rating">
+
+
+                        {% if product.review_count > 0 %}
+
+
+                            <!-- STAR RATING -->
+
+                            <div class="rating-stars">
+
+
+                                {% if product.average_rating >= 1 %}
+
+                                    <span class="star filled">
+                                        ★
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="star">
+                                        ★
+                                    </span>
+
+                                {% endif %}
+
+
+
+                                {% if product.average_rating >= 2 %}
+
+                                    <span class="star filled">
+                                        ★
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="star">
+                                        ★
+                                    </span>
+
+                                {% endif %}
+
+
+
+                                {% if product.average_rating >= 3 %}
+
+                                    <span class="star filled">
+                                        ★
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="star">
+                                        ★
+                                    </span>
+
+                                {% endif %}
+
+
+
+                                {% if product.average_rating >= 4 %}
+
+                                    <span class="star filled">
+                                        ★
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="star">
+                                        ★
+                                    </span>
+
+                                {% endif %}
+
+
+
+                                {% if product.average_rating >= 5 %}
+
+                                    <span class="star filled">
+                                        ★
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="star">
+                                        ★
+                                    </span>
+
+                                {% endif %}
+
+
+                            </div>
+
+
+
+                            <!-- AVERAGE RATING -->
+
+                            <span class="rating-value">
+
+                                {{ product.average_rating|floatformat:1 }}
+
+                            </span>
+
+
+
+                            <!-- REVIEW COUNT -->
+
+                            <span class="review-count">
+
+                                ({{ product.review_count }}
+
+                                {% if product.review_count == 1 %}
+
+                                    review
+
+                                {% else %}
+
+                                    reviews
+
+                                {% endif %})
+
+                            </span>
+
+
+                        {% else %}
+
+
+                            <!-- NO REVIEWS -->
+
+                            <div class="rating-stars">
+
+                                <span class="star">
+                                    ★
+                                </span>
+
+                                <span class="star">
+                                    ★
+                                </span>
+
+                                <span class="star">
+                                    ★
+                                </span>
+
+                                <span class="star">
+                                    ★
+                                </span>
+
+                                <span class="star">
+                                    ★
+                                </span>
+
+                            </div>
+
+
+                            <span class="no-review-text">
+
+                                No reviews yet
+
+                            </span>
+
+
+                        {% endif %}
+
+
+                    </div>
+
+
+
+                    <!-- =====================================
+                         PRODUCT PRICE / STOCK
+                    ====================================== -->
+
+                    <div class="product-bottom">
+
+
+                        <span class="product-price">
+
+                            ₹{{ product.price }}
+
+                        </span>
+
+
+
+                        {% if product.stock_quantity > 0 %}
+
+
+                            <span class="stock available">
+
+                                In Stock
+
+                            </span>
+
+
+                        {% else %}
+
+
+                            <span class="stock unavailable">
+
+                                Out of Stock
+
+                            </span>
+
+
+                        {% endif %}
+
+
+                    </div>
+
+
+                </div>
+
+
+            </a>
+
+
+            {% empty %}
+
+
+            <!-- =========================================
+                 NO PRODUCTS
+            ========================================== -->
+
+            <div class="empty-products">
+
+
+                <div class="empty-icon">
+                    🛍️
+                </div>
+
+
+                {% if search_query %}
+
+
+                    <h3>
+
+                        No products found
+
+                    </h3>
+
+
+                    <p>
+
+                        We couldn't find products matching
+                        "{{ search_query }}".
+
+                    </p>
+
+
+                    <a href="{% url 'home' %}">
+
+                        View All Products
+
+                    </a>
+
+
+                {% elif selected_category %}
+
+
+                    <h3>
+
+                        No products in this category
+
+                    </h3>
+
+
+                    <p>
+
+                        Products from this category will
+                        appear here.
+
+                    </p>
+
+
+                {% else %}
+
+
+                    <h3>
+
+                        No products available yet
+
+                    </h3>
+
+
+                    <p>
+
+                        Products added by vendors will
+                        appear here.
+
+                    </p>
+
+
+                {% endif %}
+
+
+            </div>
+
+
+            {% endfor %}
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         SHOPPING GUIDE
+    ================================================== -->
+
+    <section class="shopping-section">
+
+
+        <div class="section-heading">
+
+
+            <p>
+                SHOP SMART
+            </p>
+
+
+            <h2>
+                Everything You Need
+            </h2>
+
+
+            <span>
+
+                Explore popular products across our categories
+
+            </span>
+
+
+        </div>
+
+
+
+        <div class="shopping-grid">
+
+
+            <div class="shopping-card">
+
+                <span>👔</span>
+
+                <h3>
+                    Men's Wear
+                </h3>
+
+                <p>
+
+                    Shirts, jeans, T-shirts,
+                    kurtas and jackets.
+
+                </p>
+
+            </div>
+
+
+
+            <div class="shopping-card">
+
+                <span>👗</span>
+
+                <h3>
+                    Women's Wear
+                </h3>
+
+                <p>
+
+                    Ethnic wear, sarees,
+                    dresses and kurta sets.
+
+                </p>
+
+            </div>
+
+
+
+            <div class="shopping-card">
+
+                <span>👟</span>
+
+                <h3>
+                    Footwear
+                </h3>
+
+                <p>
+
+                    Flats, sandals, heels,
+                    sports shoes and slippers.
+
+                </p>
+
+            </div>
+
+
+
+            <div class="shopping-card">
+
+                <span>💄</span>
+
+                <h3>
+                    Beauty
+                </h3>
+
+                <p>
+
+                    Face care, makeup,
+                    hair products and soaps.
+
+                </p>
+
+            </div>
+
+
+
+            <div class="shopping-card">
+
+                <span>📱</span>
+
+                <h3>
+                    Electronics
+                </h3>
+
+                <p>
+
+                    Mobiles, watches,
+                    earbuds and laptops.
+
+                </p>
+
+            </div>
+
+
+
+            <div class="shopping-card">
+
+                <span>👜</span>
+
+                <h3>
+                    Accessories
+                </h3>
+
+                <p>
+
+                    Bags, sunglasses,
+                    home decor and more.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="site-footer">
+
+
+    <div class="footer-container">
+
+
+        <!-- FOOTER BRAND -->
+
+        <div class="footer-brand">
+
+
+            <h3>
+
+                happi<span>Shoppi</span>
+
+            </h3>
+
+
+            <p>
+
+                Your Happiness, Delivered.
+
+            </p>
+
+
+            <p class="footer-description">
+
+                A multi-vendor marketplace where
+                customers discover products from
+                multiple trusted sellers.
+
+            </p>
+
+
+        </div>
+
+
+
+        <!-- QUICK LINKS -->
+
+        <div class="footer-column">
+
+
+            <h4>
+                Quick Links
+            </h4>
+
+
+            <a href="{% url 'home' %}">
+                Home
+            </a>
+
+
+            <a href="{% url 'about' %}">
+                About
+            </a>
+
+
+            <a href="{% url 'login' %}">
+                Login
+            </a>
+
+
+            <a href="{% url 'signup' %}">
+                Sign Up
+            </a>
+
+
+        </div>
+
+
+
+        <!-- CATEGORIES -->
+
+        <div class="footer-column">
+
+
+            <h4>
+                Categories
+            </h4>
+
+
+            {% for category in categories|slice:":6" %}
+
+
+                <a href="{% url 'home' %}?category={{ category.id }}">
+
+                    {{ category.category_name }}
+
+                </a>
+
+
+            {% endfor %}
+
+
+        </div>
+
+
+
+        <!-- SHOPPING -->
+
+        <div class="footer-column">
+
+
+            <h4>
+                Shopping
+            </h4>
+
+
+            <p>
+                Multiple Vendors
+            </p>
+
+
+            <p>
+                Wide Range of Products
+            </p>
+
+
+            <p>
+                Easy Shopping
+            </p>
+
+
+            <p>
+                Secure Checkout
+            </p>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- FOOTER BOTTOM -->
+
+    <div class="footer-bottom">
+
+
+        <p>
+
+            © 2026 happiShoppi.
+            All rights reserved.
+
+        </p>
+
+
+    </div>
+
+
+</footer>
+
+
+
+<script src="{% static 'js/home.js' %}"></script>
+
+
+</body>
+
+</html>

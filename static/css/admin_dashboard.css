@@ -1,0 +1,465 @@
+/* =====================================================
+   GENERAL
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f7f9fc;
+    color: #222;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header {
+    width: 100%;
+    height: 75px;
+
+    background: #ffffff;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 7%;
+
+    border-bottom: 1px solid #eeeeee;
+
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+
+/* Logo */
+
+.logo {
+    font-size: 29px;
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+
+.logo-happi {
+    color: #2878d4;
+}
+
+.logo-shoppi {
+    color: #f28c28;
+}
+
+
+/* Navigation */
+
+.navigation {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+
+.navigation a {
+    text-decoration: none;
+
+    color: #444;
+
+    font-size: 15px;
+    font-weight: 500;
+
+    transition: 0.3s;
+}
+
+
+.navigation a:hover {
+    color: #2878d4;
+}
+
+
+.navigation a.active {
+    color: #2878d4;
+    font-weight: 600;
+}
+
+
+
+/* =====================================================
+   MAIN DASHBOARD
+===================================================== */
+
+.dashboard-container {
+    width: 86%;
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    padding: 60px 0 80px;
+
+    flex: 1;
+}
+
+
+
+/* =====================================================
+   WELCOME SECTION
+===================================================== */
+
+.welcome-section {
+    text-align: center;
+
+    margin-bottom: 55px;
+}
+
+
+.welcome-small {
+    color: #f28c28;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 10px;
+}
+
+
+.welcome-section h1 {
+    font-size: 38px;
+
+    color: #222;
+
+    margin-bottom: 15px;
+}
+
+
+.welcome-description {
+    max-width: 650px;
+
+    margin: 0 auto;
+
+    color: #777;
+
+    font-size: 16px;
+
+    line-height: 1.7;
+}
+
+
+
+/* =====================================================
+   ACTION SECTION
+===================================================== */
+
+.actions-section h2 {
+    font-size: 24px;
+
+    color: #222;
+
+    margin-bottom: 25px;
+}
+
+
+.action-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 24px;
+}
+
+
+
+/* =====================================================
+   ACTION CARD
+===================================================== */
+
+.action-card {
+    position: relative;
+
+    background: #ffffff;
+
+    border-radius: 16px;
+
+    padding: 28px;
+
+    min-height: 170px;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 20px;
+
+    text-decoration: none;
+
+    color: inherit;
+
+    border: 1px solid #eeeeee;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
+}
+
+
+.action-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.09);
+
+    border-color: #dce9f8;
+}
+
+
+
+/* =====================================================
+   ICON
+===================================================== */
+
+.action-icon {
+    width: 55px;
+    height: 55px;
+
+    min-width: 55px;
+
+    border-radius: 14px;
+
+    background: #eef6ff;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 25px;
+}
+
+
+
+/* =====================================================
+   CONTENT
+===================================================== */
+
+.action-content {
+    padding-right: 20px;
+}
+
+
+.action-content h3 {
+    font-size: 19px;
+
+    margin-bottom: 10px;
+
+    color: #222;
+}
+
+
+.action-content p {
+    color: #777;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+}
+
+
+
+/* =====================================================
+   ARROW
+===================================================== */
+
+.card-arrow {
+    position: absolute;
+
+    right: 25px;
+    bottom: 23px;
+
+    font-size: 22px;
+
+    color: #2878d4;
+
+    transition: 0.3s;
+}
+
+
+.action-card:hover .card-arrow {
+    transform: translateX(5px);
+}
+
+
+
+/* =====================================================
+   DISABLED CARDS
+===================================================== */
+
+.disabled-card {
+    cursor: default;
+
+    opacity: 0.75;
+}
+
+
+.disabled-card:hover {
+    transform: none;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+
+    border-color: #eeeeee;
+}
+
+
+.coming-soon {
+    position: absolute;
+
+    right: 22px;
+    top: 22px;
+
+    font-size: 11px;
+
+    color: #888;
+
+    background: #f3f3f3;
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+}
+
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.site-footer {
+    width: 100%;
+
+    background: #263238;
+
+    color: #ffffff;
+
+    margin-top: auto;
+}
+
+
+.footer-container {
+    width: 90%;
+
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    padding: 30px 0;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+
+.footer-brand h3 {
+    font-size: 22px;
+
+    margin-bottom: 6px;
+}
+
+
+.footer-brand h3 span {
+    color: #ef946d;
+}
+
+
+.footer-brand p {
+    color: #c9c9c9;
+
+    font-size: 13px;
+}
+
+
+.footer-links {
+    display: flex;
+
+    gap: 22px;
+}
+
+
+.footer-links a {
+    color: #dddddd;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    transition: color 0.25s ease;
+}
+
+
+.footer-links a:hover {
+    color: #ef946d;
+}
+
+
+/* =====================================================
+   FOOTER BOTTOM
+===================================================== */
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.10);
+
+    text-align: center;
+
+    padding: 15px 20px;
+}
+
+
+.footer-bottom p {
+    color: #aaaaaa;
+
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   FOOTER RESPONSIVE
+===================================================== */
+
+@media (max-width: 800px) {
+
+    .footer-container {
+        flex-direction: column;
+
+        gap: 20px;
+
+        text-align: center;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .footer-links {
+        flex-wrap: wrap;
+
+        justify-content: center;
+
+        gap: 14px;
+    }
+
+}

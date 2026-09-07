@@ -1,0 +1,1450 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>User Management - happiShoppi</title>
+
+    <style>
+        /* =====================================================
+   RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f7f5f1;
+    color: #1f2937;
+    min-height: 100vh;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.site-header {
+    background: #ffffff;
+    border-bottom: 1px solid #eeeeee;
+    height: 108px;
+
+    display: flex;
+    align-items: center;
+}
+
+
+.header-container {
+    width: 100%;
+    max-width: 1500px;
+
+    margin: auto;
+    padding: 0 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.logo {
+    text-decoration: none;
+
+    font-size: 34px;
+    font-weight: 800;
+
+    letter-spacing: -1px;
+
+    color: #48a8c9;
+}
+
+
+.logo span {
+    color: #f58f68;
+}
+
+
+/* =====================================================
+   HEADER RIGHT
+===================================================== */
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+
+.admin-label {
+    font-size: 15px;
+    font-weight: 600;
+
+    color: #374151;
+
+    margin-right: 10px;
+}
+
+
+.home-button,
+.logout-button {
+    text-decoration: none;
+
+    padding: 12px 24px;
+
+    border-radius: 25px;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    transition: 0.2s ease;
+}
+
+
+.home-button {
+    color: #43a4c6;
+
+    background: #eef9fc;
+
+    border: 1px solid #dceff5;
+}
+
+
+.home-button:hover {
+    background: #dff3f8;
+}
+
+
+.logout-button {
+    color: #ffffff;
+
+    background: #f58f68;
+}
+
+
+.logout-button:hover {
+    background: #ed7950;
+}
+
+
+/* =====================================================
+   MAIN PAGE
+===================================================== */
+
+.page-container {
+    width: 100%;
+    max-width: 1500px;
+
+    margin: 0 auto;
+
+    padding: 55px 40px 70px;
+}
+
+
+/* =====================================================
+   PAGE HEADING
+===================================================== */
+
+.page-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    margin-bottom: 28px;
+}
+
+
+.page-label {
+    display: block;
+
+    color: #43a4c6;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 8px;
+}
+
+
+.page-heading h1 {
+    font-size: 38px;
+
+    color: #1f2937;
+
+    margin-bottom: 8px;
+}
+
+
+.page-heading p {
+    color: #777777;
+
+    font-size: 15px;
+}
+
+
+/* =====================================================
+   SEARCH SECTION
+===================================================== */
+
+.search-section {
+    background: #ffffff;
+
+    border: 1px solid #eeeeee;
+
+    border-radius: 16px;
+
+    padding: 22px;
+
+    margin-bottom: 24px;
+
+    box-shadow:
+        0 5px 20px rgba(0, 0, 0, 0.04);
+}
+
+
+.search-wrapper {
+    position: relative;
+
+    max-width: 500px;
+}
+
+
+.search-icon {
+    position: absolute;
+
+    left: 16px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    font-size: 18px;
+
+    color: #999999;
+
+    pointer-events: none;
+}
+
+
+#userSearch {
+    width: 100%;
+    height: 48px;
+
+    padding: 0 18px 0 45px;
+
+    border: 1px solid #dddddd;
+
+    border-radius: 10px;
+
+    font-size: 14px;
+
+    background: #ffffff;
+
+    color: #374151;
+
+    outline: none;
+
+    transition: 0.2s ease;
+}
+
+
+#userSearch::placeholder {
+    color: #9ca3af;
+}
+
+
+#userSearch:focus {
+    border-color: #48a8c9;
+
+    box-shadow:
+        0 0 0 3px rgba(72, 168, 201, 0.12);
+}
+
+
+/* =====================================================
+   TABLE CARD
+===================================================== */
+
+.table-card {
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 16px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.06);
+}
+
+
+.table-header {
+    padding: 22px 25px;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #eeeeee;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.table-header h2 {
+    font-size: 20px;
+
+    color: #1f2937;
+}
+
+
+.table-header span {
+    font-size: 13px;
+
+    color: #888888;
+}
+
+
+.table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+}
+
+
+/* =====================================================
+   USERS TABLE
+===================================================== */
+
+.users-table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 1100px;
+
+    background: #ffffff;
+}
+
+
+/* =====================================================
+   TABLE HEADER
+===================================================== */
+
+.users-table thead {
+    background: #26343a;
+}
+
+
+.users-table th {
+    padding: 17px 15px;
+
+    text-align: left;
+
+    font-size: 12px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.7px;
+
+    color: #ffffff;
+
+    border-bottom: 2px solid #48a8c9;
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   TABLE BODY
+===================================================== */
+
+.users-table td {
+    padding: 17px 15px;
+
+    font-size: 14px;
+
+    color: #374151;
+
+    border-bottom: 1px solid #eeeeee;
+
+    vertical-align: middle;
+
+    background: #ffffff;
+}
+
+
+.users-table tbody tr {
+    transition: 0.2s ease;
+}
+
+
+/* Alternate rows */
+
+.users-table tbody tr:nth-child(even) td {
+    background: #fafcfd;
+}
+
+
+/* Hover */
+
+.users-table tbody tr:hover td {
+    background: #eef9fc;
+}
+
+
+/* Last row */
+
+.users-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =====================================================
+   USER ID
+===================================================== */
+
+.user-id {
+    color: #6b7280;
+
+    font-weight: 700;
+
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   USER NAME
+===================================================== */
+
+.user-name {
+    font-weight: 700;
+
+    color: #1f2937;
+}
+
+
+/* =====================================================
+   EMAIL
+===================================================== */
+
+.email {
+    color: #4b5563;
+
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   PHONE
+===================================================== */
+
+.users-table td:nth-child(4) {
+    color: #4b5563;
+}
+
+
+/* =====================================================
+   ADDRESS
+===================================================== */
+
+.users-table td:nth-child(5) {
+    color: #4b5563;
+
+    max-width: 200px;
+}
+
+
+/* =====================================================
+   ROLE BADGES
+===================================================== */
+
+.role-badge {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 6px 13px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+
+/* CUSTOMER */
+
+.role-customer {
+    background: #eaf7fb;
+
+    color: #3292b4;
+
+    border: 1px solid #d6eef5;
+}
+
+
+/* VENDOR */
+
+.role-vendor {
+    background: #fff0e9;
+
+    color: #e4774e;
+
+    border: 1px solid #f7d9cb;
+}
+
+
+/* ADMIN */
+
+.role-admin {
+    background: #eeeafd;
+
+    color: #6654b5;
+
+    border: 1px solid #ded8fa;
+}
+
+
+/* =====================================================
+   ACTIONS
+===================================================== */
+
+.actions {
+    display: flex;
+
+    gap: 8px;
+
+    align-items: center;
+}
+
+
+/* =====================================================
+   ACTION BUTTON
+===================================================== */
+
+.action-button {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 76px;
+
+    height: 36px;
+
+    padding: 0 14px;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    transition: 0.2s ease;
+
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   UPDATE BUTTON
+===================================================== */
+
+.update-button {
+    background: #eaf7fb;
+
+    color: #3195b8;
+
+    border: 1px solid #d8eef5;
+}
+
+
+.update-button:hover {
+    background: #d9f0f6;
+
+    transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   DELETE BUTTON
+===================================================== */
+
+.delete-button {
+    background: #fff0f0;
+
+    color: #df5555;
+
+    border: 1px solid #f5d6d6;
+}
+
+
+.delete-button:hover {
+    background: #ffe1e1;
+
+    transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   NO RESULTS
+===================================================== */
+
+#noResults {
+    display: none;
+
+    background: #ffffff;
+
+    margin-top: 20px;
+
+    padding: 45px 35px;
+
+    text-align: center;
+
+    border-radius: 14px;
+
+    border: 1px solid #eeeeee;
+
+    color: #777777;
+
+    box-shadow:
+        0 5px 20px rgba(0, 0, 0, 0.04);
+}
+
+
+/* =====================================================
+   FOOTER
+   MATCHES HOME PAGE FOOTER
+===================================================== */
+
+.site-footer {
+    background: #26343a;
+
+    color: #ffffff;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+    margin-top: 20px;
+}
+
+
+/* =====================================================
+   FOOTER CONTAINER
+===================================================== */
+
+.footer-container {
+    max-width: 1500px;
+
+    margin: auto;
+
+    padding: 50px 40px;
+
+    display: grid;
+
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+
+    gap: 50px;
+}
+
+
+/* =====================================================
+   FOOTER BRAND
+===================================================== */
+
+.footer-brand h2 {
+    font-size: 28px;
+
+    margin-bottom: 10px;
+
+    color: #ffffff;
+}
+
+
+.footer-brand h2 span {
+    color: #f58f68;
+}
+
+
+/* =====================================================
+   FOOTER TAGLINE
+===================================================== */
+
+.footer-tagline {
+    color: #f58f68;
+
+    font-weight: 700;
+
+    margin-bottom: 12px;
+}
+
+
+/* =====================================================
+   FOOTER DESCRIPTION
+===================================================== */
+
+.footer-description {
+    color: #d1d5db;
+
+    line-height: 1.7;
+
+    max-width: 360px;
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   FOOTER COLUMNS
+===================================================== */
+
+.footer-column h3 {
+    font-size: 16px;
+
+    margin-bottom: 18px;
+
+    color: #ffffff;
+}
+
+
+.footer-column a {
+    display: block;
+
+    text-decoration: none;
+
+    color: #d1d5db;
+
+    margin-bottom: 12px;
+
+    font-size: 14px;
+
+    transition: 0.2s ease;
+}
+
+
+.footer-column a:hover {
+    color: #48a8c9;
+
+    padding-left: 3px;
+}
+
+
+/* =====================================================
+   FOOTER BOTTOM
+===================================================== */
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.10);
+
+    text-align: center;
+
+    padding: 18px 20px;
+
+    color: #cbd5db;
+
+    font-size: 13px;
+
+    background: #26343a;
+}
+
+
+/* =====================================================
+   EDIT USER PAGE SUPPORT
+===================================================== */
+
+.form-card {
+    background: #ffffff;
+
+    border: 1px solid #eeeeee;
+
+    border-radius: 16px;
+
+    padding: 35px;
+
+    box-shadow:
+        0 6px 25px rgba(0, 0, 0, 0.05);
+
+    max-width: 800px;
+
+    margin: 0 auto;
+}
+
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    color: #374151;
+}
+
+
+.form-group input,
+.form-group select {
+    width: 100%;
+
+    height: 46px;
+
+    padding: 0 14px;
+
+    border: 1px solid #d9d9d9;
+
+    border-radius: 9px;
+
+    font-size: 14px;
+
+    color: #374151;
+
+    background: #ffffff;
+
+    outline: none;
+
+    transition: 0.2s ease;
+}
+
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #48a8c9;
+
+    box-shadow:
+        0 0 0 3px rgba(72, 168, 201, 0.12);
+}
+
+
+/* =====================================================
+   FORM ACTIONS
+===================================================== */
+
+.form-actions {
+    display: flex;
+
+    gap: 12px;
+
+    margin-top: 25px;
+}
+
+
+.save-button {
+    border: none;
+
+    background: #48a8c9;
+
+    color: #ffffff;
+
+    padding: 12px 24px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+.save-button:hover {
+    background: #3797b8;
+}
+
+
+.cancel-button {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 12px 24px;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    background: #f3f4f6;
+
+    color: #374151;
+
+    border: 1px solid #e5e7eb;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    transition: 0.2s ease;
+}
+
+
+.cancel-button:hover {
+    background: #e5e7eb;
+}
+
+
+/* =====================================================
+   RESPONSIVE - TABLET
+===================================================== */
+
+@media (max-width: 900px) {
+
+    .header-container {
+        padding: 0 20px;
+    }
+
+
+    .page-container {
+        padding: 35px 20px 50px;
+    }
+
+
+    .header-right .admin-label {
+        display: none;
+    }
+
+
+    .footer-container {
+        grid-template-columns: 1fr 1fr;
+
+        padding: 40px 20px;
+
+        gap: 35px;
+    }
+
+
+    .page-heading h1 {
+        font-size: 32px;
+    }
+
+}
+
+
+/* =====================================================
+   RESPONSIVE - MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .site-header {
+        height: auto;
+
+        padding: 20px 0;
+    }
+
+
+    .header-container {
+        flex-direction: column;
+
+        gap: 18px;
+    }
+
+
+    .logo {
+        font-size: 30px;
+    }
+
+
+    .header-right {
+        width: 100%;
+
+        justify-content: center;
+    }
+
+
+    .page-container {
+        padding: 30px 15px 45px;
+    }
+
+
+    .page-heading {
+        align-items: flex-start;
+    }
+
+
+    .page-heading h1 {
+        font-size: 28px;
+    }
+
+
+    .search-section {
+        padding: 16px;
+    }
+
+
+    .table-card {
+        border-radius: 12px;
+    }
+
+
+    .footer-container {
+        grid-template-columns: 1fr;
+
+        padding: 40px 20px;
+
+        gap: 30px;
+    }
+
+
+    .footer-brand h2 {
+        font-size: 25px;
+    }
+
+
+    .form-card {
+        padding: 25px 20px;
+    }
+
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+
+    .save-button,
+    .cancel-button {
+        width: 100%;
+    }
+
+    }
+        
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="site-header">
+
+    <div class="header-container">
+
+        <a href="{% url 'home' %}" class="logo">
+            happi<span>Shoppi</span>
+        </a>
+
+
+        <div class="header-right">
+
+            <span class="admin-label">
+                User Management
+            </span>
+
+            <a href="{% url 'home' %}"
+               class="home-button">
+                Home
+            </a>
+
+            <a href="{% url 'logout' %}"
+               class="logout-button">
+                Logout
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN CONTENT
+===================================================== -->
+
+<main class="page-container">
+
+
+    <!-- PAGE HEADING -->
+
+    <div class="page-heading">
+
+        <div>
+
+            <span class="page-label">
+                ADMIN CENTER
+            </span>
+
+            <h1>
+                User Management
+            </h1>
+
+            <p>
+                Manage customers and vendors registered on happiShoppi.
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         SEARCH
+    ================================================== -->
+
+    <section class="search-section">
+
+        <div class="search-wrapper">
+
+            <span class="search-icon">
+                🔍
+            </span>
+
+            <input
+                type="text"
+                id="userSearch"
+                placeholder="Search users by name, email, phone or role..."
+                autocomplete="off"
+            >
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         USERS TABLE
+    ================================================== -->
+
+    <section class="table-card">
+
+
+        <div class="table-header">
+
+            <h2>
+                Registered Users
+            </h2>
+
+            <span>
+                User Directory
+            </span>
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+            <table class="users-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Name</th>
+
+                        <th>Email</th>
+
+                        <th>Phone</th>
+
+                        <th>Address</th>
+
+                        <th>Role</th>
+
+                        <th>Created At</th>
+
+                        <th>Actions</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="usersTableBody">
+
+                    {% for user in users %}
+
+                    <tr>
+
+
+                        <td>
+                            <span class="user-id">
+                                #{{ user.id }}
+                            </span>
+                        </td>
+
+
+                        <td>
+
+                            <span class="user-name">
+                                {{ user.name }}
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <span class="email">
+                                {{ user.email }}
+                            </span>
+
+                        </td>
+
+
+                        <td>
+                            {{ user.phone|default:"-" }}
+                        </td>
+
+
+                        <td>
+                            {{ user.address|default:"-" }}
+                        </td>
+
+
+                        <td>
+
+                            {% if user.role == 'CUSTOMER' %}
+
+                                <span class="role-badge role-customer">
+                                    Customer
+                                </span>
+
+                            {% elif user.role == 'VENDOR' %}
+
+                                <span class="role-badge role-vendor">
+                                    Vendor
+                                </span>
+
+                            {% elif user.role == 'ADMIN' %}
+
+                                <span class="role-badge role-admin">
+                                    Admin
+                                </span>
+
+                            {% else %}
+
+                                <span class="role-badge">
+                                    {{ user.get_role_display }}
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+
+                            {{ user.created_at|date:"d M Y, h:i A" }}
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="actions">
+
+
+                                <!-- UPDATE -->
+
+                                <a
+                                    href="{% url 'edit_user' user.id %}"
+                                    class="action-button update-button"
+                                >
+                                    Update
+                                </a>
+
+
+                                <!-- DELETE -->
+
+                                <a
+                                    href="{% url 'delete_user' user.id %}"
+                                    class="action-button delete-button"
+
+                                    onclick="return confirm('Are you sure you want to delete this user?');"
+                                >
+                                    Delete
+                                </a>
+
+                            </div>
+
+                        </td>
+
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- NO SEARCH RESULTS -->
+
+    <p id="noResults">
+        No users found matching your search.
+    </p>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="site-footer">
+
+
+    <div class="footer-container">
+
+
+        <!-- BRAND -->
+
+        <div class="footer-column footer-brand">
+
+            <h2>
+                happi<span>Shoppi</span>
+            </h2>
+
+            <p class="footer-tagline">
+                Your Happiness, Delivered.
+            </p>
+
+            <p class="footer-description">
+                A multi-vendor marketplace where customers
+                discover products from multiple trusted sellers.
+            </p>
+
+        </div>
+
+
+        <!-- QUICK LINKS -->
+
+        <div class="footer-column">
+
+            <h3>
+                Quick Links
+            </h3>
+
+            <a href="{% url 'home' %}">
+                Home
+            </a>
+
+            <a href="{% url 'view_users' %}">
+                User Management
+            </a>
+
+            <a href="{% url 'logout' %}">
+                Logout
+            </a>
+
+        </div>
+
+
+        <!-- MANAGEMENT -->
+
+        <div class="footer-column">
+
+            <h3>
+                Management
+            </h3>
+
+            <a href="{% url 'view_users' %}">
+                Users
+            </a>
+
+            <a href="{% url 'view_users' %}">
+                Customers & Vendors
+            </a>
+
+        </div>
+
+
+        <!-- SHOPPING -->
+
+        <div class="footer-column">
+
+            <h3>
+                happiShoppi
+            </h3>
+
+            <a href="{% url 'about' %}">
+                About Us
+            </a>
+
+            <a href="{% url 'home' %}">
+                Visit Store
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        <p>
+            © 2026 happiShoppi. All rights reserved.
+        </p>
+
+    </div>
+
+</footer>
+
+
+
+<!-- =====================================================
+     EXISTING SEARCH JAVASCRIPT
+===================================================== -->
+
+<script src="{% static 'js/user_management.js' %}"></script>
+
+
+</body>
+
+</html>

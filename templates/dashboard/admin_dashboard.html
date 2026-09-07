@@ -1,0 +1,315 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard - happiShoppi</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/admin_dashboard.css' %}"
+    >
+
+</head>
+
+
+<body>
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header class="header">
+
+        <div class="logo">
+
+            <span class="logo-happi">happi</span><span class="logo-shoppi">Shoppi</span>
+
+        </div>
+
+
+        <nav class="navigation">
+
+            <a href="{% url 'home' %}">
+                Home
+            </a>
+
+            <a href="{% url 'about' %}">
+                About
+            </a>
+
+            <a href="{% url 'admin_dashboard' %}" class="active">
+                Dashboard
+            </a>
+
+            <a href="{% url 'login' %}">
+                Logout
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
+
+    <main class="dashboard-container">
+
+
+        <!-- Welcome Section -->
+
+        <section class="welcome-section">
+
+            <p class="welcome-small">
+                Welcome back
+            </p>
+
+            <h1>
+                Admin Dashboard
+            </h1>
+
+            <p class="welcome-description">
+                Manage users, products, orders and other marketplace
+                activities from one place.
+            </p>
+
+        </section>
+
+
+
+        <!-- =========================
+             ADMIN ACTIONS
+        ========================== -->
+
+        <section class="actions-section">
+
+            <h2>
+                Management
+            </h2>
+
+
+            <div class="action-grid">
+
+
+                <!-- User Management -->
+
+                <a
+                    href="{% url 'view_users' %}"
+                    class="action-card"
+                >
+
+                    <div class="action-icon">
+                        👥
+                    </div>
+
+                    <div class="action-content">
+
+                        <h3>
+                            User Management
+                        </h3>
+
+                        <p>
+                            View, search, update and delete customers
+                            and vendors.
+                        </p>
+
+                    </div>
+
+                    <span class="card-arrow">
+                        →
+                    </span>
+
+                </a>
+
+
+
+                <!-- Add User -->
+
+                <a
+                    href="{% url 'signup' %}"
+                    class="action-card"
+                >
+
+                    <div class="action-icon">
+                        ➕
+                    </div>
+
+                    <div class="action-content">
+
+                        <h3>
+                            Add User
+                        </h3>
+
+                        <p>
+                            Create a new customer or vendor account.
+                        </p>
+
+                    </div>
+
+                    <span class="card-arrow">
+                        →
+                    </span>
+
+                </a>
+
+
+
+                <!-- Products -->
+
+                 <!----    <div class="action-card disabled-card">
+
+                    <div class="action-icon">
+                        📦
+                    </div>
+
+                    <div class="action-content">
+
+                        <h3>
+                            Product Management
+                        </h3>
+
+                        <p>
+                            Manage marketplace products.
+                        </p>
+
+                    </div>
+
+                    <span class="coming-soon">
+                        Coming Soon
+                    </span>
+
+                </div>
+
+                 >
+
+                <!-- Categories -->
+
+               <!-----   <div class="action-card disabled-card">
+
+                    <div class="action-icon">
+                        🏷️
+                    </div>
+
+                    <div class="action-content">
+
+                        <h3>
+                            Category Management
+                        </h3>
+
+                        <p>
+                            Manage product categories.
+                        </p>
+
+                    </div>
+
+                    <span class="coming-soon">
+                        Coming Soon
+                    </span>
+
+                </div>
+
+
+               >
+               <!-
+
+                <div class="action-card disabled-card">
+
+                    <div class="action-icon">
+                        🛒
+                    </div>
+
+                    <div class="action-content">
+
+                        <h3>
+                            Order Management
+                        </h3>
+thon maa       Monitor and manage customer orders.
+                        </p>
+
+                    </div>
+
+                    <span class="coming-soon">
+                        Coming Soon
+                    </span>
+
+                </div>
+               >
+
+
+             <!--   Reports -->
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+ <!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="site-footer">
+
+    <div class="footer-container">
+
+        <div class="footer-brand">
+
+            <h3>
+                happi<span>Shoppi</span>
+            </h3>
+
+            <p>
+                Your Happiness, Delivered.
+            </p>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <a href="{% url 'home' %}">
+                Home
+            </a>
+
+            <a href="{% url 'about' %}">
+                About
+            </a>
+
+            <a href="{% url 'login' %}">
+                Login
+            </a>
+
+            <a href="{% url 'signup' %}">
+                Sign Up
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        <p>
+            © 2026 happiShoppi. All rights reserved.
+        </p>
+
+    </div>
+
+</footer>   

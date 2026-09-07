@@ -1,0 +1,490 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Order Confirmed - happiShoppi</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f4f8f6;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+        }
+
+
+        /* =================================================
+           SUCCESS CONTAINER
+        ================================================= */
+
+        .order-success-container {
+
+            width: 100%;
+
+            min-height: 100vh;
+
+            background: #20b56b;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+
+            padding: 30px;
+
+        }
+
+
+        .order-success-card {
+
+            color: white;
+
+            animation: fadeIn 0.6s ease;
+
+        }
+
+
+        /* =================================================
+           CHECK CIRCLE
+        ================================================= */
+
+        .success-circle {
+
+            width: 130px;
+
+            height: 130px;
+
+            margin: 0 auto 30px;
+
+            background: white;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            box-shadow:
+                0 15px 40px rgba(0, 0, 0, 0.15);
+
+            animation: popIn 0.6s ease;
+
+        }
+
+
+        .success-check {
+
+            font-size: 70px;
+
+            font-weight: bold;
+
+            color: #20b56b;
+
+            animation: checkAppear 0.5s ease 0.3s both;
+
+        }
+
+
+        /* =================================================
+           TEXT
+        ================================================= */
+
+        .order-success-card h1 {
+
+            margin: 0 0 12px;
+
+            font-size: 42px;
+
+            font-weight: 700;
+
+        }
+
+
+        .order-success-card p {
+
+            margin: 8px 0;
+
+            font-size: 18px;
+
+            opacity: 0.95;
+
+        }
+
+
+        .order-number {
+
+            margin-top: 20px !important;
+
+            font-weight: bold;
+
+            font-size: 20px !important;
+
+        }
+
+
+        /* =================================================
+           BUTTON
+        ================================================= */
+
+        .orders-button {
+
+            display: inline-block;
+
+            margin-top: 30px;
+
+            padding: 14px 30px;
+
+            background: white;
+
+            color: #20a965;
+
+            text-decoration: none;
+
+            border-radius: 30px;
+
+            font-weight: bold;
+
+            transition: 0.2s;
+
+        }
+
+
+        .orders-button:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 8px 20px rgba(0,0,0,0.15);
+
+        }
+
+
+        /* =================================================
+           ANIMATIONS
+        ================================================= */
+
+        @keyframes popIn {
+
+            0% {
+
+                transform: scale(0);
+
+                opacity: 0;
+
+            }
+
+            70% {
+
+                transform: scale(1.1);
+
+            }
+
+            100% {
+
+                transform: scale(1);
+
+                opacity: 1;
+
+            }
+
+        }
+
+
+        @keyframes checkAppear {
+
+            0% {
+
+                transform: scale(0);
+
+                opacity: 0;
+
+            }
+
+            100% {
+
+                transform: scale(1);
+
+                opacity: 1;
+
+            }
+
+        }
+
+
+        @keyframes fadeIn {
+
+            from {
+
+                opacity: 0;
+
+                transform: translateY(20px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform: translateY(0);
+
+            }
+
+        }
+
+
+        /* =================================================
+           MOBILE
+        ================================================= */
+
+        @media (max-width: 600px) {
+
+            .success-circle {
+
+                width: 105px;
+
+                height: 105px;
+
+            }
+
+
+            .success-check {
+
+                font-size: 55px;
+
+            }
+
+
+            .order-success-card h1 {
+
+                font-size: 32px;
+
+            }
+
+
+            .order-success-card p {
+
+                font-size: 16px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="order-success-container">
+
+    <div class="order-success-card">
+
+
+        <!-- CHECK -->
+
+        <div class="success-circle">
+
+            <div class="success-check">
+                ✓
+            </div>
+
+        </div>
+
+
+        <!-- MESSAGE -->
+
+        <h1>
+            Order Confirmed!
+        </h1>
+
+
+        <p>
+            Your order has been placed successfully.
+        </p>
+
+
+        <p>
+            Thank you for shopping with happiShoppi.
+        </p>
+
+
+        <p class="order-number">
+
+            Order #{{ order.id }}
+
+        </p>
+
+
+        <!-- BUTTON -->
+
+        <a
+            href="{% url 'customer_orders' %}"
+            class="orders-button"
+        >
+
+            View My Orders
+
+        </a>
+
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     SUCCESS SOUND
+===================================================== -->
+
+<script>
+
+    /*
+     * Small success sound using Web Audio API.
+     *
+     * No MP3 file is required.
+     */
+
+    window.addEventListener(
+        "load",
+        function () {
+
+            try {
+
+                const AudioContext =
+                    window.AudioContext ||
+                    window.webkitAudioContext;
+
+                const audioContext =
+                    new AudioContext();
+
+
+                const oscillator =
+                    audioContext.createOscillator();
+
+                const gain =
+                    audioContext.createGain();
+
+
+                oscillator.connect(gain);
+
+                gain.connect(
+                    audioContext.destination
+                );
+
+
+                oscillator.type = "sine";
+
+
+                oscillator.frequency.setValueAtTime(
+                    523.25,
+                    audioContext.currentTime
+                );
+
+
+                oscillator.frequency.setValueAtTime(
+                    659.25,
+                    audioContext.currentTime + 0.12
+                );
+
+
+                gain.gain.setValueAtTime(
+                    0.0001,
+                    audioContext.currentTime
+                );
+
+
+                gain.gain.exponentialRampToValueAtTime(
+                    0.25,
+                    audioContext.currentTime + 0.02
+                );
+
+
+                gain.gain.exponentialRampToValueAtTime(
+                    0.0001,
+                    audioContext.currentTime + 0.45
+                );
+
+
+                oscillator.start();
+
+                oscillator.stop(
+                    audioContext.currentTime + 0.45
+                );
+
+            }
+
+            catch (error) {
+
+                console.log(
+                    "Success sound could not play:",
+                    error
+                );
+
+            }
+
+        }
+
+    );
+
+
+    /* =================================================
+       AUTO REDIRECT
+    ================================================= */
+
+    setTimeout(
+
+        function () {
+
+            window.location.href =
+                "{% url 'customer_orders' %}";
+
+        },
+
+        5000
+
+    );
+
+</script>
+
+
+</body>
+
+</html>

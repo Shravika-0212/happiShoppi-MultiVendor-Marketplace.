@@ -1,0 +1,421 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Update Product - happiShoppi</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/edit_product.css' %}">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="edit-header">
+
+    <div class="edit-header-container">
+
+
+        <!-- LOGO -->
+
+        <a href="{% url 'vendor_dashboard' %}"
+           class="logo">
+
+            happi<span>Shoppi</span>
+
+        </a>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="edit-navigation">
+
+            <a href="{% url 'vendor_dashboard' %}">
+                Dashboard
+            </a>
+
+            <a href="{% url 'vendor_orders' %}">
+                Orders
+            </a>
+
+            <a href="{% url 'vendor_notifications' %}">
+                Notifications
+            </a>
+
+            <a href="{% url 'vendor_profile' %}">
+                Profile
+            </a>
+
+        </nav>
+
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN CONTENT
+===================================================== -->
+
+<main class="edit-page">
+
+
+    <div class="edit-container">
+
+
+        <!-- PAGE HEADING -->
+
+        <div class="edit-heading">
+
+            <p class="edit-label">
+                VENDOR PRODUCT
+            </p>
+
+            <h1>
+                Update Product
+            </h1>
+
+            <p>
+                Update your product information and keep your listing
+                up to date.
+            </p>
+
+        </div>
+
+
+
+        <!-- =================================================
+             UPDATE CARD
+        ================================================== -->
+
+        <section class="edit-card">
+
+
+            <!-- CARD HEADER -->
+
+            <div class="edit-card-header">
+
+                <div>
+
+                    <h2>
+                        Product Information
+                    </h2>
+
+                    <p>
+                        Edit the details of your product below.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- FORM -->
+
+            <form method="POST"
+                  enctype="multipart/form-data"
+                  class="edit-form">
+
+                {% csrf_token %}
+
+
+
+                <!-- =================================================
+                     PRODUCT NAME
+                ================================================== -->
+
+                <div class="form-group">
+
+                    <label for="product_name">
+                        Product Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="product_name"
+                        name="product_name"
+                        value="{{ product.product_name }}"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- =================================================
+                     DESCRIPTION
+                ================================================== -->
+
+                <div class="form-group">
+
+                    <label for="description">
+                        Description
+                    </label>
+
+                    <textarea
+                        id="description"
+                        name="description"
+                        rows="5"
+                    >{{ product.description }}</textarea>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     CATEGORY
+                ================================================== -->
+
+                <div class="form-group">
+
+                    <label for="category">
+                        Category
+                    </label>
+
+                    <select
+                        id="category"
+                        name="category"
+                        required
+                    >
+
+                        {% for category in categories %}
+
+                            <option
+                                value="{{ category.id }}"
+                                {% if category.id == product.category_id %}
+                                    selected
+                                {% endif %}
+                            >
+
+                                {{ category.category_name }}
+
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     PRICE + STOCK
+                ================================================== -->
+
+                <div class="form-row">
+
+
+                    <div class="form-group">
+
+                        <label for="price">
+                            Price
+                        </label>
+
+                        <div class="input-with-symbol">
+
+                            <span>₹</span>
+
+                            <input
+                                type="number"
+                                id="price"
+                                name="price"
+                                step="0.01"
+                                value="{{ product.price }}"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label for="stock_quantity">
+                            Stock Quantity
+                        </label>
+
+                        <input
+                            type="number"
+                            id="stock_quantity"
+                            name="stock_quantity"
+                            value="{{ product.stock_quantity }}"
+                            min="0"
+                            required
+                        >
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =================================================
+                     PRODUCT IMAGE
+                ================================================== -->
+
+                <div class="form-group">
+
+                    <label>
+                        Product Image
+                    </label>
+
+
+                    {% if product.product_image %}
+
+                        <div class="current-image-box">
+
+                            <div class="current-image">
+
+                                <img
+                                    src="/media/{{ product.product_image }}"
+                                    alt="{{ product.product_name }}"
+                                >
+
+                            </div>
+
+
+                            <div class="current-image-info">
+
+                                <strong>
+                                    Current Product Image
+                                </strong>
+
+                                <p>
+                                    Choose a new image below only if
+                                    you want to replace the current image.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    {% else %}
+
+                        <div class="no-image-box">
+
+                            <span>
+                                📷
+                            </span>
+
+                            <p>
+                                No product image available.
+                            </p>
+
+                        </div>
+
+                    {% endif %}
+
+
+
+                    <div class="file-upload">
+
+                        <input
+                            type="file"
+                            id="product_image"
+                            name="product_image"
+                            accept="image/*"
+                        >
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =================================================
+                     BUTTONS
+                ================================================== -->
+
+                <div class="form-actions">
+
+
+                    <a href="{% url 'vendor_dashboard' %}"
+                       class="cancel-button">
+
+                        Cancel
+
+                    </a>
+
+
+                    <button
+                        type="submit"
+                        class="update-button"
+                    >
+
+                        Update Product
+
+                    </button>
+
+
+                </div>
+
+
+            </form>
+
+
+        </section>
+
+
+    </div>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="main-footer">
+
+    <div class="footer-content">
+
+
+        <div class="footer-logo">
+
+            happi<span>Shoppi</span>
+
+        </div>
+
+
+        <div class="footer-text">
+
+            © 2026 happi<span>Shoppi</span> — All Rights Reserved
+
+        </div>
+
+
+    </div>
+
+</footer>
+
+
+
+</body>
+
+</html>
+```

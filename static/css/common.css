@@ -1,0 +1,330 @@
+/* =====================================================
+   COMMON GLOBAL
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    min-height: 100%;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* =====================================================
+   HEADER
+   SAME STYLE AS HOME PAGE
+===================================================== */
+
+.site-header {
+    width: 100%;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #eeeeee;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 100;
+}
+
+
+.header-container {
+    width: 92%;
+
+    max-width: 1300px;
+
+    min-height: 78px;
+
+    margin: 0 auto;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 30px;
+}
+
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.logo {
+    text-decoration: none;
+
+    font-size: 30px;
+
+    font-weight: 800;
+
+    letter-spacing: -1.2px;
+
+    color: #4da8c5;
+
+    white-space: nowrap;
+}
+
+
+.logo span {
+    color: #ef946d;
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+.navbar {
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    white-space: nowrap;
+
+    margin-left: auto;
+}
+
+
+.nav-link {
+    text-decoration: none;
+
+    color: #4a4a4a;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    padding: 10px 12px;
+
+    border-radius: 20px;
+
+    transition: all 0.25s ease;
+}
+
+
+.nav-link:hover {
+    color: #4da8c5;
+
+    background: #f2f9fb;
+}
+
+
+.nav-link.active {
+    color: #4da8c5;
+}
+
+
+.signup-button {
+    text-decoration: none;
+
+    background: #ef946d;
+
+    color: #ffffff;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    padding: 11px 19px;
+
+    border-radius: 22px;
+
+    transition: all 0.25s ease;
+}
+
+
+.signup-button:hover {
+    background: #e57e53;
+
+    transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.site-footer {
+    width: 100%;
+
+    background: #263238;
+
+    color: #d7dfe2;
+
+    margin-top: auto;
+}
+
+
+/* =====================================================
+   FOOTER CONTAINER
+===================================================== */
+
+.footer-container {
+    width: 92%;
+
+    max-width: 1300px;
+
+    margin: 0 auto;
+
+    padding: 55px 0;
+
+    display: grid;
+
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+
+    gap: 60px;
+}
+
+
+/* =====================================================
+   FOOTER BRAND
+===================================================== */
+
+.footer-brand h2 {
+    color: #ffffff;
+
+    font-size: 30px;
+
+    font-weight: 800;
+
+    margin-bottom: 10px;
+}
+
+
+.footer-brand h2 span {
+    color: #ef946d;
+}
+
+
+.footer-tagline {
+    color: #ef946d;
+
+    font-size: 16px;
+
+    margin-bottom: 18px;
+}
+
+
+.footer-description {
+    max-width: 370px;
+
+    color: #d1d9dc;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+}
+
+
+/* =====================================================
+   FOOTER HEADINGS
+===================================================== */
+
+.footer-column h3 {
+    color: #ffffff;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    margin-bottom: 20px;
+}
+
+
+/* =====================================================
+   FOOTER LINKS
+===================================================== */
+
+.footer-column a {
+    display: block;
+
+    text-decoration: none;
+
+    color: #cbd4d8;
+
+    font-size: 15px;
+
+    margin-bottom: 13px;
+
+    transition: color 0.25s ease;
+}
+
+
+.footer-column a:hover {
+    color: #ef946d;
+}
+
+
+/* =====================================================
+   FOOTER BOTTOM
+===================================================== */
+
+.footer-bottom {
+    border-top: 1px solid #39464b;
+
+    text-align: center;
+
+    padding: 20px 15px;
+}
+
+
+.footer-bottom p {
+    color: #cbd4d8;
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 900px) {
+
+    .header-container {
+        flex-wrap: wrap;
+
+        justify-content: center;
+
+        padding: 15px 0;
+    }
+
+    .navbar {
+        margin-left: 0;
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr 1fr;
+
+        gap: 40px;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .header-container {
+        flex-direction: column;
+    }
+
+    .navbar {
+        flex-wrap: wrap;
+
+        justify-content: center;
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr;
+    }
+}

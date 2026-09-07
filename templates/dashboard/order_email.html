@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ status_title }}</title>
+
+    <style>
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f7f9fa;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #263238;
+        }
+
+        .email-wrapper {
+            width: 100%;
+            padding: 30px 15px;
+            background: #f7f9fa;
+        }
+
+        .email-container {
+            max-width: 620px;
+            margin: 0 auto;
+            background: #ffffff;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .header {
+            padding: 22px 30px;
+            border-bottom: 1px solid #eeeeee;
+            background: #ffffff;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            color: #4da8c5;
+        }
+
+        .logo span {
+            color: #ef946d;
+        }
+
+
+        /* =========================
+           MAIN CONTENT
+        ========================= */
+
+        .content {
+            padding: 35px 30px;
+        }
+
+        .status-title {
+            margin: 0 0 12px 0;
+            font-size: 25px;
+            font-weight: 700;
+            color: #263238;
+        }
+
+        .greeting {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #555555;
+        }
+
+        .message {
+            margin-top: 8px;
+            font-size: 15px;
+            line-height: 1.6;
+            color: #555555;
+        }
+
+
+        /* =========================
+           ORDER SUMMARY
+        ========================= */
+
+        .section {
+            margin-top: 25px;
+            padding: 20px;
+            border: 1px solid #e4e8ea;
+            border-radius: 10px;
+            background: #ffffff;
+        }
+
+        .section-title {
+            margin: 0 0 16px 0;
+            font-size: 16px;
+            font-weight: 700;
+            color: #263238;
+        }
+
+        .order-row {
+            margin-bottom: 9px;
+            font-size: 14px;
+            color: #555555;
+        }
+
+        .order-label {
+            font-weight: 700;
+            color: #263238;
+        }
+
+
+        /* =========================
+           PRODUCT
+        ========================= */
+
+        .product {
+            display: table;
+            width: 100%;
+        }
+
+        .product-image-cell {
+            display: table-cell;
+            width: 105px;
+            vertical-align: middle;
+        }
+
+        .product-image {
+            width: 90px;
+            height: 90px;
+            object-fit: contain;
+            border: 1px solid #eeeeee;
+            border-radius: 8px;
+            background: #f7f9fa;
+        }
+
+        .product-details {
+            display: table-cell;
+            vertical-align: middle;
+            padding-left: 15px;
+        }
+
+        .product-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: #263238;
+            margin-bottom: 8px;
+        }
+
+        .product-info {
+            font-size: 14px;
+            color: #666666;
+            line-height: 1.7;
+        }
+
+
+        /* =========================
+           TOTAL
+        ========================= */
+
+        .total {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eeeeee;
+            font-size: 17px;
+            font-weight: 700;
+            color: #263238;
+        }
+
+
+        /* =========================
+           ADDRESS / PAYMENT
+        ========================= */
+
+        .info-text {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #555555;
+        }
+
+
+        /* =========================
+           BUTTON
+        ========================= */
+
+        .button-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .view-button {
+            display: inline-block;
+            padding: 13px 28px;
+            background: #ef946d;
+            color: #ffffff !important;
+            text-decoration: none;
+            border-radius: 22px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        .footer {
+            padding: 25px 20px;
+            text-align: center;
+            background: #263238;
+            color: #ffffff;
+        }
+
+        .footer-logo {
+            font-size: 18px;
+            font-weight: 700;
+            color: #4da8c5;
+        }
+
+        .footer-logo span {
+            color: #ef946d;
+        }
+
+        .footer-text {
+            margin-top: 8px;
+            font-size: 12px;
+            color: #cccccc;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media only screen and (max-width: 600px) {
+
+            .email-wrapper {
+                padding: 10px;
+            }
+
+            .header {
+                padding: 20px;
+            }
+
+            .content {
+                padding: 25px 20px;
+            }
+
+            .status-title {
+                font-size: 22px;
+            }
+
+            .product-image-cell {
+                width: 85px;
+            }
+
+            .product-image {
+                width: 75px;
+                height: 75px;
+            }
+
+            .product-details {
+                padding-left: 10px;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+<div class="email-wrapper">
+
+    <div class="email-container">
+
+
+        <!-- =========================
+             HEADER
+        ========================== -->
+
+        <div class="header">
+
+            <div class="logo">
+                happi<span>Shoppi</span>
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             MAIN CONTENT
+        ========================== -->
+
+        <div class="content">
+
+
+            <h1 class="status-title">
+                {{ status_title }}
+            </h1>
+
+
+            <div class="greeting">
+                Hi {{ customer_name }},
+            </div>
+
+
+            <div class="message">
+                {{ status_message }}
+            </div>
+
+
+            <!-- ORDER DETAILS -->
+
+            <div class="section">
+
+                <div class="section-title">
+                    Order Details
+                </div>
+
+                <div class="order-row">
+                    <span class="order-label">
+                        Order Number:
+                    </span>
+
+                    #{{ order_id }}
+                </div>
+
+                <div class="order-row">
+                    <span class="order-label">
+                        Payment Method:
+                    </span>
+
+                    {{ payment_method }}
+                </div>
+
+                <div class="total">
+                    Total Amount: ₹{{ total_amount }}
+                </div>
+
+            </div>
+
+
+            <!-- PRODUCT -->
+
+            <div class="section">
+
+                <div class="section-title">
+                    Your Product
+                </div>
+
+                <div class="product">
+
+                    {% if product_image %}
+
+                        <div class="product-image-cell">
+
+                            <img
+                                src="cid:product_image"
+                                alt="{{ product_name }}"
+                                class="product-image"
+                            >
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <div class="product-details">
+
+                        <div class="product-name">
+                            {{ product_name }}
+                        </div>
+
+                        <div class="product-info">
+                            Quantity: {{ quantity }}
+                        </div>
+
+                        <div class="product-info">
+                            Price: ₹{{ price }}
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- DELIVERY ADDRESS -->
+
+            <div class="section">
+
+                <div class="section-title">
+                    Delivery Address
+                </div>
+
+                <div class="info-text">
+                    {{ shipping_address }}
+                </div>
+
+            </div>
+
+
+            <!-- VIEW ORDER -->
+
+            <div class="button-container">
+
+                <a
+                    href="{{ view_order_url }}"
+                    class="view-button"
+                >
+                    VIEW ORDER
+                </a>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =========================
+             FOOTER
+        ========================== -->
+
+        <div class="footer">
+
+            <div class="footer-logo">
+                happi<span>Shoppi</span>
+            </div>
+
+            <div class="footer-text">
+                Thank you for shopping with happiShoppi.
+            </div>
+
+            <div class="footer-text">
+                happiShoppi Team
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+</body>
+</html>

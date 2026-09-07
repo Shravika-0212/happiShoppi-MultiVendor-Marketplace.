@@ -1,0 +1,830 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Write Review - happiShoppi</title>
+
+    <style>
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f7f9fa;
+            color: #263238;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .dashboard-header {
+
+            background: #ffffff;
+
+            padding: 18px 45px;
+
+            border-bottom: 1px solid #e5e9eb;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+        }
+
+
+        .logo {
+
+            text-decoration: none;
+
+            font-size: 30px;
+
+            font-weight: 800;
+
+            letter-spacing: -1.2px;
+
+            color: #4da8c5;
+
+            white-space: nowrap;
+        }
+
+
+        .logo span {
+            color: #ef946d;
+        }
+
+
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+
+        .back-btn {
+
+            text-decoration: none;
+
+            background: #4da8c5;
+
+            color: #ffffff;
+
+            padding: 10px 20px;
+
+            border-radius: 22px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            transition: 0.3s;
+        }
+
+
+        .back-btn:hover {
+            background: #398da9;
+        }
+
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        .review-container {
+
+            width: 100%;
+
+            max-width: 700px;
+
+            margin: 45px auto;
+
+            padding: 0 20px;
+        }
+
+
+        .page-heading {
+            text-align: center;
+
+            margin-bottom: 25px;
+        }
+
+
+        .page-heading h1 {
+
+            margin: 0;
+
+            font-size: 28px;
+
+            color: #263238;
+        }
+
+
+        .page-heading p {
+
+            margin-top: 8px;
+
+            color: #777;
+
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           REVIEW CARD
+        ===================================================== */
+
+        .review-card {
+
+            background: #ffffff;
+
+            border: 1px solid #e3e8ea;
+
+            border-radius: 14px;
+
+            padding: 30px;
+
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+
+        /* =====================================================
+           PRODUCT
+        ===================================================== */
+
+        .product-box {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 20px;
+
+            padding-bottom: 25px;
+
+            border-bottom: 1px solid #eeeeee;
+
+            margin-bottom: 25px;
+        }
+
+
+        .product-image {
+
+            width: 110px;
+
+            height: 110px;
+
+            border-radius: 10px;
+
+            border: 1px solid #e5e5e5;
+
+            background: #f7f9fa;
+
+            object-fit: contain;
+        }
+
+
+        .no-image {
+
+            width: 110px;
+
+            height: 110px;
+
+            border-radius: 10px;
+
+            background: #f1f3f4;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            color: #888;
+
+            font-size: 12px;
+
+            text-align: center;
+        }
+
+
+        .product-info h2 {
+
+            margin: 0 0 8px;
+
+            font-size: 20px;
+
+            color: #263238;
+        }
+
+
+        .product-info p {
+
+            margin: 0;
+
+            font-size: 13px;
+
+            color: #777;
+        }
+
+
+        /* =====================================================
+           LABEL
+        ===================================================== */
+
+        .form-group {
+
+            margin-bottom: 24px;
+        }
+
+
+        .form-label {
+
+            display: block;
+
+            margin-bottom: 10px;
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            color: #263238;
+        }
+
+
+        /* =====================================================
+           STAR RATING
+        ===================================================== */
+
+        .rating-box {
+
+            text-align: center;
+
+            padding: 10px 0 5px;
+        }
+
+
+        .stars {
+
+            display: inline-flex;
+
+            flex-direction: row-reverse;
+
+            gap: 5px;
+        }
+
+
+        .stars input {
+
+            display: none;
+        }
+
+
+        .stars label {
+
+            font-size: 38px;
+
+            color: #d7d7d7;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .stars label:hover,
+        .stars label:hover ~ label {
+
+            color: #ef946d;
+        }
+
+
+        .stars input:checked ~ label {
+
+            color: #ef946d;
+        }
+
+
+        .rating-text {
+
+            margin-top: 8px;
+
+            font-size: 13px;
+
+            color: #777;
+        }
+
+
+        /* =====================================================
+           COMMENT
+        ===================================================== */
+
+        .comment-box {
+
+            width: 100%;
+
+            min-height: 130px;
+
+            padding: 13px 15px;
+
+            border: 1px solid #dfe4e6;
+
+            border-radius: 9px;
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            font-size: 14px;
+
+            resize: vertical;
+
+            outline: none;
+
+            transition: 0.2s;
+        }
+
+
+        .comment-box:focus {
+
+            border-color: #4da8c5;
+
+            box-shadow: 0 0 0 3px rgba(77, 168, 197, 0.12);
+        }
+
+
+        .comment-help {
+
+            display: block;
+
+            margin-top: 6px;
+
+            font-size: 12px;
+
+            color: #888;
+        }
+
+
+        /* =====================================================
+           SUBMIT
+        ===================================================== */
+
+        .submit-btn {
+
+            width: 100%;
+
+            border: none;
+
+            padding: 13px;
+
+            border-radius: 24px;
+
+            background: #ef946d;
+
+            color: #ffffff;
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+
+        .submit-btn:hover {
+
+            background: #df7d54;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        .main-footer {
+
+            margin-top: auto;
+
+            background: #263238;
+
+            color: #ffffff;
+
+            padding: 25px 45px;
+        }
+
+
+        .footer-content {
+
+            max-width: 1150px;
+
+            margin: auto;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+        }
+
+
+        .footer-logo {
+
+            font-size: 20px;
+
+            font-weight: 700;
+
+            color: #4da8c5;
+        }
+
+
+        .footer-logo span {
+
+            color: #ef946d;
+        }
+
+
+        .footer-text {
+
+            color: #cccccc;
+
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 600px) {
+
+            .dashboard-header {
+
+                padding: 16px 20px;
+            }
+
+
+            .logo {
+
+                font-size: 25px;
+            }
+
+
+            .back-btn {
+
+                padding: 8px 14px;
+
+                font-size: 12px;
+            }
+
+
+            .review-container {
+
+                margin: 30px auto;
+            }
+
+
+            .review-card {
+
+                padding: 22px 18px;
+            }
+
+
+            .product-box {
+
+                align-items: flex-start;
+            }
+
+
+            .product-image,
+            .no-image {
+
+                width: 85px;
+
+                height: 85px;
+            }
+
+
+            .product-info h2 {
+
+                font-size: 17px;
+            }
+
+
+            .stars label {
+
+                font-size: 32px;
+            }
+
+
+            .footer-content {
+
+                flex-direction: column;
+
+                gap: 8px;
+
+                text-align: center;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+====================================================== -->
+
+<header class="dashboard-header">
+
+    <a href="{% url 'customer_dashboard' %}"
+       class="logo">
+
+        happi<span>Shoppi</span>
+
+    </a>
+
+
+    <div class="header-right">
+
+        <a href="{% url 'customer_orders' %}"
+           class="back-btn">
+
+            My Orders
+
+        </a>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+====================================================== -->
+
+<main class="review-container">
+
+
+    <div class="page-heading">
+
+        <h1>Write a Review</h1>
+
+        <p>
+            Share your experience with this product
+        </p>
+
+    </div>
+
+
+
+    <div class="review-card">
+
+
+        <!-- PRODUCT -->
+
+        <div class="product-box">
+
+            {% if product.product_image %}
+
+                <img
+                    src="/media/{{ product.product_image }}"
+                    alt="{{ product.product_name }}"
+                    class="product-image"
+                >
+
+            {% else %}
+
+                <div class="no-image">
+                    No Image
+                </div>
+
+            {% endif %}
+
+
+            <div class="product-info">
+
+                <h2>
+                    {{ product.product_name }}
+                </h2>
+
+                <p>
+                    ₹{{ product.price }}
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- REVIEW FORM -->
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <!-- RATING -->
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    Your Rating
+                </label>
+
+
+                <div class="rating-box">
+
+                    <div class="stars">
+
+
+                        <input
+                            type="radio"
+                            id="star5"
+                            name="rating"
+                            value="5"
+                            required
+                        >
+
+                        <label for="star5"
+                               title="5 Stars">
+                            ★
+                        </label>
+
+
+
+                        <input
+                            type="radio"
+                            id="star4"
+                            name="rating"
+                            value="4"
+                        >
+
+                        <label for="star4"
+                               title="4 Stars">
+                            ★
+                        </label>
+
+
+
+                        <input
+                            type="radio"
+                            id="star3"
+                            name="rating"
+                            value="3"
+                        >
+
+                        <label for="star3"
+                               title="3 Stars">
+                            ★
+                        </label>
+
+
+
+                        <input
+                            type="radio"
+                            id="star2"
+                            name="rating"
+                            value="2"
+                        >
+
+                        <label for="star2"
+                               title="2 Stars">
+                            ★
+                        </label>
+
+
+
+                        <input
+                            type="radio"
+                            id="star1"
+                            name="rating"
+                            value="1"
+                        >
+
+                        <label for="star1"
+                               title="1 Star">
+                            ★
+                        </label>
+
+
+                    </div>
+
+
+                    <div class="rating-text">
+                        Select a rating from 1 to 5 stars
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- COMMENT -->
+
+            <div class="form-group">
+
+                <label
+                    for="comment"
+                    class="form-label">
+
+                    Your Review
+                </label>
+
+
+                <textarea
+                    id="comment"
+                    name="comment"
+                    class="comment-box"
+                    maxlength="500"
+                    placeholder="Tell us about your experience with this product..."
+                ></textarea>
+
+
+                <small class="comment-help">
+                    Maximum 500 characters
+                </small>
+
+            </div>
+
+
+
+            <!-- SUBMIT -->
+
+            <button
+                type="submit"
+                class="submit-btn">
+
+                Submit Review
+
+            </button>
+
+
+        </form>
+
+
+    </div>
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+====================================================== -->
+
+<footer class="main-footer">
+
+    <div class="footer-content">
+
+
+        <div class="footer-logo">
+
+            happi<span>Shoppi</span>
+
+        </div>
+
+
+        <div class="footer-text">
+
+            © 2026 happiShoppi. All rights reserved.
+
+        </div>
+
+
+    </div>
+
+</footer>
+
+
+</body>
+
+</html>

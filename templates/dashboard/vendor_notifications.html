@@ -1,0 +1,1041 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Notifications - happiShoppi</title>
+
+<link rel="stylesheet"
+      href="{% static 'css/vendor_dashboard.css' %}">
+
+<style>
+
+    /* =================================================
+       NOTIFICATIONS PAGE
+    ================================================= */
+
+    .notifications-page {
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+
+    .notifications-header {
+
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: center;
+
+        margin-bottom: 25px;
+
+    }
+
+
+    .notifications-title h1 {
+
+        margin: 0;
+
+    }
+
+
+    .notifications-title p {
+
+        margin-top: 8px;
+
+        color: #777;
+
+    }
+
+
+    .notification-header-actions {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 12px;
+
+    }
+
+
+    .unread-count {
+
+        background: #f3f3f3;
+
+        padding: 10px 18px;
+
+        border-radius: 20px;
+
+        font-weight: 600;
+
+    }
+
+
+    /* =================================================
+       CLEAR ALL BUTTON
+    ================================================= */
+
+    .clear-all-button {
+
+        border: none;
+
+        background: #e53935;
+
+        color: white;
+
+        padding: 10px 18px;
+
+        border-radius: 20px;
+
+        font-size: 13px;
+
+        font-weight: 600;
+
+        cursor: pointer;
+
+        transition: 0.2s ease;
+
+    }
+
+
+    .clear-all-button:hover {
+
+        background: #c62828;
+
+    }
+
+
+    /* =================================================
+       NOTIFICATION CARD
+    ================================================= */
+
+    .notification-card {
+
+        background: #ffffff;
+
+        border-radius: 14px;
+
+        padding: 22px;
+
+        margin-bottom: 16px;
+
+        border: 1px solid #eeeeee;
+
+        box-shadow:
+            0 4px 15px rgba(0,0,0,0.05);
+
+        display: flex;
+
+        align-items: flex-start;
+
+        gap: 18px;
+
+    }
+
+
+    .notification-card.unread {
+
+        border-left: 4px solid #e53935;
+
+        background: #fffafa;
+
+    }
+
+
+    .notification-icon {
+
+        width: 48px;
+
+        height: 48px;
+
+        border-radius: 50%;
+
+        background: #fff0f0;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        font-size: 22px;
+
+        flex-shrink: 0;
+
+    }
+
+
+    .notification-content {
+
+        flex: 1;
+
+    }
+
+
+    .notification-content h3 {
+
+        margin: 0 0 7px;
+
+        font-size: 17px;
+
+    }
+
+
+    .notification-content p {
+
+        margin: 0 0 8px;
+
+        color: #555;
+
+    }
+
+
+    .notification-meta {
+
+        font-size: 13px;
+
+        color: #888;
+
+    }
+
+
+    .notification-status {
+
+        margin-left: auto;
+
+        font-size: 12px;
+
+        font-weight: 600;
+
+        padding: 6px 12px;
+
+        border-radius: 15px;
+
+    }
+
+
+    .unread-status {
+
+        background: #ffe7e7;
+
+        color: #d32f2f;
+
+    }
+
+
+    .read-status {
+
+        background: #eeeeee;
+
+        color: #777;
+
+    }
+
+
+    /* =================================================
+       VIEW ORDER BUTTON
+    ================================================= */
+
+    .notification-action {
+
+        display: flex;
+
+        align-items: center;
+
+        margin-left: 10px;
+
+    }
+
+
+    .view-order-button {
+
+        display: inline-block;
+
+        padding: 9px 16px;
+
+        border-radius: 8px;
+
+        text-decoration: none;
+
+        font-size: 13px;
+
+        font-weight: 600;
+
+        background: #111827;
+
+        color: #ffffff;
+
+        transition: 0.2s ease;
+
+    }
+
+
+    .view-order-button:hover {
+
+        opacity: 0.85;
+
+    }
+
+
+    /* =================================================
+       EMPTY STATE
+    ================================================= */
+
+    .empty-notifications {
+
+        background: #ffffff;
+
+        border: 1px solid #eeeeee;
+
+        border-radius: 15px;
+
+        padding: 70px 30px;
+
+        text-align: center;
+
+        box-shadow:
+            0 4px 15px rgba(0,0,0,0.04);
+
+    }
+
+
+    .empty-notifications-icon {
+
+        font-size: 55px;
+
+        margin-bottom: 15px;
+
+    }
+
+
+    .empty-notifications h2 {
+
+        margin-bottom: 8px;
+
+    }
+
+
+    .empty-notifications p {
+
+        color: #777;
+
+    }
+
+
+    /* =================================================
+       NOTIFICATION BADGE
+    ================================================= */
+
+    .notification-badge {
+
+        min-width: 20px;
+
+        height: 20px;
+
+        padding: 0 6px;
+
+        border-radius: 10px;
+
+        background: #e53935;
+
+        color: white;
+
+        display: inline-flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        font-size: 11px;
+
+        font-weight: bold;
+
+        margin-left: auto;
+
+    }
+
+
+    /* =================================================
+       RESPONSIVE
+    ================================================= */
+
+    @media (max-width: 700px) {
+
+        .notifications-header {
+
+            flex-direction: column;
+
+            align-items: flex-start;
+
+            gap: 15px;
+
+        }
+
+
+        .notification-card {
+
+            flex-wrap: wrap;
+
+        }
+
+
+        .notification-status {
+
+            margin-left: 0;
+
+        }
+
+
+        .notification-action {
+
+            width: 100%;
+
+            margin-left: 66px;
+
+        }
+
+    }
+
+</style>
+
+
+</head>
+
+<body>
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="site-header">
+
+<div class="header-container">
+
+    <a href="{% url 'home' %}"
+       class="logo">
+
+        happi<span>Shoppi</span>
+
+    </a>
+
+
+    <div class="header-right">
+
+        <span class="welcome-text">
+
+            Welcome, {{ vendor.name }}
+
+        </span>
+
+
+        <a href="{% url 'home' %}"
+           class="home-button">
+
+            Home
+
+        </a>
+
+
+        <a href="{% url 'logout' %}"
+           class="logout-button">
+
+            Logout
+
+        </a>
+
+    </div>
+
+</div>
+
+
+</header>
+
+<!-- =====================================================
+     DASHBOARD LAYOUT
+===================================================== -->
+
+<div class="dashboard-layout">
+
+<!-- =================================================
+     SIDEBAR
+================================================== -->
+
+<aside class="sidebar">
+
+
+    <!-- PROFILE -->
+
+    <div class="sidebar-profile">
+
+        <div class="profile-avatar">
+
+            {{ vendor.name|first|upper }}
+
+        </div>
+
+
+        <div class="sidebar-profile-info">
+
+            <h3>
+
+                {{ vendor.name }}
+
+            </h3>
+
+            <span>
+
+                Vendor
+
+            </span>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- SIDEBAR MENU -->
+
+    <nav class="sidebar-menu">
+
+
+        <!-- DASHBOARD -->
+
+        <a href="{% url 'vendor_dashboard' %}"
+           class="sidebar-link">
+
+            <span class="sidebar-icon">⌂</span>
+
+            <span>
+
+                Dashboard
+
+            </span>
+
+        </a>
+
+
+        <!-- PRODUCTS -->
+
+        <a href="{% url 'vendor_dashboard' %}"
+           class="sidebar-link">
+
+            <span class="sidebar-icon">▣</span>
+
+            <span>
+
+                My Products
+
+            </span>
+
+        </a>
+
+
+        <!-- ADD PRODUCT -->
+
+        <a href="{% url 'add_product' %}"
+           class="sidebar-link">
+
+            <span class="sidebar-icon">＋</span>
+
+            <span>
+
+                Add Product
+
+            </span>
+
+        </a>
+
+
+        <!-- ORDERS -->
+
+        <a href="{% url 'vendor_orders' %}"
+           class="sidebar-link">
+
+            <span class="sidebar-icon">🛒</span>
+
+            <span>
+
+                Orders
+
+            </span>
+
+        </a>
+
+
+        <!-- NOTIFICATIONS -->
+
+        <a href="{% url 'vendor_notifications' %}"
+           class="sidebar-link active">
+
+            <span class="sidebar-icon">
+
+                🔔
+
+            </span>
+
+            <span>
+
+                Notifications
+
+            </span>
+
+
+            {% if unread_count > 0 %}
+
+                <span class="menu-badge notification-badge">
+
+                    {{ unread_count }}
+
+                </span>
+
+            {% endif %}
+
+        </a>
+
+
+        <!-- PROFILE -->
+
+        <a href="{% url 'vendor_profile' %}"
+           class="sidebar-link">
+
+            <span class="sidebar-icon">◉</span>
+
+            <span>
+
+                My Profile
+
+            </span>
+
+        </a>
+
+
+        <div class="sidebar-divider"></div>
+
+
+        <!-- STORE -->
+
+        <a href="{% url 'home' %}"
+           class="sidebar-link">
+
+            <span class="sidebar-icon">⌂</span>
+
+            <span>
+
+                Visit Store
+
+            </span>
+
+        </a>
+
+
+        <!-- LOGOUT -->
+
+        <a href="{% url 'logout' %}"
+           class="sidebar-link logout-link">
+
+            <span class="sidebar-icon">↪</span>
+
+            <span>
+
+                Logout
+
+            </span>
+
+        </a>
+
+    </nav>
+
+</aside>
+
+
+
+<!-- =================================================
+     MAIN CONTENT
+================================================== -->
+
+<main class="dashboard-main">
+
+
+    <div class="notifications-page">
+
+
+        <!-- PAGE HEADER -->
+
+        <div class="notifications-header">
+
+
+            <div class="notifications-title">
+
+                <span class="page-label">
+
+                    VENDOR CENTER
+
+                </span>
+
+                <h1>
+
+                    Notifications
+
+                </h1>
+
+                <p>
+
+                    Stay updated with your customer orders.
+
+                </p>
+
+            </div>
+
+
+
+            <div class="notification-header-actions">
+
+
+                <div class="unread-count">
+
+                    {{ unread_count }} unread
+
+                </div>
+
+
+                {% if notifications %}
+
+                    <form method="POST"
+                          action="{% url 'clear_vendor_notifications' %}">
+
+                        {% csrf_token %}
+
+                        <button type="submit"
+                                class="clear-all-button">
+
+                            Clear All
+
+                        </button>
+
+                    </form>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             NOTIFICATIONS
+        ================================================== -->
+
+        {% if notifications %}
+
+
+            {% for notification in notifications %}
+
+
+                <div class="notification-card
+                    {% if not notification.is_read %}
+                        unread
+                    {% endif %}">
+
+
+                    <!-- ICON -->
+
+                    <div class="notification-icon">
+
+                        🔔
+
+                    </div>
+
+
+
+                    <!-- CONTENT -->
+
+                    <div class="notification-content">
+
+
+                        <h3>
+
+                            New Order Received
+
+                        </h3>
+
+
+                        <p>
+
+                            {{ notification.message }}
+
+                        </p>
+
+
+                        <div class="notification-meta">
+
+                            Order #{{ notification.order.id }}
+
+                            &nbsp; • &nbsp;
+
+                            {{ notification.created_at|date:"d M Y, h:i A" }}
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- STATUS -->
+
+                    {% if notification.is_read %}
+
+                        <span class="notification-status read-status">
+
+                            Read
+
+                        </span>
+
+                    {% else %}
+
+                        <span class="notification-status unread-status">
+
+                            New
+
+                        </span>
+
+                    {% endif %}
+
+
+
+                    <!-- VIEW ORDER -->
+
+                    <div class="notification-action">
+
+                        <a href="{% url 'open_vendor_notification' notification.id %}"
+                           class="view-order-button">
+
+                            View Order
+
+                        </a>
+
+                    </div>
+
+
+                </div>
+
+
+            {% endfor %}
+
+
+        {% else %}
+
+
+            <!-- EMPTY -->
+
+            <div class="empty-notifications">
+
+                <div class="empty-notifications-icon">
+
+                    🔔
+
+                </div>
+
+
+                <h2>
+
+                    No Notifications
+
+                </h2>
+
+
+                <p>
+
+                    You don't have any notifications yet.
+
+                </p>
+
+            </div>
+
+
+        {% endif %}
+
+
+    </div>
+
+</main>
+```
+
+</div>
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="site-footer">
+
+```
+<div class="footer-container">
+
+
+    <!-- BRAND -->
+
+    <div class="footer-column footer-brand">
+
+        <h2>
+
+            happi<span>Shoppi</span>
+
+        </h2>
+
+
+        <p class="footer-tagline">
+
+            Your Happiness, Delivered.
+
+        </p>
+
+
+        <p class="footer-description">
+
+            Manage your products, orders and customer
+            notifications from one place.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- QUICK LINKS -->
+
+    <div class="footer-column">
+
+        <h3>
+
+            Quick Links
+
+        </h3>
+
+
+        <a href="{% url 'home' %}">
+
+            Home
+
+        </a>
+
+
+        <a href="{% url 'vendor_dashboard' %}">
+
+            Dashboard
+
+        </a>
+
+
+        <a href="{% url 'vendor_orders' %}">
+
+            Orders
+
+        </a>
+
+
+        <a href="{% url 'vendor_notifications' %}">
+
+            Notifications
+
+        </a>
+
+    </div>
+
+
+
+    <!-- VENDOR -->
+
+    <div class="footer-column">
+
+        <h3>
+
+            Vendor
+
+        </h3>
+
+
+        <a href="{% url 'vendor_dashboard' %}">
+
+            My Products
+
+        </a>
+
+
+        <a href="{% url 'add_product' %}">
+
+            Add Product
+
+        </a>
+
+
+        <a href="{% url 'vendor_profile' %}">
+
+            My Profile
+
+        </a>
+
+    </div>
+
+
+
+    <!-- SUPPORT -->
+
+    <div class="footer-column">
+
+        <h3>
+
+            Support
+
+        </h3>
+
+
+        <a href="{% url 'about' %}">
+
+            About Us
+
+        </a>
+
+
+        <a href="{% url 'home' %}">
+
+            Visit Store
+
+        </a>
+
+    </div>
+
+</div>
+
+
+
+<!-- COPYRIGHT -->
+
+<div class="footer-bottom">
+
+    <p>
+
+        © 2026 happiShoppi. All rights reserved.
+
+    </p>
+
+</div>
+```
+
+</footer>
+
+</body>
+
+</html>
