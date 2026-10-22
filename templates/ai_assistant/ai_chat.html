@@ -1,0 +1,159 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>happiShoppi AI Assistant</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/ai_assistant.css' %}">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     AI ASSISTANT PAGE
+===================================================== -->
+
+<div class="ai-page">
+
+    <div class="ai-container">
+
+
+        <!-- =================================================
+             HEADER
+        ================================================== -->
+
+        <div class="ai-header">
+
+            <div class="ai-header-icon">
+                🤖
+            </div>
+
+            <div>
+
+                <h1>
+                    happiShoppi AI Assistant
+                </h1>
+
+                <p>
+                    Your personal shopping assistant
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             CHAT AREA
+        ================================================== -->
+
+        <div class="chat-area">
+
+
+            <!-- =================================================
+                 INITIAL AI MESSAGE
+            ================================================== -->
+
+            <div class="message ai-message">
+
+                <div class="message-icon">
+                    🤖
+                </div>
+
+                <div class="message-content">
+
+                    <p>
+                        Hello! 👋 Welcome to happiShoppi.
+                    </p>
+
+                    <p>
+                        How can I help you today?
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 QUICK QUESTIONS
+            ================================================== -->
+
+            <div class="quick-questions">
+
+                <button type="button">
+                    Find products
+                </button>
+
+                <button type="button">
+                    Check my orders
+                </button>
+
+                <button type="button">
+                    Product recommendations
+                </button>
+
+                <button type="button">
+                    Help with shopping
+                </button>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =================================================
+             MESSAGE INPUT
+        ================================================== -->
+
+        <div class="chat-input-area">
+
+            <form method="POST"
+                  class="chat-form">
+
+                {% csrf_token %}
+
+                <input
+                    type="text"
+                    name="message"
+                    placeholder="Ask me anything..."
+                    autocomplete="off"
+                    required>
+
+                <button type="submit">
+                    Send
+                </button>
+
+            </form>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     EXTERNAL JAVASCRIPT
+===================================================== -->
+
+<script src="{% static 'js/ai_assistant.js' %}"></script>
+
+
+</body>
+
+</html>

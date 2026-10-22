@@ -1,0 +1,432 @@
+/* =====================================================
+   GLOBAL
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    background: #f7f9fa;
+
+    color: #263238;
+
+}
+
+
+/* =====================================================
+   AI PAGE
+===================================================== */
+
+.ai-page {
+
+    min-height: 100vh;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 30px;
+
+}
+
+
+/* =====================================================
+   AI CONTAINER
+===================================================== */
+
+.ai-container {
+
+    width: 100%;
+
+    max-width: 850px;
+
+    height: 650px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e8ea;
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.08);
+
+    display: flex;
+
+    flex-direction: column;
+
+    overflow: hidden;
+
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.ai-header {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 22px 25px;
+
+    background:
+        linear-gradient(
+            110deg,
+            #eaf7fa,
+            #ffffff,
+            #fff0e9
+        );
+
+    border-bottom: 1px solid #eeeeee;
+
+}
+
+
+.ai-header-icon {
+
+    width: 48px;
+
+    height: 48px;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 25px;
+
+}
+
+
+.ai-header h1 {
+
+    font-size: 20px;
+
+    margin-bottom: 4px;
+
+    color: #263238;
+
+}
+
+
+.ai-header p {
+
+    font-size: 13px;
+
+    color: #777777;
+
+}
+
+
+/* =====================================================
+   CHAT AREA
+===================================================== */
+
+.chat-area {
+
+    flex: 1;
+
+    padding: 25px;
+
+    overflow-y: auto;
+
+}
+
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+.message {
+
+    display: flex;
+
+    gap: 10px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.message-icon {
+
+    width: 35px;
+
+    height: 35px;
+
+    min-width: 35px;
+
+    border-radius: 50%;
+
+    background: #f1f9fb;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+.message-content {
+
+    max-width: 70%;
+
+    background: #f4f8f9;
+
+    padding: 12px 16px;
+
+    border-radius: 5px 16px 16px 16px;
+
+}
+
+
+.message-content p {
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+    margin-bottom: 5px;
+
+}
+
+
+.message-content p:last-child {
+
+    margin-bottom: 0;
+
+}
+
+
+/* =====================================================
+   QUICK QUESTIONS
+===================================================== */
+
+.quick-questions {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-left: 45px;
+
+}
+
+
+.quick-questions button {
+
+    border: 1px solid #4da8c5;
+
+    background: #ffffff;
+
+    color: #4da8c5;
+
+    padding: 9px 14px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+
+}
+
+
+.quick-questions button:hover {
+
+    background: #4da8c5;
+
+    color: #ffffff;
+
+}
+
+
+/* =====================================================
+   INPUT AREA
+===================================================== */
+
+.chat-input-area {
+
+    padding: 18px 20px;
+
+    border-top: 1px solid #eeeeee;
+
+    background: #ffffff;
+
+}
+
+
+.chat-form {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+}
+
+
+.chat-form input {
+
+    flex: 1;
+
+    height: 45px;
+
+    border: 1px solid #dfe4e6;
+
+    border-radius: 23px;
+
+    padding: 0 17px;
+
+    outline: none;
+
+    font-size: 14px;
+
+    color: #333333;
+
+}
+
+
+.chat-form input:focus {
+
+    border-color: #4da8c5;
+
+    box-shadow:
+        0 0 0 3px rgba(77, 168, 197, 0.10);
+
+}
+
+
+.chat-form input::placeholder {
+
+    color: #999999;
+
+}
+
+
+.chat-form button {
+
+    height: 45px;
+
+    padding: 0 22px;
+
+    border: none;
+
+    border-radius: 23px;
+
+    background: #ef946d;
+
+    color: #ffffff;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+
+}
+
+
+.chat-form button:hover {
+
+    background: #e57e53;
+
+    transform: translateY(-1px);
+
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .ai-page {
+
+        padding: 10px;
+
+    }
+
+
+    .ai-container {
+
+        height: 90vh;
+
+        border-radius: 16px;
+
+    }
+
+
+    .ai-header {
+
+        padding: 18px;
+
+    }
+
+
+    .ai-header h1 {
+
+        font-size: 17px;
+
+    }
+
+
+    .chat-area {
+
+        padding: 18px;
+
+    }
+
+
+    .message-content {
+
+        max-width: 85%;
+
+    }
+
+
+    .quick-questions {
+
+        margin-left: 0;
+
+    }
+
+
+    .chat-form input {
+
+        min-width: 0;
+
+    }
+
+}

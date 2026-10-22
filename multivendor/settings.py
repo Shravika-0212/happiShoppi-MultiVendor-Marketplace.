@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'signup',
     'login',
     'about',
-    'dashboard'
+    'dashboard',
+    'ai_assistant'
 ]
 
 MIDDLEWARE = [

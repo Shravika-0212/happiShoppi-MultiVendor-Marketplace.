@@ -28,6 +28,10 @@ urlpatterns = [
     path('login/', include('login.urls')),
     path('signup/', include('signup.urls')),
     path('dashboard/', include('dashboard.urls')),
+    path(
+    'ai-assistant/',
+    include('ai_assistant.urls')
+    ),
 
 ]
 
